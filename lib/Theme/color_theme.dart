@@ -9,9 +9,9 @@ class ColorTheme {
 }
 
 class FontTheme{
-  static const double headingSize  = 32.0;
-  static const FontWeight headingWeight = FontWeight.w500;
-  static const double subheadingSize  = 12.0;
+  static const double headingSize  = 36.0;
+  static const FontWeight headingWeight = FontWeight.w700;
+  static const double subheadingSize  = 14.0;
   static const FontWeight subheadingWeight = FontWeight.w600;
 
 }
