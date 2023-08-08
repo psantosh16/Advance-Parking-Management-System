@@ -73,6 +73,8 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+
+        // Greeting Text
         const SizedBox(
           height: 10,
         ),
@@ -91,8 +93,10 @@ class _LoginPageState extends State<LoginPage> {
             color: ColorTheme.grayTheme,
           ),
         ),
+
+        // Login Form
         const SizedBox(
-          height: 40,
+          height: 60,
         ),
         _buildTextField(
           "Username",
@@ -103,14 +107,52 @@ class _LoginPageState extends State<LoginPage> {
         ),
         _buildTextField("Password", const Icon(Icons.password),
             const Icon(Icons.remove_red_eye), true),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-           backgroundColor: ColorTheme.neogreenTheme,
-            foregroundColor: ColorTheme.blackTheme,
-          ),
-          onPressed: () {},
-          child: const Text("Login"),
+
+        // Login Button
+        const SizedBox(
+          height: 60,
         ),
+        SizedBox(
+          height: 50,
+          width: 140,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: ColorTheme.neogreenTheme,
+              foregroundColor: ColorTheme.blackTheme,
+            ),
+            onPressed: () {},
+            child: Text(
+              "Login".toUpperCase(),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontWeight: FontTheme.subheadingWeight,
+                  fontSize: FontTheme.buttonFontSize),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Don't have account? ",
+              style: TextStyle(
+                  fontSize: FontTheme.subheadingSize,
+                  color: ColorTheme.grayTheme),
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: const Text(
+                "Register",
+                style: TextStyle(
+                    fontSize: FontTheme.subheadingSize,
+                    color: ColorTheme.blueTheme),
+              ),
+            )
+          ],
+        )
       ],
     );
   }

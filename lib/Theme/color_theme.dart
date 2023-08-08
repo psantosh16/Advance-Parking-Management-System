@@ -14,4 +14,5 @@ class FontTheme{
   static const double subheadingSize  = 14.0;
   static const FontWeight subheadingWeight = FontWeight.w600;
 
+  static const double buttonFontSize = 24;
 }
