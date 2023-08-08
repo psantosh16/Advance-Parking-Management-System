@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:apms_project/Theme/color_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -68,27 +70,22 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildForm() {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Container(
-        //   width: queryData.size.width * 0.2,
-        //   height: 8,
-        //   decoration: const BoxDecoration(
-        //     color: ColorTheme.grayTheme,
-        //     borderRadius: BorderRadius.all(
-        //       Radius.circular(12),
-        //     ),
-        //   ),
-        // ),
-        Text(
+
+        // Greeting Text
+        const SizedBox(
+          height: 10,
+        ),
+        const Text(
           "Welcome,back!",
           style: TextStyle(
             fontSize: FontTheme.headingSize,
             fontWeight: FontTheme.headingWeight,
           ),
         ),
-        Text(
+        const Text(
           "Please login with your information",
           style: TextStyle(
             fontWeight: FontTheme.subheadingWeight,
@@ -97,6 +94,83 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
 
+        // Login Form
+        const SizedBox(
+          height: 60,
+        ),
+        _buildTextField(
+          "Username",
+          const Icon(Icons.person),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        _buildTextField("Password", const Icon(Icons.password),
+            const Icon(Icons.remove_red_eye), true),
+
+        // Login Button
+        const SizedBox(
+          height: 60,
+        ),
+        SizedBox(
+          height: 50,
+          width: 140,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: ColorTheme.neogreenTheme,
+              foregroundColor: ColorTheme.blackTheme,
+            ),
+            onPressed: () {},
+            child: Text(
+              "Login".toUpperCase(),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontWeight: FontTheme.subheadingWeight,
+                  fontSize: FontTheme.buttonFontSize),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Don't have account? ",
+              style: TextStyle(
+                  fontSize: FontTheme.subheadingSize,
+                  color: ColorTheme.grayTheme),
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: const Text(
+                "Register",
+                style: TextStyle(
+                    fontSize: FontTheme.subheadingSize,
+                    color: ColorTheme.blueTheme),
+              ),
+            )
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _buildTextField(String label, Widget pIcon,
+      [Widget? sIcon, bool isPassWord = false]) {
+    return Column(
+      children: [
+        TextField(
+          keyboardType: TextInputType.text,
+          obscureText: isPassWord,
+          decoration: InputDecoration(
+            filled: true,
+            prefixIcon: pIcon,
+            labelText: label,
+            suffixIcon: sIcon,
+          ),
+        )
       ],
     );
   }
