@@ -1,4 +1,5 @@
-import 'package:apms_project/Pages/login_page.dart';
+import 'package:apms_project/Pages/auth/login_page.dart';
+import 'package:apms_project/Pages/auth/register_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,9 +11,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      theme: ThemeData(
+        brightness: Brightness.light,
+      ),
+      home: const LoginPage(),
+      routes: {
+        "/register" : (context) => const RegisterPage(),
+        '/login': (context) => const LoginPage(),
+      },
     );
   }
 }

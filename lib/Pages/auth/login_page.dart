@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:apms_project/Theme/color_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +9,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final String landingImage =
-      "https://t3.ftcdn.net/jpg/03/10/60/54/360_F_310605413_AmMYhRKqNtbGpOyl7PGUabsmTiu4nL6o.webp";
   late MediaQueryData queryData;
 
   @override
@@ -35,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Image(
                   width: queryData.size.width * 1.13,
                   fit: BoxFit.cover,
-                  image: NetworkImage(landingImage),
+                  image: const AssetImage("assets/images/landing_page.webp"),
                 ),
               ),
             ),
@@ -99,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
           height: 60,
         ),
         _buildTextField(
-          "Username",
+          "Email",
           const Icon(Icons.person),
         ),
         const SizedBox(
@@ -120,7 +116,9 @@ class _LoginPageState extends State<LoginPage> {
               backgroundColor: ColorTheme.neogreenTheme,
               foregroundColor: ColorTheme.blackTheme,
             ),
-            onPressed: () {},
+            onPressed: () {
+              
+            },
             child: Text(
               "Login".toUpperCase(),
               textAlign: TextAlign.center,
@@ -143,7 +141,9 @@ class _LoginPageState extends State<LoginPage> {
                   color: ColorTheme.grayTheme),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, "/register");
+              },
               child: const Text(
                 "Register",
                 style: TextStyle(
@@ -159,13 +159,16 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildTextField(String label, Widget pIcon,
       [Widget? sIcon, bool isPassWord = false]) {
+
     return Column(
       children: [
         TextField(
-          keyboardType: TextInputType.text,
+          keyboardType: TextInputType.emailAddress,
           obscureText: isPassWord,
           decoration: InputDecoration(
             filled: true,
+            // errorText: "Please enter correct $label",
+            hintText: "Please enter valid $label",
             prefixIcon: pIcon,
             labelText: label,
             suffixIcon: sIcon,
