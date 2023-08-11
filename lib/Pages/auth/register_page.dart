@@ -99,8 +99,8 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
         SizedBox(height: mediaQuery.size.width*0.1),
         SizedBox(
-          height: 50,
-          width: 140,
+          height: 40,
+          width: 130,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: ColorTheme.neogreenTheme,
