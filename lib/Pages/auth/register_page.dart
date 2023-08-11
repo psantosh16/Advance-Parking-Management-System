@@ -76,28 +76,48 @@ class _RegisterPageState extends State<RegisterPage> {
             fontWeight: FontTheme.headingWeight,
           ),
         ),
-        SizedBox(height: mediaQuery.size.width*0.1),
+        SizedBox(height: mediaQuery.size.width*0.08),
         const TextField(
-          decoration: InputDecoration(
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(prefixIcon: Icon(Icons.person),
             labelText: "Name",
+            hintText: "Please enter your full-name",
             filled: true,
           ),
         ),
         SizedBox(height: mediaQuery.size.width*0.04),
         const TextField(
+          keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
+            prefixIcon: Icon(Icons.email_rounded),
             labelText: "Email",
+            hintText: "Please Enter your Email Address",
             filled: true,
           ),
         ),
         SizedBox(height: mediaQuery.size.width*0.04),
         const TextField(
+          keyboardType: TextInputType.phone,
           decoration: InputDecoration(
-            labelText: "Password",
+            prefixIcon: Icon(Icons.phone),
+            labelText: "Phone",
+            hintText: "Ex. 98XXXXXXXX",
             filled: true,
           ),
         ),
-        SizedBox(height: mediaQuery.size.width*0.1),
+        SizedBox(height: mediaQuery.size.width*0.04),
+        const TextField(
+          obscureText: true,
+          enableSuggestions: false,
+          decoration: InputDecoration(
+            prefixIcon: Icon(Icons.password_rounded),
+            labelText: "Password",
+            hintText: "Enter Password",
+            filled: true,
+            suffixIcon: Icon(Icons.remove_red_eye_rounded),
+          ),
+        ),
+        SizedBox(height: mediaQuery.size.width*0.18),
         SizedBox(
           height: 40,
           width: 130,
@@ -107,7 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
               foregroundColor: ColorTheme.blackTheme,
             ),
             onPressed: () {
-
+              Navigator.pushReplacementNamed(context, "/screen");
             },
             child: Text(
               "Register".toUpperCase(),
@@ -130,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, "/login");
+                Navigator.pushReplacementNamed(context, "/login");
               },
               child: const Text(
                 "Login",

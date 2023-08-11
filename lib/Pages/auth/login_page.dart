@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
           decoration: InputDecoration(
             filled: true,
             hintText: "Please enter valid Email",
-            prefixIcon: Icon(Icons.person),
+            prefixIcon: Icon(Icons.email_rounded),
             labelText: "Email",
           ),
         ),
@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
               foregroundColor: ColorTheme.blackTheme,
             ),
             onPressed: () {
-              
+              Navigator.pushReplacementNamed(context, "/screen");
             },
             child: Text(
               "Login".toUpperCase(),
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, "/register");
+                Navigator.pushReplacementNamed(context, "/register");
               },
               child: const Text(
                 "Register",
