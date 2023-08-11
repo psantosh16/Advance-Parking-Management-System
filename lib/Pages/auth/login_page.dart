@@ -94,30 +94,44 @@ class _LoginPageState extends State<LoginPage> {
         const SizedBox(
           height: 60,
         ),
-        _buildTextField(
-          "Email",
-          const Icon(Icons.person),
+        const TextField(
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            filled: true,
+            hintText: "Please enter valid Email",
+            prefixIcon: Icon(Icons.email_rounded),
+            labelText: "Email",
+          ),
         ),
         const SizedBox(
           height: 20,
         ),
-        _buildTextField("Password", const Icon(Icons.password),
-            const Icon(Icons.remove_red_eye), true),
+        const TextField(
+          keyboardType: TextInputType.text,
+          obscureText: true,
+          decoration: InputDecoration(
+            filled: true,
+            hintText: "Please enter valid Password",
+            prefixIcon: Icon(Icons.password),
+            labelText: "Password",
+            suffixIcon: Icon(Icons.remove_red_eye),
+          ),
+        ),
 
         // Login Button
         const SizedBox(
           height: 60,
         ),
         SizedBox(
-          height: 50,
-          width: 140,
+          height: 40,
+          width: 130,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: ColorTheme.neogreenTheme,
               foregroundColor: ColorTheme.blackTheme,
             ),
             onPressed: () {
-              
+              Navigator.pushReplacementNamed(context, "/screen");
             },
             child: Text(
               "Login".toUpperCase(),
@@ -142,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, "/register");
+                Navigator.pushReplacementNamed(context, "/register");
               },
               child: const Text(
                 "Register",
@@ -157,24 +171,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildTextField(String label, Widget pIcon,
-      [Widget? sIcon, bool isPassWord = false]) {
 
-    return Column(
-      children: [
-        TextField(
-          keyboardType: TextInputType.emailAddress,
-          obscureText: isPassWord,
-          decoration: InputDecoration(
-            filled: true,
-            // errorText: "Please enter correct $label",
-            hintText: "Please enter valid $label",
-            prefixIcon: pIcon,
-            labelText: label,
-            suffixIcon: sIcon,
-          ),
-        )
-      ],
-    );
-  }
 }
