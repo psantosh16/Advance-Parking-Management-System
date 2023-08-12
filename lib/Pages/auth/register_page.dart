@@ -48,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget _buildBottom() {
     return SizedBox(
       width: mediaQuery.size.width,
-      height: mediaQuery.size.height * 0.7,
+      height: mediaQuery.size.height * 0.77,
       child: Card(
         margin: const EdgeInsets.all(0),
         shape: const RoundedRectangleBorder(
