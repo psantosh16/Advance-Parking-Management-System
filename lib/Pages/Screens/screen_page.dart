@@ -1,7 +1,6 @@
 import 'package:apms_project/Pages/Screens/home_page.dart';
 import 'package:apms_project/Pages/Screens/map_page.dart';
 import 'package:apms_project/Pages/Screens/recipet_page.dart';
-import 'package:apms_project/Pages/auth/login_page.dart';
 import 'package:apms_project/Theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'settings_page.dart';
