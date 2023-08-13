@@ -7,7 +7,8 @@ class ColorTheme {
   static const Color whiteTheme = Color(0xFFFFFFFF);
   static const Color blueTheme = Color(0xFF376FFF);
   static const Color blurTheme = Color(0xCCF8F8FF);
-  // ⬆️ Blur levels => https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
+  static const Color grayBlurTheme = Color(0xA1D1D1D1);
+// ⬆️ Blur levels => https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
 
 }
 
