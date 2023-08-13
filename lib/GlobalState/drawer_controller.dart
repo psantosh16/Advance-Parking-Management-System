@@ -12,6 +12,5 @@ class DrawerControllers extends GetxController {
   // Method to open drawer
   void openDrawer() {
     _scaffoldKey.currentState!.openDrawer();
-    print("Taped");
   }
 }

@@ -13,7 +13,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late MediaQueryData _queryData;
-
   final List<Widget> scrollItem = [
     const Icon(Icons.hourglass_empty),
     const Icon(Icons.accessible_outlined),
@@ -33,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: controller.scaffoldKey,
       backgroundColor: ColorTheme.blackTheme,
-      drawer: const HomePageDrawer(),
+      drawer:const HomePageDrawer(),
       body: SafeArea(
         child: Column(
           children: [
@@ -41,7 +40,11 @@ class _HomePageState extends State<HomePage> {
             // Upper Panel
             _buildUpperPanel(controller),
 
-            const SizedBox(height: 90),
+            const Padding(
+              padding: EdgeInsets.only(top: 24,bottom: 65),
+              child: Text("WELCOME TO PARKIZA",textAlign: TextAlign.center,style: TextStyle(color: ColorTheme.whiteTheme,fontSize: 28,fontWeight: FontWeight.w800),),
+            ),
+
 
             // Lower Panel
             Expanded(

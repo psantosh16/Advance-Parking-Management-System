@@ -9,36 +9,65 @@ class HomePageDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: ColorTheme.neogreenTheme,
+      backgroundColor: ColorTheme.whiteTheme,
       child: ListView(
-        padding: EdgeInsets.zero,
+        padding: const EdgeInsets.all(20),
         children: <Widget>[
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Text(
-              'Drawer Header',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
+          DrawerHeader(
+            padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                color: ColorTheme.whiteTheme,
               ),
-            ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ClipOval(
+                    child: SizedBox(
+                      width: 90,
+                      height: 90,
+                      child: Image.network(
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpqJKRFR7biVyccvSz_eloFoHh5zYRPvL4-xMOVcTUruSOT_2uV8_RAEg-I9qlYxYdCMo&usqp=CAU",
+                        fit:BoxFit.cover
+                      ),
+                    ),
+                  ),
+                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("John M", style: TextStyle(fontSize: 24 , fontWeight: FontWeight.bold),),
+                      GestureDetector(
+                          onTap: (){
+                            // Navigate to profile update page
+                          },
+                          child: const Text("View Profile" , style: TextStyle(color: ColorTheme.grayTheme , fontSize: 20),))
+                    ],
+                  )
+                ],
+              )),
+          ListTile(
+            leading: const Icon(Icons.payment,size: 30,color: Colors.black,),
+            title: const Text('Wallet',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
+            onTap: () {
+              // Navigator.pop(context);
+              Navigator.pushNamed(context, "/wallet");
+            },
           ),
           ListTile(
-            title: const Text('Item 1'),
+            leading: const Icon(Icons.history,size: 30,color: Colors.black,),
+            title: const Text('History',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
             onTap: () {
-              // Do something when the item is tapped
               Navigator.pop(context);
             },
           ),
           ListTile(
-            title: const Text('Item 2'),
+            leading: const Icon(Icons.settings,size: 30,color: Colors.black,),
+            title: const Text('Setting',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
             onTap: () {
-              // Do something when the item is tapped
               Navigator.pop(context);
             },
           ),
+
         ],
       ),
     );
