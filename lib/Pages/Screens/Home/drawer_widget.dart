@@ -9,7 +9,7 @@ class HomePageDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: ColorTheme.whiteTheme,
+      backgroundColor: ColorTheme.neogreenTheme,
       child: ListView(
         padding: const EdgeInsets.all(20),
         children: <Widget>[
@@ -18,7 +18,7 @@ class HomePageDrawer extends StatelessWidget {
           DrawerHeader(
             padding: const EdgeInsets.all(20),
               decoration: const BoxDecoration(
-                color: ColorTheme.whiteTheme,
+                color: ColorTheme.neogreenTheme,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

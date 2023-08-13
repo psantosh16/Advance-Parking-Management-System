@@ -20,9 +20,9 @@ class _ScreenPageState extends State<ScreenPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    const HomePage(),
     const BookingPage(),
-    const ReceiptPage(),
+    const HomePage(),
+    // const ReceiptPage(),
     const NotificationPage(),
   ];
 
@@ -34,20 +34,26 @@ class _ScreenPageState extends State<ScreenPage> {
       key: controller.scaffoldKey,
       drawer: const HomePageDrawer(),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         onTap: (index) {
           setState(() {
             _selectedIndex = index;
           });
         },
         currentIndex: _selectedIndex,
-        selectedLabelStyle: const TextStyle(color: ColorTheme.blackTheme),
-        selectedItemColor: ColorTheme.blueTheme,
-        unselectedItemColor: ColorTheme.blackTheme,
+        backgroundColor: ColorTheme.blackTheme,
+        selectedLabelStyle: const TextStyle(color: ColorTheme.whiteTheme),
+        selectedItemColor: ColorTheme.whiteTheme,
+        unselectedItemColor: ColorTheme.grayTheme,
+        iconSize: 30,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.pin_drop), label: "Map"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.receipt), label: "Parking History"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+
+          // BottomNavigationBarItem(
+          //     icon: Icon(Icons.history), label: "Parking History"),
           BottomNavigationBarItem(
               icon: Icon(Icons.notifications_active), label: "Notification"),
         ],
