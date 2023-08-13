@@ -1,6 +1,6 @@
 import 'package:apms_project/GlobalState/drawer_controller.dart';
+import 'package:apms_project/Pages/Screens/Home/Booking/bookingpage.dart';
 import 'package:apms_project/Pages/Screens/Home/home_page.dart';
-import 'package:apms_project/Pages/Screens/Map/map_page.dart';
 import 'package:apms_project/Pages/Screens/Notification/notification_page.dart';
 import 'package:apms_project/Pages/Screens/Recipt/recipet_page.dart';
 import 'package:apms_project/Theme/color_theme.dart';
@@ -21,20 +21,17 @@ class _ScreenPageState extends State<ScreenPage> {
 
   final List<Widget> _screens = [
     const HomePage(),
-    const MapPage(),
+    const BookingPage(),
     const ReceiptPage(),
     const NotificationPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
-
     DrawerControllers controller = Get.put(DrawerControllers());
-
 
     return Scaffold(
       key: controller.scaffoldKey,
-      
       drawer: const HomePageDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
@@ -51,7 +48,8 @@ class _ScreenPageState extends State<ScreenPage> {
           BottomNavigationBarItem(icon: Icon(Icons.pin_drop), label: "Map"),
           BottomNavigationBarItem(
               icon: Icon(Icons.receipt), label: "Parking History"),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications_active), label: "Notification"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.notifications_active), label: "Notification"),
         ],
       ),
       body: _screens[_selectedIndex],

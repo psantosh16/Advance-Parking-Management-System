@@ -66,7 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget _buildForm() {
-    return  Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text(
@@ -76,16 +76,17 @@ class _RegisterPageState extends State<RegisterPage> {
             fontWeight: FontTheme.headingWeight,
           ),
         ),
-        SizedBox(height: mediaQuery.size.width*0.08),
+        SizedBox(height: mediaQuery.size.width * 0.08),
         const TextField(
           keyboardType: TextInputType.text,
-          decoration: InputDecoration(prefixIcon: Icon(Icons.person),
+          decoration: InputDecoration(
+            prefixIcon: Icon(Icons.person),
             labelText: "Name",
             hintText: "Please enter your full-name",
             filled: true,
           ),
         ),
-        SizedBox(height: mediaQuery.size.width*0.04),
+        SizedBox(height: mediaQuery.size.width * 0.04),
         const TextField(
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
@@ -95,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
             filled: true,
           ),
         ),
-        SizedBox(height: mediaQuery.size.width*0.04),
+        SizedBox(height: mediaQuery.size.width * 0.04),
         const TextField(
           keyboardType: TextInputType.phone,
           decoration: InputDecoration(
@@ -105,7 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
             filled: true,
           ),
         ),
-        SizedBox(height: mediaQuery.size.width*0.04),
+        SizedBox(height: mediaQuery.size.width * 0.04),
         const TextField(
           obscureText: true,
           enableSuggestions: false,
@@ -117,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
             suffixIcon: Icon(Icons.remove_red_eye_rounded),
           ),
         ),
-        SizedBox(height: mediaQuery.size.width*0.18),
+        SizedBox(height: mediaQuery.size.width * 0.18),
         SizedBox(
           height: 40,
           width: 130,
@@ -165,4 +166,3 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
-
