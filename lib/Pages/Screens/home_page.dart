@@ -9,98 +9,100 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late MediaQueryData _queryData;
+
+  final List<Widget> scrollItem = [
+    const Icon(Icons.hourglass_empty),
+    const Icon(Icons.accessible_outlined),
+    const Icon(Icons.face),
+    const Icon(Icons.settings_remote),
+    const Icon(Icons.hourglass_empty),
+    const Icon(Icons.accessible_outlined),
+    const Icon(Icons.face),
+    const Icon(Icons.settings_remote)
+  ];
+
   @override
   Widget build(BuildContext context) {
+    _queryData = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: ColorTheme.blackTheme,
       body: SafeArea(
         child: Column(
           children: [
-            // User Info Panel
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
+            // Upper Panel
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // User Greetings
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Hi John!",
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: ColorTheme.whiteTheme,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            "23 Jan ,2023",
-                            style: TextStyle(
-                              color: ColorTheme.whiteTheme,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      // Notification
-                      Stack(alignment: AlignmentDirectional.topEnd, children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
+                      Text(
+                        "Hi, John!",
+                        style: TextStyle(
                             color: ColorTheme.whiteTheme,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Icon(
-                            Icons.notifications_active,
-                            color: ColorTheme.blackTheme,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          decoration: BoxDecoration(
-                              color: ColorTheme.blueTheme,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Text(
-                            "2",
-                            style: TextStyle(
-                              color: ColorTheme.whiteTheme,
-                            ),
-                          ),
-                        ),
-                      ])
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "23 Jun, 2023",
+                        style: TextStyle(
+                            color: ColorTheme.whiteTheme, fontSize: 12),
+                      ),
                     ],
+                  ),
+                  Icon(
+                    Icons.notifications_active,
+                    color: ColorTheme.whiteTheme,
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            // Welcome Message
-            const Text(
-              "Welcome to Parking App",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w500,
-                color: ColorTheme.whiteTheme,
-              ),
-            ),
 
+            const SizedBox(
+              height: 40,
+            ),
+            // Lower Panel
             Expanded(
               child: Container(
-                margin: const EdgeInsets.only(top: 20),
+                alignment: Alignment.topCenter,
+                height: _queryData.size.height,
+                width: _queryData.size.width,
                 decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(35),
-                      topRight: Radius.circular(35),
+                  color: ColorTheme.whiteTheme,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 100,
+                      child: ListView.builder(
+                          itemCount: 8,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, ind){
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 80,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                              color: Colors.redAccent,
+                              borderRadius: BorderRadius.all(Radius.circular(12)),
+                            ),
+                            child: Text("$ind"),
+                          ),
+                        );
+                      })
                     ),
-                    color: Colors.white),
+                  ],
+                ),
               ),
             )
           ],

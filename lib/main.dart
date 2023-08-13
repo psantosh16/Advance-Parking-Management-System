@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
       ),
       // home: const LoginPage(),
-      initialRoute: "/home",
+      initialRoute: "/register",
       routes: {
         "/register" : (context) => const RegisterPage(),
         "/login": (context) => const LoginPage(),
