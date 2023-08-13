@@ -13,8 +13,10 @@ class HomePageDrawer extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.all(20),
         children: <Widget>[
+
+          // Header
           DrawerHeader(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(20),
               decoration: const BoxDecoration(
                 color: ColorTheme.whiteTheme,
               ),
@@ -40,33 +42,56 @@ class HomePageDrawer extends StatelessWidget {
                           onTap: (){
                             // Navigate to profile update page
                           },
-                          child: const Text("View Profile" , style: TextStyle(color: ColorTheme.grayTheme , fontSize: 20),))
+                          child: const Text("View Profile" , style: TextStyle(color: ColorTheme.blueTheme , fontSize: 20),))
                     ],
                   )
                 ],
               )),
-          ListTile(
-            leading: const Icon(Icons.payment,size: 30,color: Colors.black,),
-            title: const Text('Wallet',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
-            onTap: () {
-              // Navigator.pop(context);
-              Navigator.pushNamed(context, "/wallet");
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.history,size: 30,color: Colors.black,),
-            title: const Text('History',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings,size: 30,color: Colors.black,),
-            title: const Text('Setting',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
+
+
+          // Navigation Sections
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Other
+              Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.payment,size: 30,color: Colors.black,),
+                    title: const Text('Wallet',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
+                    onTap: () {
+                      // Navigator.pop(context);
+                      Navigator.pushNamed(context, "/wallet");
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.history,size: 30,color: Colors.black,),
+                    title: const Text('History',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.settings,size: 30,color: Colors.black,),
+                    title: const Text('Setting',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+
+              // Logout
+              ListTile(
+                leading: const Icon(Icons.logout,size: 30,color: Colors.black,),
+                title: const Text('Log out',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
+                onTap: () {
+                  // Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, "/login");
+                },
+              ),
+            ],
+          )
 
         ],
       ),

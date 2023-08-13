@@ -23,15 +23,24 @@ class _HomePageState extends State<HomePage> {
   final List<Item> gridItem = [
     Item(
         // "https://static.vecteezy.com/system/resources/thumbnails/014/467/179/small/recruitment-id-card-illustration-3d-png.png",
-      Image.asset("person.png",fit: BoxFit.cover,),
+        Image.asset(
+          "assets/images/person.png",
+          fit: BoxFit.contain,
+        ),
         "Profile"), //ID card
     Item(
         // "https://cdn3d.iconscout.com/3d/premium/thumb/wallet-4521221-3754834.png?f=webp",
-        Image.asset("wallet.png",fit: BoxFit.cover,),
+        Image.asset(
+          "assets/images/wallet.png",
+          fit: BoxFit.contain,
+        ),
         "Wallet"), //Wallet
     Item(
         // "https://cdn3d.iconscout.com/3d/premium/thumb/car-parking-8703645-7008708.png?f=webp",
-        Image.asset("car.png",fit: BoxFit.cover,),
+        Image.asset(
+          "assets/images/car.png",
+          fit: BoxFit.contain,
+        ),
         "Parking Slot") //Parking slot
   ];
 
@@ -41,15 +50,14 @@ class _HomePageState extends State<HomePage> {
     DrawerControllers controller = Get.put(DrawerControllers());
 
     return Scaffold(
-      key: controller.scaffoldKey,
       backgroundColor: ColorTheme.blackTheme,
-      drawer: const HomePageDrawer(),
       body: SafeArea(
         child: Column(
           children: [
             // Upper Panel
             _buildUpperPanel(controller),
 
+            // Welcome Text
             const Padding(
               padding: EdgeInsets.only(top: 24, bottom: 65),
               child: Text(
@@ -75,7 +83,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
+                    // Upper Sections
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: SizedBox(
@@ -89,7 +100,66 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                    )
+                    ),
+
+                    // NearBy places section
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20.0,right: 20.0,top: 20.0,bottom: 4.0),
+                      child: Text(
+                        "Nearby places,",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                            fontSize: 25),
+                      ),
+                    ),
+                   Expanded(
+                     child: ListView.builder(
+                       itemCount: 4,
+                       itemBuilder: (context,ind){
+                             return Container(
+                         height: 120,
+                         margin: const EdgeInsets.all(20),
+                         clipBehavior: Clip.hardEdge,
+
+                         decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12),),),
+
+                         child:Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           children: [
+                             Container(
+                                 width: 120,
+                                 height: 120,
+                                 clipBehavior: Clip.antiAlias,
+
+                                 decoration: const BoxDecoration(
+                                   borderRadius: BorderRadius.all(Radius.circular(12))
+                                 ),
+                                 child: Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLP7i3WiJi7iXG5zb7QXzMDwVVD6dATSMwLEMiezCi8zz2cMUzIN3TbDNUbtrQUh_tEIM&usqp=CAU",fit: BoxFit.cover,)),
+                             const Padding(
+                               padding: EdgeInsets.all(8.0),
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                 children: [
+                                   Column(
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: [Text("Name of parking spot",style: TextStyle(fontSize:20,fontWeight: FontWeight.w600),),
+                                       Row(
+                                         children: [
+                                           Icon(Icons.location_on,color: ColorTheme.grayTheme,),
+                                           Text("address of parking lot" , overflow: TextOverflow.ellipsis,),
+                                         ],
+                                       ),],
+                                   ),
+                                   Text("Rate:- Rs.50/hr", style: TextStyle(fontWeight: FontWeight.bold),),
+                                 ],
+                               ),
+                             )
+                           ],
+                         ),
+                       );
+                     },),
+                   )
                   ],
                 ),
               ),
@@ -112,9 +182,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               // Image
               GestureDetector(
-                onTap: (){
-                  print(gridItem[ind].name);
-                },
+                onTap: () {},
                 child: Container(
                   width: 100,
                   height: 100,
@@ -125,11 +193,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child:Image.asset("landing_page2.jpg",fit: BoxFit.fill,)
-
-
-                  ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: gridItem[ind].link),
                 ),
               ),
 

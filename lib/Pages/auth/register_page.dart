@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Image(
                   width: mediaQuery.size.width * 1.13,
                   fit: BoxFit.cover,
-                  image: const AssetImage("assets/images/landing_page2.jpg"),
+                  image: const AssetImage("assets/images/landing_page4.jpeg"),
                 ),
               ),
             ),

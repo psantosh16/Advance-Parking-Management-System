@@ -1,9 +1,13 @@
+import 'package:apms_project/GlobalState/drawer_controller.dart';
 import 'package:apms_project/Pages/Screens/Home/home_page.dart';
 import 'package:apms_project/Pages/Screens/Map/map_page.dart';
 import 'package:apms_project/Pages/Screens/Notification/notification_page.dart';
 import 'package:apms_project/Pages/Screens/Recipt/recipet_page.dart';
 import 'package:apms_project/Theme/color_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'Home/drawer_widget.dart';
 
 class ScreenPage extends StatefulWidget {
   const ScreenPage({super.key});
@@ -24,7 +28,14 @@ class _ScreenPageState extends State<ScreenPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    DrawerControllers controller = Get.put(DrawerControllers());
+
+
     return Scaffold(
+      key: controller.scaffoldKey,
+      
+      drawer: const HomePageDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
