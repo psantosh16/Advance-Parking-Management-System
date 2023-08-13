@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'appbar.dart';
 import 'bookingbody.dart';
+
 class BookingPage extends StatelessWidget {
   const BookingPage({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold( 
+    return Scaffold(
       backgroundColor: const Color.fromARGB(255, 70, 70, 70),
       appBar: AppBar(
           toolbarHeight: 60,

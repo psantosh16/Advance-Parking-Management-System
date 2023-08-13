@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Image(
                   width: mediaQuery.size.width * 1.13,
                   fit: BoxFit.cover,
-                  image: const AssetImage("assets/images/landing_page2.jpg"),
+                  image: const AssetImage("assets/images/landing_page4.jpeg"),
                 ),
               ),
             ),
@@ -48,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget _buildBottom() {
     return SizedBox(
       width: mediaQuery.size.width,
-      height: mediaQuery.size.height * 0.7,
+      height: mediaQuery.size.height * 0.77,
       child: Card(
         margin: const EdgeInsets.all(0),
         shape: const RoundedRectangleBorder(

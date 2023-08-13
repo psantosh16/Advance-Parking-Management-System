@@ -1,8 +1,10 @@
-import 'package:apms_project/Pages/Screens/map_page.dart';
-import 'package:apms_project/Pages/Screens/recipet_page.dart';
+import 'package:apms_project/Pages/Screens/Home/Booking/bookingpage.dart';
+import 'package:apms_project/Pages/Screens/Recipt/recipet_page.dart';
 import 'package:apms_project/Pages/Screens/screen_page.dart';
-import 'Pages/Screens/home_page.dart';
-import 'Pages/Screens/settings_page.dart';
+import 'package:apms_project/Pages/Screens/Payment/wallet_page.dart';
+import 'package:apms_project/Theme/color_theme.dart';
+import 'package:get/get.dart';
+import 'Pages/Screens/Home/home_page.dart';
 import 'Pages/auth/login_page.dart';
 import 'Pages/auth/register_page.dart';
 import 'package:flutter/material.dart';
@@ -16,21 +18,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
+        appBarTheme: const AppBarTheme(
+            color: ColorTheme.blackTheme, elevation: 0, toolbarHeight: 80),
       ),
       // home: const LoginPage(),
       initialRoute: "/register",
       routes: {
-        "/register" : (context) => const RegisterPage(),
+        // Auth Routes
+        "/register": (context) => const RegisterPage(),
         "/login": (context) => const LoginPage(),
-        "/home":(context) => const HomePage(),
-        "/setting":(context)=> const SettingPage(),
-        "/receipt":(context)=> const ReceiptPage(),
-        "/map":(context)=> const MapPage(),
-        "/screen":(context)=> const ScreenPage(),
+
+        // Screen Routes
+        "/home": (context) => const HomePage(),
+        "/receipt": (context) => const ReceiptPage(),
+        "/map": (context) => const BookingPage(),
+        "/screen": (context) => const ScreenPage(),
+        "/wallet": (context) => const WalletPage(),
       },
     );
   }

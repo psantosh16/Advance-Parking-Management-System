@@ -1,4 +1,4 @@
-import 'package:apms_project/Pages/Booking/slots.dart';
+import 'package:apms_project/Pages/Screens/Home/Booking/slots.dart';
 import 'package:flutter/material.dart';
 
 class Bookingbody extends StatefulWidget {
