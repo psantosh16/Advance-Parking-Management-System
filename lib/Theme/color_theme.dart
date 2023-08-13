@@ -6,6 +6,9 @@ class ColorTheme {
   static const Color neogreenTheme = Color(0xFFC7FF29);
   static const Color whiteTheme = Color(0xFFFFFFFF);
   static const Color blueTheme = Color(0xFF376FFF);
+  static const Color blurTheme = Color(0xCCF8F8FF);
+  // ⬆️ Blur levels => https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
+
 }
 
 class FontTheme{

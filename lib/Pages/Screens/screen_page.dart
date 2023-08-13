@@ -1,9 +1,9 @@
-import 'package:apms_project/Pages/Screens/home_page.dart';
-import 'package:apms_project/Pages/Screens/map_page.dart';
+import 'package:apms_project/Pages/Screens/Home/home_page.dart';
+import 'package:apms_project/Pages/Screens/Map/map_page.dart';
+import 'package:apms_project/Pages/Screens/notification_page.dart';
 import 'package:apms_project/Pages/Screens/recipet_page.dart';
 import 'package:apms_project/Theme/color_theme.dart';
 import 'package:flutter/material.dart';
-import 'settings_page.dart';
 
 class ScreenPage extends StatefulWidget {
   const ScreenPage({super.key});
@@ -19,7 +19,7 @@ class _ScreenPageState extends State<ScreenPage> {
     const HomePage(),
     const MapPage(),
     const ReceiptPage(),
-    const SettingPage(),
+    const NotificationPage(),
   ];
 
   @override
@@ -40,24 +40,10 @@ class _ScreenPageState extends State<ScreenPage> {
           BottomNavigationBarItem(icon: Icon(Icons.pin_drop), label: "Map"),
           BottomNavigationBarItem(
               icon: Icon(Icons.receipt), label: "Parking History"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Setting"),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications_active), label: "Notification"),
         ],
       ),
       body: _screens[_selectedIndex],
     );
-  }
-
-  getGreeting() {
-    final hr = DateTime.now().hour;
-
-    if (hr < 12) {
-      return "Have a Good day";
-    } else if (hr >= 12 || hr <= 17) {
-      return "Good Afternoon";
-    } else if (hr >= 18 || hr <= 21) {
-      return "Good Evening";
-    } else {
-      return "Good Night";
-    }
   }
 }
