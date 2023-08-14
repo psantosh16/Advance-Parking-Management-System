@@ -1,8 +1,7 @@
 import 'package:apms_project/GlobalState/drawer_controller.dart';
-import 'package:apms_project/Pages/Screens/Home/Booking/bookingpage.dart';
+import 'package:apms_project/Pages/Screens/Booking/bookingpage.dart';
 import 'package:apms_project/Pages/Screens/Home/home_page.dart';
 import 'package:apms_project/Pages/Screens/Notification/notification_page.dart';
-import 'package:apms_project/Pages/Screens/Recipt/recipet_page.dart';
 import 'package:apms_project/Theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,12 +16,11 @@ class ScreenPage extends StatefulWidget {
 }
 
 class _ScreenPageState extends State<ScreenPage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   final List<Widget> _screens = [
     const BookingPage(),
     const HomePage(),
-    // const ReceiptPage(),
     const NotificationPage(),
   ];
 
@@ -45,7 +43,7 @@ class _ScreenPageState extends State<ScreenPage> {
         selectedLabelStyle: const TextStyle(color: ColorTheme.whiteTheme),
         selectedItemColor: ColorTheme.whiteTheme,
         unselectedItemColor: ColorTheme.grayTheme,
-        iconSize: 30,
+        iconSize: 34,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         items: const [
