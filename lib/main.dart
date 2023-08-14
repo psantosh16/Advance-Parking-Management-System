@@ -1,4 +1,4 @@
-import 'package:apms_project/Pages/Screens/Home/Booking/bookingpage.dart';
+import 'package:apms_project/Pages/Screens/Booking/bookingpage.dart';
 import 'package:apms_project/Pages/Screens/Recipt/recipet_page.dart';
 import 'package:apms_project/Pages/Screens/screen_page.dart';
 import 'package:apms_project/Pages/Screens/Payment/wallet_page.dart';
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
             color: ColorTheme.blackTheme, elevation: 0, toolbarHeight: 80),
       ),
-      // home: const LoginPage(),
       initialRoute: "/register",
+
       routes: {
         // Auth Routes
         "/register": (context) => const RegisterPage(),

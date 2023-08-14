@@ -1,3 +1,4 @@
+import 'package:apms_project/Theme/color_theme.dart';
 import 'package:flutter/material.dart';
 
 class Slots extends StatefulWidget {
@@ -15,10 +16,10 @@ class _SlotsState extends State<Slots> {
 
     return Container(
       width: size.width / 3 - 40 / 3,
-      height: size.height - 300,
+      height: size.height - 320,
       padding: const EdgeInsets.only(bottom: 5, top: 5),
       decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 52, 52, 52),
+          color: ColorTheme.whiteTheme,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(width: 2, color: Colors.white)),
       child: Column(
@@ -75,7 +76,7 @@ class _SlotState extends State<Slot> {
       child: Container(
         decoration: BoxDecoration(
             color: const Color.fromARGB(255, 0, 0, 0),
-            borderRadius: BorderRadius.circular(4)),
+            borderRadius: BorderRadius.circular(10)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -101,7 +102,7 @@ class _SlotState extends State<Slot> {
                         style: const TextStyle(
                             color: Color.fromARGB(255, 191, 191, 191),
                             fontWeight: FontWeight.bold,
-                            fontSize: 8),
+                            fontSize: 12),
                       ),
                     )
                   ],
