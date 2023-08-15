@@ -10,11 +10,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  late MediaQueryData mediaQuery;
 
   @override
   Widget build(BuildContext context) {
-    mediaQuery = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(

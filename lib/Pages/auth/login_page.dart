@@ -1,4 +1,5 @@
 import 'package:apms_project/Utils/color_theme.dart';
+import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -23,13 +24,10 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Positioned(
               top: 0,
-              child: Container(
-                height: queryData.size.height * 0.41,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(1),
-                ),
+              child: SizedBox(
+                height: ResponsiveUtils.screenHeight(context) * 0.4,
                 child: Image(
-                  width: queryData.size.width * 1.13,
+                  width: ResponsiveUtils.screenWidth(context) * 1.3,
                   fit: BoxFit.cover,
                   image: const AssetImage("assets/images/landing_page.webp"),
                 ),
@@ -47,8 +45,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildBottom() {
     return SizedBox(
-      width: queryData.size.width,
-      height: queryData.size.height * 0.7,
+      width: ResponsiveUtils.screenWidth(context),
+      height: ResponsiveUtils.screenHeight(context) * 0.7,
       child: Card(
         margin: const EdgeInsets.all(0),
         shape: const RoundedRectangleBorder(
@@ -69,30 +67,29 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-
         // Greeting Text
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: ResponsiveUtils.screenHeight(context) * 0.01,
         ),
-        const Text(
+        Text(
           "Welcome,back!",
           style: TextStyle(
-            fontSize: FontTheme.headingSize,
+            fontSize: ResponsiveUtils.textScaleFactor(context) * 40,
             fontWeight: FontTheme.headingWeight,
           ),
         ),
-        const Text(
+        Text(
           "Please login with your information",
           style: TextStyle(
             fontWeight: FontTheme.subheadingWeight,
-            fontSize: FontTheme.subheadingSize,
+            fontSize: ResponsiveUtils.textScaleFactor(context) * 16,
             color: ColorTheme.grayTheme,
           ),
         ),
 
         // Login Form
-        const SizedBox(
-          height: 60,
+        SizedBox(
+          height: ResponsiveUtils.screenHeight(context) * 0.06,
         ),
         const TextField(
           keyboardType: TextInputType.emailAddress,
@@ -103,8 +100,8 @@ class _LoginPageState extends State<LoginPage> {
             labelText: "Email",
           ),
         ),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: ResponsiveUtils.screenHeight(context) * 0.02,
         ),
         const TextField(
           keyboardType: TextInputType.text,
@@ -119,12 +116,12 @@ class _LoginPageState extends State<LoginPage> {
         ),
 
         // Login Button
-        const SizedBox(
-          height: 60,
+        SizedBox(
+          height: ResponsiveUtils.screenHeight(context) * 0.06,
         ),
         SizedBox(
-          height: 40,
-          width: 130,
+          height: ResponsiveUtils.screenHeight(context) * 0.06,
+          width: ResponsiveUtils.screenWidth(context) * 0.35,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: ColorTheme.neogreenTheme,
@@ -136,32 +133,33 @@ class _LoginPageState extends State<LoginPage> {
             child: Text(
               "Login".toUpperCase(),
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontWeight: FontTheme.subheadingWeight,
-                  fontSize: FontTheme.buttonFontSize),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize:
+                      ResponsiveUtils.screenWidth(context) > 600 ? 18 : 16),
             ),
           ),
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: ResponsiveUtils.screenHeight(context) * 0.02,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+             Text(
               "Don't have account? ",
               style: TextStyle(
-                  fontSize: FontTheme.subheadingSize,
+                  fontSize: ResponsiveUtils.textScaleFactor(context)*16,
                   color: ColorTheme.grayTheme),
             ),
             GestureDetector(
               onTap: () {
                 Navigator.pushReplacementNamed(context, "/register");
               },
-              child: const Text(
+              child:  Text(
                 "Register",
                 style: TextStyle(
-                    fontSize: FontTheme.subheadingSize,
+                    fontSize: ResponsiveUtils.textScaleFactor(context)*16,
                     color: ColorTheme.blueTheme),
               ),
             )
@@ -170,6 +168,4 @@ class _LoginPageState extends State<LoginPage> {
       ],
     );
   }
-
-
 }

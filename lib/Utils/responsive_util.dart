@@ -10,4 +10,5 @@ class ResponsiveUtils {
   static double textScaleFactor(BuildContext context) =>
       MediaQuery.of(context).textScaleFactor;
 
+
 }
