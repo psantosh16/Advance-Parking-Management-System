@@ -10,11 +10,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late MediaQueryData queryData;
 
   @override
   Widget build(BuildContext context) {
-    queryData = MediaQuery.of(context);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -74,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
         Text(
           "Welcome,back!",
           style: TextStyle(
-            fontSize: ResponsiveUtils.textScaleFactor(context) * 40,
+            fontSize: ResponsiveUtils.textScaleFactor(context) * 35,
             fontWeight: FontTheme.headingWeight,
           ),
         ),
@@ -82,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
           "Please login with your information",
           style: TextStyle(
             fontWeight: FontTheme.subheadingWeight,
-            fontSize: ResponsiveUtils.textScaleFactor(context) * 16,
+            fontSize: ResponsiveUtils.textScaleFactor(context) * 14,
             color: ColorTheme.grayTheme,
           ),
         ),
