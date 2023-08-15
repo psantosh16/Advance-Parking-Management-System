@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
         // Auth Routes
         "/register": (context) => const RegisterPage(),
         "/login": (context) => const LoginPage(),
-
         // Screen Routes
         "/home": (context) => const HomePage(),
         "/receipt": (context) => const ReceiptPage(),
