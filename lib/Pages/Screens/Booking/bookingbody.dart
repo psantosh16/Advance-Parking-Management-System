@@ -17,26 +17,32 @@ class _BookingbodyState extends State<Bookingbody> {
       margin: const EdgeInsets.only(top: 10),
       child: Column(
         children: [
-           const Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Slots(),
+              Slotsleft(),
               Expanded(child: Text("")),
-              Slots(),
+              Slotsright(),
             ],
           ),
           const SizedBox(
-            height: 12,
+            height: 17,
           ),
           SizedBox(
-            width: 120,
-            height: 40,
+            width: 140,
+            height: 42,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorTheme.neogreenTheme,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(6))),
+                  backgroundColor: const Color.fromARGB(255, 199, 255, 41),
                   foregroundColor: ColorTheme.blackTheme,
                 ),
-                onPressed: (){}, child: const Text("Book",style: TextStyle(fontSize: FontTheme.buttonFontSize),)),
+                onPressed: () {},
+                child: const Text(
+                  "Book",
+                  style: TextStyle(fontSize: FontTheme.buttonFontSize),
+                )),
           )
         ],
       ),
