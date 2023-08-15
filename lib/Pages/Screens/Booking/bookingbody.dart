@@ -1,5 +1,5 @@
 import 'package:apms_project/Pages/Screens/Booking/slots.dart';
-import 'package:apms_project/Theme/color_theme.dart';
+import 'package:apms_project/Utils/color_theme.dart';
 import 'package:flutter/material.dart';
 
 class Bookingbody extends StatefulWidget {
