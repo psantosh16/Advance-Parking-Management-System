@@ -1,4 +1,5 @@
 import 'package:apms_project/GlobalState/drawer_controller.dart';
+import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,20 +10,17 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-
 class Category {
-
   final String title;
   final String link;
 
-  Category(this.title ,this.link);
+  Category(this.title, this.link);
 }
 
 class _HomePageState extends State<HomePage> {
-
   final List<Category> _category = [
-      Category("Profile", "person.png"),
-      Category("Wallet", "wallet.png"),
+    Category("Profile", "person.png"),
+    Category("Wallet", "wallet.png"),
     Category("Booked", "car.png"),
   ];
 
@@ -43,33 +41,33 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   // Menu Button
                   Container(
-                    height: 40,
-                    width: 40,
+                    height: ResponsiveUtils.screenHeight(context)* 0.045,
+                    width: ResponsiveUtils.screenWidth(context)*0.1,
                     decoration: BoxDecoration(
                       color: Colors.grey[400],
                       borderRadius: const BorderRadius.all(
-                        Radius.circular(12),
+                        Radius.circular(10),
                       ),
                     ),
                     child: GestureDetector(
                       onTap: () {
                         controller.openDrawer();
                       },
-                      child: const Icon(
+                      child:  Icon(
                         Icons.menu,
-                        size: 35,
+                        size: ResponsiveUtils.textScaleFactor(context)*32,
                       ),
                     ),
                   ),
 
                   // Username
-                  const Column(
+                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
                         'Hi, John!',
                         style: TextStyle(
-                            fontSize: 30,
+                            fontSize:ResponsiveUtils.textScaleFactor(context)* 30,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
@@ -77,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                         '23 Jan, 2023',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 12,
+                            fontSize: ResponsiveUtils.textScaleFactor(context)* 12,
                             fontWeight: FontWeight.w600),
                       ),
                     ],
@@ -85,17 +83,17 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            const SizedBox(height: 40),
+             SizedBox(height: ResponsiveUtils.screenHeight(context)* 0.040),
 
-            const Text(
+             Text(
               "Welcome to PARKIZA",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 28,
+                  fontSize: ResponsiveUtils.textScaleFactor(context)* 28,
                   fontWeight: FontWeight.w700),
             ),
             // Bottom
-            const SizedBox(height: 50),
+             SizedBox(height: ResponsiveUtils.screenHeight(context)* 0.05 ),
             Expanded(
               child: Container(
                 alignment: Alignment.center,
@@ -111,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      
+
                       // Category
                       Row(
                         children: List.generate(_category.length, (index) {
@@ -122,12 +120,17 @@ class _HomePageState extends State<HomePage> {
                               child: Column(
                                 children: [
                                   Container(
-                                    width: 100,
-                                    height: 100,
+                                    width: ResponsiveUtils.screenWidth(context)*0.24,
+                                    height: ResponsiveUtils.screenHeight(context)*0.12,
                                     padding: const EdgeInsets.all(16),
-                                    child: Image.asset("assets/images/${_category[index].link}"),
+                                    child: Image.asset(
+                                        "assets/images/${_category[index].link}"),
                                   ),
-                                  Text(_category[index].title, style: const TextStyle(fontWeight: FontWeight.bold),),
+                                  Text(
+                                    _category[index].title,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ],
                               ),
                             ),
@@ -137,7 +140,11 @@ class _HomePageState extends State<HomePage> {
 
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Text("Nearby Places,", style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
+                        child: Text(
+                          "Nearby Places,",
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       // Nearby places
                       Expanded(
@@ -147,28 +154,40 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             return Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
-
                               children: [
                                 Container(
-                                  width: 120 ,
-                                  height: 100,
+                                  width: ResponsiveUtils.screenWidth(context)*0.4,
                                   padding: const EdgeInsets.all(4),
-                                  child: Image.asset("assets/images/landing_page2.jpg",fit: BoxFit.cover,),
+                                  child: Image.asset(
+                                    "assets/images/landing_page2.jpg",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                                const Column(
+                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Name of place",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                                    Row(
+                                    Text(
+                                      "Name of place",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:ResponsiveUtils.textScaleFactor(context) *20),
+                                    ),
+                                    const Row(
                                       children: [
                                         Icon(Icons.location_on),
-                                        Text("Address of parking", style: TextStyle(color: Colors.grey),),
+                                        Text(
+                                          "Address of parking",
+                                          style: TextStyle(color: Colors.grey),
+                                        ),
                                       ],
                                     ),
-                                    Text("Rs.15/hr", style: TextStyle(fontWeight: FontWeight.bold),),
+                                    const Text(
+                                      "Rs.15/hr",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ],
                                 )
-
                               ],
                             );
                           },
@@ -179,7 +198,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-
           ],
         ),
       ),

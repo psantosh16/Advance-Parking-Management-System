@@ -1,4 +1,5 @@
 import 'package:apms_project/Utils/color_theme.dart';
+import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:flutter/material.dart';
 
 class HomePageDrawer extends StatelessWidget {
@@ -37,12 +38,12 @@ class HomePageDrawer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("John M", style: TextStyle(fontSize: 24 , fontWeight: FontWeight.bold),),
+                       Text("John M", style: TextStyle(fontSize: ResponsiveUtils.textScaleFactor(context)* 25 , fontWeight: FontWeight.bold),),
                       GestureDetector(
                           onTap: (){
                             // Navigate to profile update page
                           },
-                          child: const Text("View Profile" , style: TextStyle(color: ColorTheme.blueTheme , fontSize: 20),))
+                          child:  Text("View Profile" , style: TextStyle(color: ColorTheme.blueTheme , fontSize: ResponsiveUtils.textScaleFactor(context)* 14),))
                     ],
                   )
                 ],
@@ -57,23 +58,23 @@ class HomePageDrawer extends StatelessWidget {
               Column(
                 children: [
                   ListTile(
-                    leading: const Icon(Icons.payment,size: 30,color: Colors.black,),
-                    title: const Text('Wallet',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
+                    leading:  Icon(Icons.payment,size:ResponsiveUtils.textScaleFactor(context)* 30,color: Colors.black,),
+                    title:  Text('Wallet',style: TextStyle(fontSize:ResponsiveUtils.textScaleFactor(context)* 20,fontWeight:FontWeight.w600),),
                     onTap: () {
                       // Navigator.pop(context);
                       Navigator.pushNamed(context, "/wallet");
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.history,size: 30,color: Colors.black,),
-                    title: const Text('History',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
+                    leading:  Icon(Icons.history,size:ResponsiveUtils.textScaleFactor(context)* 30,color: Colors.black,),
+                    title:  Text('History',style: TextStyle(fontSize:ResponsiveUtils.textScaleFactor(context)* 20,fontWeight:FontWeight.w600),),
                     onTap: () {
                       Navigator.pop(context);
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.settings,size: 30,color: Colors.black,),
-                    title: const Text('Setting',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
+                    leading:  Icon(Icons.settings,size:ResponsiveUtils.textScaleFactor(context)* 30,color: Colors.black,),
+                    title:  Text('Setting',style: TextStyle(fontSize:ResponsiveUtils.textScaleFactor(context)* 20,fontWeight:FontWeight.w600),),
                     onTap: () {
                       Navigator.pop(context);
                     },
@@ -83,8 +84,8 @@ class HomePageDrawer extends StatelessWidget {
 
               // Logout
               ListTile(
-                leading: const Icon(Icons.logout,size: 30,color: Colors.black,),
-                title: const Text('Log out',style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),),
+                leading:  Icon(Icons.logout,size: ResponsiveUtils.textScaleFactor(context)*30,color: Colors.black,),
+                title:  Text('Log out',style: TextStyle(fontSize:ResponsiveUtils.textScaleFactor(context)* 20,fontWeight:FontWeight.w600),),
                 onTap: () {
                   // Navigator.pop(context);
                   Navigator.pushReplacementNamed(context, "/login");
