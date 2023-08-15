@@ -69,14 +69,14 @@ class _RegisterPageState extends State<RegisterPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text(
+         Text(
           "Get Started",
           style: TextStyle(
-            fontSize: FontTheme.headingSize,
+            fontSize: ResponsiveUtils.textScaleFactor(context)*40,
             fontWeight: FontTheme.headingWeight,
           ),
         ),
-        SizedBox(height: mediaQuery.size.width * 0.08),
+        SizedBox(height: ResponsiveUtils.screenHeight(context) * 0.04),
         const TextField(
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
@@ -86,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
             filled: true,
           ),
         ),
-        SizedBox(height: mediaQuery.size.width * 0.04),
+        SizedBox(height:ResponsiveUtils.screenHeight(context) * 0.02),
         const TextField(
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
@@ -96,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
             filled: true,
           ),
         ),
-        SizedBox(height: mediaQuery.size.width * 0.04),
+        SizedBox(height: ResponsiveUtils.screenHeight(context) * 0.02),
         const TextField(
           keyboardType: TextInputType.phone,
           decoration: InputDecoration(
@@ -106,7 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
             filled: true,
           ),
         ),
-        SizedBox(height: mediaQuery.size.width * 0.04),
+        SizedBox(height: ResponsiveUtils.screenHeight(context) * 0.02),
         const TextField(
           obscureText: true,
           enableSuggestions: false,
@@ -118,10 +118,10 @@ class _RegisterPageState extends State<RegisterPage> {
             suffixIcon: Icon(Icons.remove_red_eye_rounded),
           ),
         ),
-        SizedBox(height: mediaQuery.size.width * 0.18),
+        SizedBox(height: ResponsiveUtils.screenHeight(context)* 0.08),
         SizedBox(
-          height: 40,
-          width: 130,
+          height: ResponsiveUtils.screenHeight(context)* 0.06,
+          width: ResponsiveUtils.screenWidth(context)*0.4,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: ColorTheme.neogreenTheme,
@@ -139,29 +139,29 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
         ),
-        const SizedBox(height: 10),
+         SizedBox(height: ResponsiveUtils.screenHeight(context)*0.02,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+             Text(
               "Already have account? ",
               style: TextStyle(
-                  fontSize: FontTheme.subheadingSize,
+                  fontSize: ResponsiveUtils.textScaleFactor(context)*16,
                   color: ColorTheme.grayTheme),
             ),
             GestureDetector(
               onTap: () {
                 Navigator.pushReplacementNamed(context, "/login");
               },
-              child: const Text(
+              child:  Text(
                 "Login",
                 style: TextStyle(
-                    fontSize: FontTheme.subheadingSize,
+                    fontSize: ResponsiveUtils.textScaleFactor(context)*16,
                     color: ColorTheme.blueTheme),
               ),
             )
           ],
-        )
+        ),
       ],
     );
   }
