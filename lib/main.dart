@@ -2,7 +2,7 @@ import 'package:apms_project/Pages/Screens/Booking/bookingpage.dart';
 import 'package:apms_project/Pages/Screens/Recipt/recipet_page.dart';
 import 'package:apms_project/Pages/Screens/screen_page.dart';
 import 'package:apms_project/Pages/Screens/Payment/wallet_page.dart';
-import 'package:apms_project/Theme/color_theme.dart';
+import 'package:apms_project/Utils/color_theme.dart';
 import 'package:get/get.dart';
 import 'Pages/Screens/Home/home_page.dart';
 import 'Pages/auth/login_page.dart';

@@ -2,7 +2,7 @@ import 'package:apms_project/GlobalState/drawer_controller.dart';
 import 'package:apms_project/Pages/Screens/Booking/bookingpage.dart';
 import 'package:apms_project/Pages/Screens/Home/home_page.dart';
 import 'package:apms_project/Pages/Screens/Notification/notification_page.dart';
-import 'package:apms_project/Theme/color_theme.dart';
+import 'package:apms_project/Utils/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

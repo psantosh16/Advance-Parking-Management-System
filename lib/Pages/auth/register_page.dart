@@ -1,6 +1,6 @@
+import 'package:apms_project/Utils/color_theme.dart';
+import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:flutter/material.dart';
-
-import '../../Theme/color_theme.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -24,12 +24,12 @@ class _RegisterPageState extends State<RegisterPage> {
             Positioned(
               top: 0,
               child: Container(
-                height: mediaQuery.size.height * 0.41,
+                height: ResponsiveUtils.screenHeight(context)*0.4,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(1),
                 ),
                 child: Image(
-                  width: mediaQuery.size.width * 1.13,
+                  width: ResponsiveUtils.screenWidth(context),
                   fit: BoxFit.cover,
                   image: const AssetImage("assets/images/landing_page4.jpeg"),
                 ),
@@ -47,8 +47,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _buildBottom() {
     return SizedBox(
-      width: mediaQuery.size.width,
-      height: mediaQuery.size.height * 0.77,
+      width: ResponsiveUtils.screenWidth(context),
+      height: ResponsiveUtils.screenHeight(context)*0.74,
       child: Card(
         margin: const EdgeInsets.all(0),
         shape: const RoundedRectangleBorder(
