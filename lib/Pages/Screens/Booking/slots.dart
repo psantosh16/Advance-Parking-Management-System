@@ -81,7 +81,6 @@ class Slot extends StatefulWidget {
   bool full = false;
   String slotnumber = "";
   int index;
-
   Slot(
       {super.key,
       required this.full,
@@ -93,17 +92,54 @@ class Slot extends StatefulWidget {
 }
 
 class _SlotState extends State<Slot> {
+  void showErrorMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        content: Center(
+          child: Container(
+            padding:
+                const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 134, 134, 134),
+                borderRadius: BorderRadius.circular(7)),
+            child: Text(
+              message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255), fontSize: 13.5),
+            ),
+          ),
+        ),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
   final ButtonController _buttonController = Get.put(ButtonController());
 
   @override
   Widget build(BuildContext context) {
+    if (widget.full == true) {
+      _buttonController.containerColor.value =
+          const Color.fromARGB(255, 0, 0, 0);
+      _buttonController.textcolor.value =
+          const Color.fromARGB(255, 191, 191, 191);
+      _buttonController.dashcolor.value =
+          const Color.fromARGB(255, 255, 255, 255);
+    }
     return Expanded(
         child: TextButton(
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(3), // Adjust padding as needed
       ),
       onPressed: () {
-        _buttonController.onClickButton(widget.index);
+        if (widget.full == true) {
+          showErrorMessage(context,
+              "Unfortunately slot ${widget.slotnumber} is not available");
+        } else {
+          _buttonController.onClickButton(widget.index);
+        }
         setState(() {});
       },
       child: Container(
