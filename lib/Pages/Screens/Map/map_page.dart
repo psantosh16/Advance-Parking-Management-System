@@ -9,48 +9,16 @@ import 'package:latlong2/latlong.dart'; // For LatLng class
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
-
   @override
   State<MapPage> createState() => _MapPageState();
 }
 
 class _MapPageState extends State<MapPage> {
+
   // Local State
   bool _showDetails = false;
-
   // Global State
   late ParkingSpotController spotController = Get.put(ParkingSpotController());
-
-  // Create Markers on Map
-  Marker createCustomMarker(
-      LatLng latLng, String locationText, String parkingName) {
-    return Marker(
-      width: ResponsiveUtils.screenWidth(context) * 0.2,
-      height: ResponsiveUtils.screenHeight(context) * 0.1,
-      point: latLng,
-      builder: (ctx) => GestureDetector(
-        onTap: () {
-          setState(() {
-            spotController.setParkingSpotDetails(parkingName, locationText);
-            _showDetails = true;
-          });
-        },
-        child: Column(
-          children: [
-            Icon(
-              Icons.local_parking,
-              color: Colors.red[800],
-              size: ResponsiveUtils.screenWidth(context) * 0.13,
-            ),
-            Text(
-              locationText,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +88,8 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
+
+  // Create Bottom Component
   Padding buildSelectedComponent(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(32.0),
@@ -176,6 +146,42 @@ class _MapPageState extends State<MapPage> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  // Create Markers on Map
+  Marker createCustomMarker(
+      LatLng latLng, String locationText, String parkingName) {
+    return Marker(
+      width: ResponsiveUtils.screenWidth(context) * 0.2,
+      height: ResponsiveUtils.screenHeight(context) * 0.1,
+      point: latLng,
+      builder: (ctx) => GestureDetector(
+        onTap: () {
+          setState(() {
+            spotController.setParkingSpotDetails(parkingName, locationText);
+            _showDetails = true;
+          });
+        },
+        child: Column(
+          children: [
+            Container(
+              height:ResponsiveUtils.screenHeight(context)* 0.06,
+              width:ResponsiveUtils.screenWidth(context) *0.13,
+              decoration: const BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: Icon(
+                Icons.local_parking,
+                color: Colors.black,
+                size: ResponsiveUtils.screenWidth(context) * 0.1,
+              ),
+            ),
+            Text(
+              locationText,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }
