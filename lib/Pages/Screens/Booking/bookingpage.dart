@@ -17,7 +17,7 @@ class _BookingPageState extends State<BookingPage> {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            Navigator.pushReplacementNamed(context, '/screen');
+            Navigator.pop(context);
           },
           child: const Icon(Icons.arrow_back_ios),
         ),
