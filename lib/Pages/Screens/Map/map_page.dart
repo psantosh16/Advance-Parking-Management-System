@@ -68,6 +68,7 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("Select Location"),
       ),
       body: Container(
@@ -133,13 +134,13 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
   // Create Bottom Component
   Padding buildSelectedComponent(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
            Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
