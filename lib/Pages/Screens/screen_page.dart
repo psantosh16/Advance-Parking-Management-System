@@ -1,6 +1,6 @@
 import 'package:apms_project/GlobalState/drawer_controller.dart';
-import 'package:apms_project/Pages/Screens/Booking/bookingpage.dart';
 import 'package:apms_project/Pages/Screens/Home/home_page.dart';
+import 'package:apms_project/Pages/Screens/Map/map_page.dart';
 import 'package:apms_project/Pages/Screens/Notification/notification_page.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,8 @@ class _ScreenPageState extends State<ScreenPage> {
   int _selectedIndex = 1;
 
   final List<Widget> _screens = [
-    const BookingPage(),
+    // const BookingPage(),
+    const MapPage(),
     const HomePage(),
     const NotificationPage(),
   ];
@@ -49,9 +50,6 @@ class _ScreenPageState extends State<ScreenPage> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.pin_drop), label: "Map"),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-
-          // BottomNavigationBarItem(
-          //     icon: Icon(Icons.history), label: "Parking History"),
           BottomNavigationBarItem(
               icon: Icon(Icons.notifications_active), label: "Notification"),
         ],
