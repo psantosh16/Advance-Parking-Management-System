@@ -13,28 +13,62 @@ class MapPage extends StatefulWidget {
   State<MapPage> createState() => _MapPageState();
 }
 
-class _MapPageState extends State<MapPage> {
+class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
 
-  // Local State
   bool _showDetails = false;
-  // Global State
+  late AnimationController _animationController;
   late ParkingSpotController spotController = Get.put(ParkingSpotController());
+
+  void _toggleContainer() {
+    setState(() {
+      if(_showDetails ){
+        _animationController.forward();
+      }else{
+        _showDetails = false;
+        // if cancel clear global data
+        spotController.setParkingSpotDetails("", "");
+      }
+    });
+  }
+  void _markerController(String parkingName, String locationText) {
+    return setState(() {
+      _showDetails = true;
+      _toggleContainer();
+      spotController.setParkingSpotDetails(parkingName, locationText);
+
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
 
     // Locations
-    List<Marker> customMarkers = [
+    final List<Marker> customMarkers = [
       createCustomMarker(LatLng(18.9894, 73.1175), "Panvel", "Royal Parking"),
       createCustomMarker(LatLng(19.0166, 73.0966), "Kamothe", "3Net Parking"),
-      createCustomMarker(
-          LatLng(19.0473, 73.0699), "Kharghar", "Kharghar Parking Spot"),
+      createCustomMarker(LatLng(19.0473, 73.0699), "Kharghar", "Kharghar Parking Spot"),
       createCustomMarker(LatLng(19.0188, 73.0388), "Belapur", "Ink Park")
     ];
 
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("Select Location"),
       ),
       body: Container(
@@ -61,44 +95,52 @@ class _MapPageState extends State<MapPage> {
             ),
 
             // Selected Location Indicator
-            Positioned(
-              bottom: 10,
-              child: Container(
-                width: ResponsiveUtils.screenWidth(context) * 0.85,
-                height: ResponsiveUtils.screenHeight(context) * 0.25,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
-                child: _showDetails
-                    ? buildSelectedComponent(context)
-                    : const Center(
-                        child: Text(
-                          "Please select location",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+            _showDetails
+                ? Positioned(
+                    bottom: 10,
+                    child: SlideTransition(
+                      position: _buildAnimation().animate(
+                        CurvedAnimation(
+                          parent: _animationController,
+                          curve: Curves.easeInOut,
                         ),
                       ),
-              ),
-            ),
+                      child: Container(
+                          width: ResponsiveUtils.screenWidth(context) * 0.85,
+                          height: ResponsiveUtils.screenHeight(context) * 0.25,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12),
+                            ),
+                          ),
+                          child: buildSelectedComponent(context)),
+                    ),
+                  )
+                : const SizedBox(),
           ],
         ),
       ),
     );
   }
 
+  Tween<Offset> _buildAnimation() {
+    return Tween<Offset>(
+                      begin: const Offset(0, 2), // Starting from below the screen
+                      end: const Offset(0, 0),   // Ending at the desired position
+                    );
+  }
 
   // Create Bottom Component
   Padding buildSelectedComponent(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+           Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -106,16 +148,15 @@ class _MapPageState extends State<MapPage> {
                   "Parking Spot",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                Container(
+                SizedBox(
                   height: 40,
                   width: 40,
-                  decoration: const BoxDecoration(
-                    color: ColorTheme.neogreenTheme,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  child: const Icon(Icons.car_rental),
+                  child: GestureDetector(
+                      onTap: (){
+                        _showDetails = false;
+                        _animationController.reverse();
+                      },
+                      child: const Icon(Icons.cancel_rounded,size: 28,),),
                 )
               ],
             ),
@@ -159,17 +200,16 @@ class _MapPageState extends State<MapPage> {
       point: latLng,
       builder: (ctx) => GestureDetector(
         onTap: () {
-          setState(() {
-            spotController.setParkingSpotDetails(parkingName, locationText);
-            _showDetails = true;
-          });
+          _markerController(parkingName, locationText);
         },
         child: Column(
           children: [
             Container(
-              height:ResponsiveUtils.screenHeight(context)* 0.06,
-              width:ResponsiveUtils.screenWidth(context) *0.13,
-              decoration: const BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(10))),
+              height: ResponsiveUtils.screenHeight(context) * 0.06,
+              width: ResponsiveUtils.screenWidth(context) * 0.13,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Icon(
                 Icons.local_parking,
                 color: Colors.black,
@@ -185,4 +225,6 @@ class _MapPageState extends State<MapPage> {
       ),
     );
   }
+
+
 }

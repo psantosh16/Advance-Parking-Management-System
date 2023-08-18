@@ -16,41 +16,39 @@ class GenerateMap extends StatelessWidget {
     return FlutterMap(
       options: _buildMapOptions(),
       children: [
-        TileLayer(
-          urlTemplate:
-          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          subdomains: const ['a', 'b', 'c'],
-        ),
+        _buildTileLayer(),
         buildMarkerClusterLayerWidget(),
       ],
     );
   }
 
+  TileLayer _buildTileLayer() {
+    return TileLayer(
+        urlTemplate:
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        subdomains: const ['a', 'b', 'c'],
+      );
+  }
+
   MarkerClusterLayerWidget buildMarkerClusterLayerWidget() {
     return MarkerClusterLayerWidget(
-        options: MarkerClusterLayerOptions(
-            maxClusterRadius: 45,
-            size: const Size(40, 40),
-            anchor: AnchorPos.align(AnchorAlign.center),
-            fitBoundsOptions: const FitBoundsOptions(
-              padding: EdgeInsets.all(50),
-              maxZoom: 30,
-            ),
-            markers: customMarkers,
-            builder: (context, customMarkers) {
-              return Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.blue),
-                child: Center(
-                  child: Text(
-                    customMarkers.length.toString(),
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                ),
-              );
-            }),
+        options: buildMarkerClusterLayerOptions(),
       );
+  }
+
+  MarkerClusterLayerOptions buildMarkerClusterLayerOptions() {
+    return MarkerClusterLayerOptions(
+          maxClusterRadius: 45,
+          size: const Size(40, 40),
+          anchor: AnchorPos.align(AnchorAlign.center),
+          fitBoundsOptions: const FitBoundsOptions(
+            padding: EdgeInsets.all(50),
+            maxZoom: 30,
+          ),
+          markers: customMarkers,
+          builder: (context, customMarkers) {
+            return const SizedBox() ;
+          });
   }
 
   MapOptions _buildMapOptions() {
