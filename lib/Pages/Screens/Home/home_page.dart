@@ -1,7 +1,10 @@
 import 'package:apms_project/GlobalState/drawer_controller.dart';
+import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,6 +26,20 @@ class _HomePageState extends State<HomePage> {
     Category("wallet", "wallet.png"),
     Category("booked", "car.png"),
   ];
+
+  String getGreeting() {
+    final currentTime = DateTime.now();
+    final currentHour = currentTime.hour;
+
+    if (currentHour >= 0 && currentHour < 12) {
+      return 'Good morning';
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return 'Good afternoon';
+    } else {
+      return 'Good evening';
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +73,20 @@ class _HomePageState extends State<HomePage> {
                             Icons.menu_rounded,
                             color: Colors.white,
                             size: 40,
-                          )),
-                      const Text(
-                        "Hi, John!",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 30,
-                            color: Colors.white),
+                          ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            "Hi, John!",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 25,
+                                color: Colors.white),
+                          ),
+                          Text(getGreeting(),style: const TextStyle(color: Colors.white, fontSize: 12),),
+                        ],
                       ),
                     ],
                   ),
