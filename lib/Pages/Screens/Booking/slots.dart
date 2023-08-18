@@ -18,7 +18,7 @@ class _SlotsleftState extends State<Slotsleft> {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      width: size.width / 3 - 40 / 3,
+      width: size.width / 3 - 10 / 3,
       height: size.height - 320,
       padding: const EdgeInsets.only(bottom: 5, top: 5),
       decoration: BoxDecoration(
@@ -28,12 +28,12 @@ class _SlotsleftState extends State<Slotsleft> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Slot(full: true, slotnumber: "A12304", index: 1),
-          Slot(full: false, slotnumber: "B13304", index: 2),
-          Slot(full: true, slotnumber: "C52004", index: 3),
-          Slot(full: false, slotnumber: "D12301", index: 4),
-          Slot(full: true, slotnumber: "A12101", index: 5),
-          Slot(full: false, slotnumber: "A11101", index: 6),
+          Slot(full: true, slotnumber: "B-1", index: 1),
+          Slot(full: false, slotnumber: "B-2", index: 2),
+          Slot(full: true, slotnumber: "B-3", index: 3),
+          Slot(full: false, slotnumber: "B-4", index: 4),
+          Slot(full: true, slotnumber: "B-5", index: 5),
+          Slot(full: false, slotnumber: "B-6", index: 6),
         ],
       ),
     );
@@ -54,7 +54,7 @@ class _SlotsrightState extends State<Slotsright> {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      width: size.width / 3 - 40 / 3,
+      width: size.width / 3 - 10 / 3,
       height: size.height - 320,
       padding: const EdgeInsets.only(bottom: 5, top: 5),
       decoration: BoxDecoration(
@@ -64,12 +64,12 @@ class _SlotsrightState extends State<Slotsright> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Slot(full: false, slotnumber: "A12314", index: 7),
-          Slot(full: true, slotnumber: "B93304", index: 8),
-          Slot(full: false, slotnumber: "C02004", index: 9),
-          Slot(full: true, slotnumber: "D62301", index: 10),
-          Slot(full: false, slotnumber: "A18101", index: 11),
-          Slot(full: true, slotnumber: "A47101", index: 12),
+          Slot(full: false, slotnumber: "B-7", index: 7),
+          Slot(full: true, slotnumber: "B-8", index: 8),
+          Slot(full: false, slotnumber: "B-9", index: 9),
+          Slot(full: true, slotnumber: "B-10", index: 10),
+          Slot(full: false, slotnumber: "B-11", index: 11),
+          Slot(full: true, slotnumber: "B-12", index: 12),
         ],
       ),
     );
@@ -81,7 +81,6 @@ class Slot extends StatefulWidget {
   bool full = false;
   String slotnumber = "";
   int index;
-
   Slot(
       {super.key,
       required this.full,
@@ -93,17 +92,54 @@ class Slot extends StatefulWidget {
 }
 
 class _SlotState extends State<Slot> {
+  void showErrorMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        content: Center(
+          child: Container(
+            padding:
+                const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 134, 134, 134),
+                borderRadius: BorderRadius.circular(7)),
+            child: Text(
+              message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255), fontSize: 13.5),
+            ),
+          ),
+        ),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
   final ButtonController _buttonController = Get.put(ButtonController());
 
   @override
   Widget build(BuildContext context) {
+    if (widget.full == true) {
+      _buttonController.containerColor.value =
+          const Color.fromARGB(255, 0, 0, 0);
+      _buttonController.textcolor.value =
+          const Color.fromARGB(255, 191, 191, 191);
+      _buttonController.dashcolor.value =
+          const Color.fromARGB(255, 255, 255, 255);
+    }
     return Expanded(
         child: TextButton(
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.all(5), // Adjust padding as needed
+        padding: const EdgeInsets.all(3), // Adjust padding as needed
       ),
       onPressed: () {
-        _buttonController.onClickButton(widget.index);
+        if (widget.full == true) {
+          showErrorMessage(context,
+              "Unfortunately slot ${widget.slotnumber} is not available");
+        } else {
+          _buttonController.onClickButton(widget.index);
+        }
         setState(() {});
       },
       child: Container(
@@ -130,13 +166,13 @@ class _SlotState extends State<Slot> {
                     ),
                     Container(
                       alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top: 6),
+                      margin: const EdgeInsets.only(top: 9),
                       child: Text(
                         widget.slotnumber,
                         style: TextStyle(
                             color: _buttonController.textcolor.value,
                             fontWeight: FontWeight.bold,
-                            fontSize: 12),
+                            fontSize: 13),
                       ),
                     )
                   ],
