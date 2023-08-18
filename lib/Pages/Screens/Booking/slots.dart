@@ -1,12 +1,11 @@
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../GlobalState/slotbutton.dart';
 
 class Slotsleft extends StatefulWidget {
   const Slotsleft({super.key});
-
+  
   @override
   State<Slotsleft> createState() => _SlotsleftState();
 }
