@@ -1,9 +1,7 @@
 import 'package:apms_project/GlobalState/drawer_controller.dart';
-import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -49,61 +47,11 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.black,
       body: SafeArea(
           child: Stack(
-        fit: StackFit.expand,
         children: [
           const SizedBox(height: 4),
           // Upper
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: SizedBox(
-              // height: constraints.maxHeight / 6,
-              width: ResponsiveUtils.screenWidth(context),
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Drawer
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            controller.openDrawer();
-                          },
-                          child: const Icon(
-                            Icons.menu_rounded,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const Text(
-                            "Hi, John!",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 25,
-                                color: Colors.white),
-                          ),
-                          Text(getGreeting(),style: const TextStyle(color: Colors.white, fontSize: 12),),
-                        ],
-                      ),
-                    ],
-                  ),
-                  // Welcome Text
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: Text(
-                      "Welcome to Parkiza!",
-                      style: TextStyle(color: Colors.white, fontSize: 30),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
 
-          const SizedBox(height: 10),
+          // const SizedBox(height: 10),
           // Bottom
           Container(
             decoration: const BoxDecoration(
@@ -201,6 +149,56 @@ class _HomePageState extends State<HomePage> {
                   );
                 }),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: SizedBox(
+              width: ResponsiveUtils.screenWidth(context),
+              child:  Column(
+                children: [
+                  // Drawer
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        child:  const Icon(
+                          Icons.menu_rounded,
+                          color: Colors.white,
+                          size: 40,
+                        ),
+                        onTap: (){
+                          controller.openDrawer();
+                        },
+                      ),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            "Hi, John!",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 25,
+                                color: Colors.white),
+                          ),
+                          Text(getGreeting(),style: const TextStyle(color: Colors.white, fontSize: 12),),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  // Welcome Text
+                  // const Padding(
+                  //   padding: EdgeInsets.only(top: 20.0),
+                  //   child: Text(
+                  //     "Welcome to Parkiza!",
+                  //     style: TextStyle(color: Colors.white, fontSize: 30),
+                  //   ),
+                  // )
+                ],
+              ),
+            ),
+          ),
+
         ],
       )),
     );
