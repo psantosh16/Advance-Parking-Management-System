@@ -3,7 +3,6 @@ import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -38,7 +37,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     DrawerControllers controller = Get.put(DrawerControllers());
@@ -48,23 +46,29 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
           child: Stack(
         children: [
-          const SizedBox(height: 4),
-          // Upper
 
-          // const SizedBox(height: 10),
+          Padding(
+              padding: const EdgeInsets.only(top: 40.0),
+              child: Column(
+                children: [
+                  Image.asset("assets/images/homeScreen.webp"),
+                ],
+              ),
+          ),
           // Bottom
           Container(
             decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
             ),
-          ),
             child: DraggableScrollableSheet(
                 minChildSize: 0.6,
                 initialChildSize: 0.6,
-                builder: (BuildContext context,
-                    ScrollController scrollController) {
+                maxChildSize: 0.9,
+                builder:
+                    (BuildContext context, ScrollController scrollController) {
                   return Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -91,13 +95,12 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               SizedBox(
-                                  height: ResponsiveUtils.screenHeight(
-                                          context) *
-                                      0.016),
+                                  height:
+                                      ResponsiveUtils.screenHeight(context) *
+                                          0.016),
                               // Horizontal ListView with icons
                               SizedBox(
-                                height: ResponsiveUtils.screenHeight(
-                                        context) *
+                                height: ResponsiveUtils.screenHeight(context) *
                                     0.154,
                                 child: GridView.builder(
                                   primary: false,
@@ -116,16 +119,14 @@ class _HomePageState extends State<HomePage> {
                                                 "/${_category[idx].title}");
                                           },
                                           child: Container(
-                                            width: ResponsiveUtils
-                                                    .screenWidth(
-                                                        context) *
+                                            width: ResponsiveUtils.screenWidth(
+                                                    context) *
                                                 0.28,
-                                            height: ResponsiveUtils
-                                                    .screenHeight(
+                                            height:
+                                                ResponsiveUtils.screenHeight(
                                                         context) *
-                                                0.11,
-                                            padding:
-                                                const EdgeInsets.all(16),
+                                                    0.11,
+                                            padding: const EdgeInsets.all(16),
                                             child: Image.asset(
                                                 "assets/images/${_category[idx].link}"),
                                           ),
@@ -133,8 +134,7 @@ class _HomePageState extends State<HomePage> {
                                         Text(
                                           _category[idx].title,
                                           style: const TextStyle(
-                                              fontWeight:
-                                                  FontWeight.bold),
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ],
                                     );
@@ -149,27 +149,28 @@ class _HomePageState extends State<HomePage> {
                   );
                 }),
           ),
+
+          // Upper
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: SizedBox(
               width: ResponsiveUtils.screenWidth(context),
-              child:  Column(
+              child: Column(
                 children: [
                   // Drawer
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        child:  const Icon(
+                        child: const Icon(
                           Icons.menu_rounded,
                           color: Colors.white,
                           size: 40,
                         ),
-                        onTap: (){
+                        onTap: () {
                           controller.openDrawer();
                         },
                       ),
-
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -180,25 +181,20 @@ class _HomePageState extends State<HomePage> {
                                 fontSize: 25,
                                 color: Colors.white),
                           ),
-                          Text(getGreeting(),style: const TextStyle(color: Colors.white, fontSize: 12),),
+                          Text(
+                            getGreeting(),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 12),
+                          ),
                         ],
                       ),
                     ],
                   ),
 
-                  // Welcome Text
-                  // const Padding(
-                  //   padding: EdgeInsets.only(top: 20.0),
-                  //   child: Text(
-                  //     "Welcome to Parkiza!",
-                  //     style: TextStyle(color: Colors.white, fontSize: 30),
-                  //   ),
-                  // )
                 ],
               ),
             ),
           ),
-
         ],
       )),
     );
