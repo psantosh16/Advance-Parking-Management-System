@@ -31,7 +31,7 @@ class _ScreenPageState extends State<ScreenPage> {
 
     return Scaffold(
       key: controller.scaffoldKey,
-      drawer: const HomePageDrawer(),
+      drawer:  const HomePageDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
