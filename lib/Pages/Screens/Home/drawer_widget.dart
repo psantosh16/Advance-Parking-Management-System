@@ -7,8 +7,11 @@ class HomePageDrawer extends StatelessWidget {
     super.key,
   });
 
+
+
   @override
   Widget build(BuildContext context) {
+    
     return Drawer(
       backgroundColor: ColorTheme.neogreenTheme,
       child: ListView(
@@ -25,12 +28,16 @@ class HomePageDrawer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ClipOval(
-                    child: SizedBox(
-                      width: 90,
-                      height: 90,
-                      child: Image.network(
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpqJKRFR7biVyccvSz_eloFoHh5zYRPvL4-xMOVcTUruSOT_2uV8_RAEg-I9qlYxYdCMo&usqp=CAU",
-                        fit:BoxFit.cover
+                    child: Placeholder(
+                      color: ColorTheme.grayTheme,
+                      strokeWidth: 100,
+                      child: SizedBox(
+                        width: 90,
+                        height: 90,
+                        child: Image.network(
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpqJKRFR7biVyccvSz_eloFoHh5zYRPvL4-xMOVcTUruSOT_2uV8_RAEg-I9qlYxYdCMo&usqp=CAU",
+                          fit:BoxFit.cover
+                        ),
                       ),
                     ),
                   ),

@@ -19,10 +19,23 @@ class Category {
 
 class _HomePageState extends State<HomePage> {
   final List<Category> _category = [
-    Category("Profile", "person.png"),
-    Category("Wallet", "ewallet.png"),
-    Category("Book", "bill.png"),
+    Category("profile", "person.png"),
+    Category("wallet", "wallet.png"),
+    Category("booked", "car.png"),
   ];
+
+  String getGreeting() {
+    final currentTime = DateTime.now();
+    final currentHour = currentTime.hour;
+
+    if (currentHour >= 0 && currentHour < 12) {
+      return 'Good morning';
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return 'Good afternoon';
+    } else {
+      return 'Good evening';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,202 +44,159 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: Column(
-          children: [
-            // Username
-            Container(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Menu Button
-                  Container(
-                    height: ResponsiveUtils.screenHeight(context) * 0.045,
-                    width: ResponsiveUtils.screenWidth(context) * 0.1,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[400],
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        controller.openDrawer();
-                      },
-                      child: Icon(
-                        Icons.menu,
-                        size: ResponsiveUtils.textScaleFactor(context) * 32,
-                      ),
-                    ),
-                  ),
+          child: Stack(
+        children: [
 
-                  // Username
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Hi, John!',
-                        style: TextStyle(
-                            fontSize:
-                                ResponsiveUtils.textScaleFactor(context) * 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+          Padding(
+              padding: const EdgeInsets.only(top: 40.0),
+              child: Column(
+                children: [
+                  Image.asset("assets/images/homeScreen.webp"),
+                ],
+              ),
+          ),
+          // Bottom
+          Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+            ),
+            child: DraggableScrollableSheet(
+                minChildSize: 0.6,
+                initialChildSize: 0.6,
+                maxChildSize: 0.9,
+                builder:
+                    (BuildContext context, ScrollController scrollController) {
+                  return Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
                       ),
-                      Text(
-                        '23 Jan, 2023',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize:
-                                ResponsiveUtils.textScaleFactor(context) * 12,
-                            fontWeight: FontWeight.w600),
+                    ),
+                    child: ListView(
+                      physics: const ClampingScrollPhysics(),
+                      controller: scrollController,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            children: [
+                              // Drag indicator
+                              const SizedBox(
+                                width: 60,
+                                child: ClipOval(
+                                  child: Divider(
+                                    thickness: 6,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      ResponsiveUtils.screenHeight(context) *
+                                          0.016),
+                              // Horizontal ListView with icons
+                              SizedBox(
+                                height: ResponsiveUtils.screenHeight(context) *
+                                    0.154,
+                                child: GridView.builder(
+                                  primary: false,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                  ),
+                                  itemCount:
+                                      3, // Total number of items in the grid
+                                  itemBuilder: (context, idx) {
+                                    return Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                "/${_category[idx].title}");
+                                          },
+                                          child: Container(
+                                            width: ResponsiveUtils.screenWidth(
+                                                    context) *
+                                                0.28,
+                                            height:
+                                                ResponsiveUtils.screenHeight(
+                                                        context) *
+                                                    0.11,
+                                            padding: const EdgeInsets.all(16),
+                                            child: Image.asset(
+                                                "assets/images/${_category[idx].link}"),
+                                          ),
+                                        ),
+                                        Text(
+                                          _category[idx].title,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+          ),
+
+          // Upper
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: SizedBox(
+              width: ResponsiveUtils.screenWidth(context),
+              child: Column(
+                children: [
+                  // Drawer
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        child: const Icon(
+                          Icons.menu_rounded,
+                          color: Colors.white,
+                          size: 40,
+                        ),
+                        onTap: () {
+                          controller.openDrawer();
+                        },
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            "Hi, John!",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 25,
+                                color: Colors.white),
+                          ),
+                          Text(
+                            getGreeting(),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 12),
+                          ),
+                        ],
                       ),
                     ],
                   ),
+
                 ],
               ),
             ),
-            SizedBox(height: ResponsiveUtils.screenHeight(context) * 0.040),
-
-            Text(
-              "Welcome to PARKIZA",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: ResponsiveUtils.textScaleFactor(context) * 28,
-                  fontWeight: FontWeight.w700),
-            ),
-            // Bottom
-            SizedBox(height: ResponsiveUtils.screenHeight(context) * 0.05),
-            Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Category
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(_category.length, (index) {
-                          return Container(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width:
-                                        ResponsiveUtils.screenWidth(context) *
-                                            0.24,
-                                    height:
-                                        ResponsiveUtils.screenHeight(context) *
-                                            0.12,
-                                    padding: const EdgeInsets.all(16),
-                                    child: Image.asset(
-                                        "assets/images/${_category[index].link}"),
-                                  ),
-                                  Text(
-                                    _category[index].title,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }),
-                      ),
-
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                        child: Text(
-                          "Nearby Places,",
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      // Nearby places
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: 10,
-                          itemExtent: 100,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.only(top: 6),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width:
-                                        ResponsiveUtils.screenWidth(context) *
-                                            0.4,
-                                    padding: const EdgeInsets.all(4),
-                                    child: Image.asset(
-                                      "assets/images/landing_page2.jpg",
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(left: 14),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Name of place",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: ResponsiveUtils
-                                                      .textScaleFactor(
-                                                          context) *
-                                                  17),
-                                        ),
-                                        const Row(
-                                          children: [
-                                            Icon(size: 16, Icons.location_on),
-                                            Text(
-                                              "Address of parking",
-                                              style: TextStyle(
-                                                  fontSize: 11,
-                                                  color: Colors.grey),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                              left: 4, top: 4),
-                                          child: const Text(
-                                            "Rs.15/hr",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      )),
     );
   }
 }
