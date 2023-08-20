@@ -26,7 +26,7 @@ class ParkingSpotController extends GetxController {
     if (_showDetails == false) {
       setParkingSpotDetails("", "");
     }
-    update();
+    // update();
   }
 
   void setSlot(String slotSelected){

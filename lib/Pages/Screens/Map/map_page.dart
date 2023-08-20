@@ -124,8 +124,9 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
 
   Tween<Offset> _buildAnimation() {
     return Tween<Offset>(
-                      begin: const Offset(0, 2), // Starting from below the screen
-                      end: const Offset(0, 0),   // Ending at the desired position
+                      begin: const Offset(0, 2),
+
+                      end: const Offset(0, 0),
                     );
   }
 
@@ -171,6 +172,7 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
                 height: ResponsiveUtils.screenHeight(context) * 0.05,
                 child: ElevatedButton(
                   onPressed: () {
+                    _animationController.reverse();
                     Navigator.pushNamed(context, "/booking");
                   },
                   style: ElevatedButton.styleFrom(
