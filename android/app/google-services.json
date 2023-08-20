@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "762204671850",
+    "project_id": "parkiza-database",
+    "storage_bucket": "parkiza-database.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762204671850:android:f0a2b67a3d9f9b4661df13",
+        "android_client_info": {
+          "package_name": "com.apms.apms_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762204671850-76qhe5205nuf454c8gettk7nbk488ujl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmdmaMbSfisxxEDTSZZi_9XBc-GmB2WAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762204671850-76qhe5205nuf454c8gettk7nbk488ujl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
