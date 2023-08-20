@@ -6,7 +6,7 @@ class ParkingSpotController extends GetxController {
   final _parkingSpotName = ''.obs;
   final _locationName = ''.obs;
   late final _slotSelected = ''.obs;
-  final _showDetails = false.obs;
+   late  bool _showDetails = false;
 
   // Getters
   get parkingSpotName => _parkingSpotName;
@@ -22,10 +22,11 @@ class ParkingSpotController extends GetxController {
   }
 
   void toggleShowDetails(bool value) {
-    _showDetails.value = value;
-    if (_showDetails.value == false) {
+    _showDetails = value;
+    if (_showDetails == false) {
       setParkingSpotDetails("", "");
     }
+    update();
   }
 
   void setSlot(String slotSelected){
