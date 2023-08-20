@@ -273,7 +273,7 @@ class _RegisterPageState extends State<RegisterPage>
               ),
             ),
           ),
-          SizedBox(height: ResponsiveUtils.screenHeight(context) * 0.06),
+          SizedBox(height: ResponsiveUtils.screenHeight(context) * 0.04),
           SizedBox(
             height: ResponsiveUtils.screenHeight(context) * 0.06,
             width: ResponsiveUtils.screenWidth(context) * 0.4,
