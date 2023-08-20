@@ -1,12 +1,34 @@
 import 'package:get/get.dart';
 
 class ParkingSpotController extends GetxController {
-  var parkingSpotName = ''.obs;
-  var locationName = ''.obs;
 
+  // Variables
+  final _parkingSpotName = ''.obs;
+  final _locationName = ''.obs;
+  late final _slotSelected = ''.obs;
+  final _showDetails = false.obs;
+
+  // Getters
+  get parkingSpotName => _parkingSpotName;
+  get locationName => _locationName;
+  get showDetails => _showDetails;
+  get slotSelected => _slotSelected;
+
+
+  // Methods
   void setParkingSpotDetails(String name, String location) {
-    parkingSpotName.value = name;
-    locationName.value = location;
+    _parkingSpotName.value = name;
+    _locationName.value = location;
   }
 
+  void toggleShowDetails(bool value) {
+    _showDetails.value = value;
+    if (_showDetails.value == false) {
+      setParkingSpotDetails("", "");
+    }
+  }
+
+  void setSlot(String slotSelected){
+    _slotSelected.value = slotSelected;
+  }
 }

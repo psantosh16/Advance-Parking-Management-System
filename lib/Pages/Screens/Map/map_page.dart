@@ -5,7 +5,7 @@ import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
-import 'package:latlong2/latlong.dart'; // For LatLng class
+import 'package:latlong2/latlong.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -15,24 +15,22 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
 
-  bool _showDetails = false;
+  // bool _showDetails = false;
   late AnimationController _animationController;
   late ParkingSpotController spotController = Get.put(ParkingSpotController());
 
   void _toggleContainer() {
     setState(() {
-      if(_showDetails ){
+      if(spotController.showDetails ){
         _animationController.forward();
       }else{
-        _showDetails = false;
-        // if cancel clear global data
-        spotController.setParkingSpotDetails("", "");
+        spotController.toggleShowDetails(false);
       }
     });
   }
   void _markerController(String parkingName, String locationText) {
     return setState(() {
-      _showDetails = true;
+      spotController.toggleShowDetails(true);
       _toggleContainer();
       spotController.setParkingSpotDetails(parkingName, locationText);
 
@@ -95,7 +93,7 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
             ),
 
             // Selected Location Indicator
-            _showDetails
+            spotController.showDetails
                 ? Positioned(
                     bottom: 10,
                     child: SlideTransition(
@@ -153,7 +151,7 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
                   width: 40,
                   child: GestureDetector(
                       onTap: (){
-                        _showDetails = false;
+                       spotController.toggleShowDetails(false);
                         _animationController.reverse();
                       },
                       child: const Icon(Icons.cancel_rounded,size: 28,),),
@@ -162,9 +160,9 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
             ),
           ),
           Obx(() =>
-              Text("Name: ${spotController.parkingSpotName.toUpperCase()}")),
+              Text("Name: ${spotController.parkingSpotName}")),
           Obx(() =>
-              Text("Location: ${spotController.locationName.toUpperCase()}")),
+              Text("Location: ${spotController.locationName}")),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Center(
