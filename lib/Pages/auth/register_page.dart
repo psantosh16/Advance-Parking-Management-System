@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -11,6 +14,8 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage>
     with WidgetsBindingObserver {
+  File? file;
+  ImagePicker image = ImagePicker();
   double _keyboardOffset = 0.0; // To store the keyboard offset
   final ScrollController _scrollController = ScrollController();
   @override
@@ -77,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage>
   Widget _buildBottom() {
     return SizedBox(
       width: ResponsiveUtils.screenWidth(context),
-      height: ResponsiveUtils.screenHeight(context) * 0.70,
+      height: ResponsiveUtils.screenHeight(context) * 0.76,
       child: Card(
         margin: const EdgeInsets.all(0),
         shape: const RoundedRectangleBorder(
@@ -273,7 +278,49 @@ class _RegisterPageState extends State<RegisterPage>
               ),
             ),
           ),
-          SizedBox(height: ResponsiveUtils.screenHeight(context) * 0.04),
+          SizedBox(height: ResponsiveUtils.screenHeight(context) * 0.03),
+          Row(
+            children: [
+              SizedBox(
+                height: ResponsiveUtils.screenHeight(context) * 0.06,
+                width: ResponsiveUtils.screenWidth(context) * 0.4,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 206, 206, 206),
+                      foregroundColor: ColorTheme.blackTheme,
+                    ),
+                    onPressed: () async {
+                      // ignore: unused_local_variable
+                      XFile? file =
+                          await image.pickImage(source: ImageSource.gallery);
+                    },
+                    child: const Icon(
+                      Icons.add_a_photo_outlined,
+                      size: 25,
+                    )),
+              ),
+              const Expanded(child: Text("")),
+              SizedBox(
+                  height: ResponsiveUtils.screenHeight(context) * 0.06,
+                  width: ResponsiveUtils.screenWidth(context) * 0.4,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 206, 206, 206),
+                        foregroundColor: ColorTheme.blackTheme,
+                      ),
+                      onPressed: () async {
+                        // ignore: unused_local_variable
+                        XFile? file =
+                            await image.pickImage(source: ImageSource.gallery);
+                      },
+                      child: const Icon(
+                        Icons.add_card_outlined,
+                        size: 25,
+                      ))),
+            ],
+          ),
+          SizedBox(height: ResponsiveUtils.screenHeight(context) * 0.03),
           SizedBox(
             height: ResponsiveUtils.screenHeight(context) * 0.06,
             width: ResponsiveUtils.screenWidth(context) * 0.4,
