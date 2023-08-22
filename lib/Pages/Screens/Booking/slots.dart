@@ -1,11 +1,11 @@
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../../GlobalState/slotbutton.dart';
+import 'package:provider/provider.dart';
+import '../../../GlobalState/provider/slotbutton.dart';
 
 class Slotsleft extends StatefulWidget {
   const Slotsleft({super.key});
-  
+
   @override
   State<Slotsleft> createState() => _SlotsleftState();
 }
@@ -115,84 +115,80 @@ class _SlotState extends State<Slot> {
     );
   }
 
-  final ButtonController _buttonController = Get.put(ButtonController());
-
   @override
   Widget build(BuildContext context) {
-    if (widget.full == true) {
-      _buttonController.containerColor.value =
-          const Color.fromARGB(255, 0, 0, 0);
-      _buttonController.textcolor.value =
-          const Color.fromARGB(255, 191, 191, 191);
-      _buttonController.dashcolor.value =
-          const Color.fromARGB(255, 255, 255, 255);
-    }
-    return Expanded(
-        child: TextButton(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.all(3), // Adjust padding as needed
-      ),
-      onPressed: () {
-        if (widget.full == true) {
-          showErrorMessage(context,
-              "Unfortunately slot ${widget.slotnumber} is not available");
-        } else {
-          _buttonController.onClickButton(widget.index);
-        }
-        setState(() {});
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            color: _buttonController.containerColor.value,
-            borderRadius: BorderRadius.circular(10)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(
+    Provider.of<ButtonController>(context, listen: false);
+    final buttonController = Provider.of<ButtonController>(context);
+
+    return Expanded(child: Consumer<ButtonController>(
+      builder: (context, value, child) {
+        return TextButton(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(3), // Adjust padding as needed
+          ),
+          onPressed: () {
+            if (widget.full == true) {
+              showErrorMessage(context,
+                  "Unfortunately slot ${widget.slotnumber} is not available");
+            } else {
+              buttonController.onClickButton(widget.index);
+            }
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                color: value.containerColor[widget.index].value,
+                borderRadius: BorderRadius.circular(10)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Stack(
                   children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 6),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "--- --- --- ---",
-                        style: TextStyle(
-                            color: _buttonController.dashcolor.value,
-                            fontWeight: FontWeight.bold),
-                      ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 6),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "--- --- --- ---",
+                            style: TextStyle(
+                                color: value.dashcolor[widget.index].value,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(top: 9),
+                          child: Text(
+                            widget.slotnumber,
+                            style: TextStyle(
+                                color: value.textcolor[widget.index].value,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13),
+                          ),
+                        )
+                      ],
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top: 9),
-                      child: Text(
-                        widget.slotnumber,
-                        style: TextStyle(
-                            color: _buttonController.textcolor.value,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13),
-                      ),
-                    )
+                    widget.full
+                        ? Center(
+                            child: Container(
+                              width: 55,
+                              height: 30,
+                              decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                          "assets/images/ycar.png"))),
+                            ),
+                          )
+                        : Container(),
                   ],
                 ),
-                widget.full
-                    ? Center(
-                        child: Container(
-                          width: 55,
-                          height: 30,
-                          decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage("assets/images/ycar.png"))),
-                        ),
-                      )
-                    : Container(),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     ));
   }
 }
