@@ -19,7 +19,6 @@ class _ScreenPageState extends State<ScreenPage> {
   int _selectedIndex = 1;
 
   final List<Widget> _screens = [
-    // const BookingPage(),
     const MapPage(),
     const HomePage(),
     const NotificationPage(),
@@ -54,7 +53,13 @@ class _ScreenPageState extends State<ScreenPage> {
               icon: Icon(Icons.notifications_active), label: "Notification"),
         ],
       ),
-      body: _screens[_selectedIndex],
+
+      // Used IndexedStack to avoid rebuild of pages => to improve performance
+      body:IndexedStack(
+        index: _selectedIndex,
+        children: _screens,
+      ),
+
     );
   }
 }

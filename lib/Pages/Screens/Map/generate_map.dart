@@ -53,6 +53,7 @@ class GenerateMap extends StatelessWidget {
 
   MapOptions _buildMapOptions() {
     return MapOptions(
+      keepAlive: true,
       center: LatLng(19.029267, 73.062162),
       zoom: 12.0,
       minZoom: 10.0,
