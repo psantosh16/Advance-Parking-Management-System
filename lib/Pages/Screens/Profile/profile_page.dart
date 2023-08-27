@@ -145,18 +145,28 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontSize: ResponsiveUtils.textScaleFactor(context) * 18),
                       ),
                       const SizedBox(height: 18,),
-                      Text(
-                        "Switch to other account",
-                        style: TextStyle(
-                            color: ColorTheme.blueTheme,
-                            fontSize: ResponsiveUtils.textScaleFactor(context) * 20 , fontWeight: FontWeight.bold),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, '/login');
+                        },
+                        child: Text(
+                          "Switch to other account",
+                          style: TextStyle(
+                              color: ColorTheme.blueTheme,
+                              fontSize: ResponsiveUtils.textScaleFactor(context) * 20 , fontWeight: FontWeight.bold),
+                        ),
                       ),
                       const SizedBox(height: 18,),
-                      Text(
-                        "Log Out",
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: ResponsiveUtils.textScaleFactor(context) * 20 , fontWeight: FontWeight.bold),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, '/login');
+                        },
+                        child: Text(
+                          "Log Out",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: ResponsiveUtils.textScaleFactor(context) * 20 , fontWeight: FontWeight.bold),
+                        ),
                       ),
 
                     ],
