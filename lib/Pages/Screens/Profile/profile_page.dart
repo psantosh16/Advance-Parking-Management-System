@@ -59,21 +59,29 @@ class _ProfilePageState extends State<ProfilePage> {
                             "John M",
                             style: TextStyle(
                                 fontSize:
-                                    ResponsiveUtils.textScaleFactor(context) * 30,
+                                    ResponsiveUtils.textScaleFactor(context) * 32,
                                 fontWeight: FontWeight.bold),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              // Navigate to profile update page
-                            },
-                            child: Text(
-                              "Edit profile",
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize:
-                                      ResponsiveUtils.textScaleFactor(context) *
-                                          16),
-                            ),
+                          Row(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.edit , color: Colors.grey,),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigate to profile update page
+                                },
+                                child: Text(
+                                  "Edit profile",
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize:
+                                          ResponsiveUtils.textScaleFactor(context) *
+                                              16),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       )
