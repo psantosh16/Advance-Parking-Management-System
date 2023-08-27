@@ -1,5 +1,6 @@
 import 'package:apms_project/Pages/Screens/Booking/bookingpage.dart';
 import 'package:apms_project/Pages/Screens/Map/map_page.dart';
+import 'package:apms_project/Pages/Screens/Profile/profile_page.dart';
 import 'package:apms_project/Pages/Screens/Recipt/recipet_page.dart';
 import 'package:apms_project/Pages/Screens/screen_page.dart';
 import 'package:apms_project/Pages/Screens/Payment/wallet_page.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         "/booking" : (context) => const BookingPage(),
         "/screen": (context) => const ScreenPage(),
         "/wallet": (context) => const WalletPage(),
+        "/profile":(context)=> const ProfilePage(),
       },
     );
   }
