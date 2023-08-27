@@ -1,3 +1,4 @@
+import 'package:apms_project/GlobalState/provider/slotbutton.dart';
 import 'package:apms_project/Pages/Screens/Booking/bookingpage.dart';
 import 'package:apms_project/Pages/Screens/Map/map_page.dart';
 import 'package:apms_project/Pages/Screens/Profile/profile_page.dart';
@@ -6,6 +7,7 @@ import 'package:apms_project/Pages/Screens/screen_page.dart';
 import 'package:apms_project/Pages/Screens/Payment/wallet_page.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'Pages/Screens/Home/home_page.dart';
 import 'Pages/auth/login_page.dart';
 import 'Pages/auth/register_page.dart';
@@ -23,15 +25,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     // Initialized GetMaterialApp
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        appBarTheme: const AppBarTheme(
-            color: ColorTheme.blackTheme, elevation: 0, toolbarHeight: 80),
-      ),
+    return MultiProvider(
+         providers: [
+        ChangeNotifierProvider(create: (_) => ButtonController()),
+        
+      ],
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          appBarTheme: const AppBarTheme(
+              color: ColorTheme.blackTheme, elevation: 0, toolbarHeight: 80),
+        ),
+
       initialRoute: "/register",
 
       routes: {

@@ -1,7 +1,7 @@
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../../GlobalState/slotbutton.dart';
+import 'package:provider/provider.dart';
+import '../../../GlobalState/provider/slotbutton.dart';
 import 'bookingbody.dart';
 
 class BookingPage extends StatefulWidget {
@@ -11,19 +11,19 @@ class BookingPage extends StatefulWidget {
 }
 
 class _BookingPageState extends State<BookingPage> {
-  final ButtonController _buttonController = Get.put(ButtonController());
-
   @override
   Widget build(BuildContext context) {
+     Provider.of<ButtonController>(context, listen: false);
+    final buttonController = Provider.of<ButtonController>(context);
     return Scaffold(
       backgroundColor: ColorTheme.whiteTheme,
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
-            for (var i = 0; i < 13; i++) {
-              _buttonController.isButtonClicked[i].value = true;
+            if (buttonController.selectedindex != 100) {
+              buttonController.unselect();
             }
+            Navigator.pop(context);
           },
           child: const Icon(Icons.arrow_back_ios),
         ),
