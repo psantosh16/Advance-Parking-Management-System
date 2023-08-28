@@ -48,7 +48,7 @@ class HomePageDrawer extends StatelessWidget {
                        Text("John M", style: TextStyle(fontSize: ResponsiveUtils.textScaleFactor(context)* 25 , fontWeight: FontWeight.bold),),
                       GestureDetector(
                           onTap: (){
-                            // Navigate to profile update page
+                            Navigator.pushNamed(context, '/profile');
                           },
                           child:  Text("View Profile" , style: TextStyle(color: ColorTheme.blueTheme , fontSize: ResponsiveUtils.textScaleFactor(context)* 14),))
                     ],

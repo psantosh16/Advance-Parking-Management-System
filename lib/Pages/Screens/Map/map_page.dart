@@ -13,27 +13,25 @@ class MapPage extends StatefulWidget {
   State<MapPage> createState() => _MapPageState();
 }
 
-class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
-
-  // bool _showDetails = false;
+class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late ParkingSpotController spotController = Get.put(ParkingSpotController());
 
   void _toggleContainer() {
     setState(() {
-      if(spotController.showDetails ){
+      if (spotController.showDetails) {
         _animationController.forward();
-      }else{
+      } else {
         spotController.toggleShowDetails(false);
       }
     });
   }
+
   void _markerController(String parkingName, String locationText) {
     return setState(() {
       spotController.toggleShowDetails(true);
       _toggleContainer();
       spotController.setParkingSpotDetails(parkingName, locationText);
-
     });
   }
 
@@ -54,12 +52,12 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-
     // Locations
     final List<Marker> customMarkers = [
       createCustomMarker(LatLng(18.9894, 73.1175), "Panvel", "Royal Parking"),
       createCustomMarker(LatLng(19.0166, 73.0966), "Kamothe", "3Net Parking"),
-      createCustomMarker(LatLng(19.0473, 73.0699), "Kharghar", "Kharghar Parking Spot"),
+      createCustomMarker(
+          LatLng(19.0473, 73.0699), "Kharghar", "Kharghar Parking Spot"),
       createCustomMarker(LatLng(19.0188, 73.0388), "Belapur", "Ink Park")
     ];
 
@@ -124,10 +122,9 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
 
   Tween<Offset> _buildAnimation() {
     return Tween<Offset>(
-                      begin: const Offset(0, 2),
-
-                      end: const Offset(0, 0),
-                    );
+      begin: const Offset(0, 2),
+      end: const Offset(0, 0),
+    );
   }
 
   // Create Bottom Component
@@ -138,7 +135,7 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-           Padding(
+          Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,19 +148,21 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
                   height: 40,
                   width: 40,
                   child: GestureDetector(
-                      onTap: (){
-                       spotController.toggleShowDetails(false);
-                        _animationController.reverse();
-                      },
-                      child: const Icon(Icons.cancel_rounded,size: 28,),),
+                    onTap: () {
+                      spotController.toggleShowDetails(false);
+                      _animationController.reverse();
+                    },
+                    child: const Icon(
+                      Icons.cancel_rounded,
+                      size: 28,
+                    ),
+                  ),
                 )
               ],
             ),
           ),
-          Obx(() =>
-              Text("Name: ${spotController.parkingSpotName}")),
-          Obx(() =>
-              Text("Location: ${spotController.locationName}")),
+          Obx(() => Text("Name: ${spotController.parkingSpotName}")),
+          Obx(() => Text("Location: ${spotController.locationName}")),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Center(
@@ -225,6 +224,4 @@ class _MapPageState extends State<MapPage>  with SingleTickerProviderStateMixin{
       ),
     );
   }
-
-
 }

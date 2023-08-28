@@ -24,6 +24,11 @@ class _HomePageState extends State<HomePage> {
     Category("booked", "car.png"),
   ];
 
+  String capitalize(String input) {
+    if (input.isEmpty) return input;
+    return input[0].toUpperCase() + input.substring(1);
+  }
+
   String getGreeting() {
     final currentTime = DateTime.now();
     final currentHour = currentTime.hour;
@@ -105,11 +110,11 @@ class _HomePageState extends State<HomePage> {
                                 child: GridView.builder(
                                   primary: false,
                                   gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
+                                       SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: _category.length,
                                   ),
                                   itemCount:
-                                      3, // Total number of items in the grid
+                                  _category.length, // Total number of items in the grid
                                   itemBuilder: (context, idx) {
                                     return Column(
                                       children: [
@@ -132,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ),
                                         Text(
-                                          _category[idx].title,
+                                          capitalize(_category[idx].title),
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -144,11 +149,13 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ),
+
                       ],
                     ),
                   );
-                }),
+                },),
           ),
+
 
           // Upper
           Padding(
