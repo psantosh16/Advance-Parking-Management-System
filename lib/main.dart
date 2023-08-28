@@ -17,44 +17,38 @@ void main() {
   runApp(const MyApp());
 }
 
-
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
 
   @override
   Widget build(BuildContext context) {
     // Initialized GetMaterialApp
     return MultiProvider(
-         providers: [
-        ChangeNotifierProvider(create: (_) => ButtonController()),
-        
-      ],
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          brightness: Brightness.light,
-          appBarTheme: const AppBarTheme(
-              color: ColorTheme.blackTheme, elevation: 0, toolbarHeight: 80),
-        ),
+        providers: [
+          ChangeNotifierProvider(create: (_) => ButtonController()),
+        ],
+        child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            brightness: Brightness.light,
+            appBarTheme: const AppBarTheme(
+                color: ColorTheme.blackTheme, elevation: 0, toolbarHeight: 80),
+          ),
+          initialRoute: "/register",
+          routes: {
+            // Auth Routes
+            "/register": (context) => const RegisterPage(),
+            "/login": (context) => const LoginPage(),
 
-      initialRoute: "/register",
-
-      routes: {
-        // Auth Routes
-        "/register": (context) => const RegisterPage(),
-        "/login": (context) => const LoginPage(),
-
-        // Screen Routes
-        "/home": (context) => const HomePage(),
-        "/receipt": (context) => const ReceiptPage(),
-        "/map": (context) => const MapPage(),
-        "/booking" : (context) => const BookingPage(),
-        "/screen": (context) => const ScreenPage(),
-        "/wallet": (context) => const WalletPage(),
-        "/profile":(context)=> const ProfilePage(),
-      },
-    );
+            // Screen Routes
+            "/home": (context) => const HomePage(),
+            "/receipt": (context) => const ReceiptPage(),
+            "/map": (context) => const MapPage(),
+            "/booking": (context) => const BookingPage(),
+            "/screen": (context) => const ScreenPage(),
+            "/wallet": (context) => const WalletPage(),
+            "/profile": (context) => const ProfilePage(),
+          },
+        ));
   }
 }

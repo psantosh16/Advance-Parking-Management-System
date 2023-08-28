@@ -32,11 +32,18 @@ class _RegisterPageState extends State<RegisterPage>
 
   @override
   void didChangeMetrics() {
+
     final keyboardHeight =
         // ignore: deprecated_member_use
         WidgetsBinding.instance.window.viewInsets.bottom;
     setState(() {
-      _keyboardOffset = keyboardHeight / 1.75;
+      if (keyboardHeight > 670) {
+        _keyboardOffset = keyboardHeight / 2.55;
+      } else if (keyboardHeight > 650) {
+        _keyboardOffset = keyboardHeight / 2.1;
+      } else {
+        _keyboardOffset = keyboardHeight / 1.75;
+      }
     });
   }
 
