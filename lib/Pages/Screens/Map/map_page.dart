@@ -17,6 +17,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late ParkingSpotController spotController = Get.put(ParkingSpotController());
 
+  // function to toggle card visibility in map
   void _toggleContainer() {
     setState(() {
       if (spotController.showDetails) {
@@ -27,6 +28,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
     });
   }
 
+  // function to set selected spot details globally to generate ticket
   void _markerController(String parkingName, String locationText) {
     return setState(() {
       spotController.toggleShowDetails(true);
@@ -35,6 +37,8 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
     });
   }
 
+
+  // For animation
   @override
   void initState() {
     super.initState();
@@ -43,15 +47,17 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
       duration: const Duration(milliseconds: 500),
     );
   }
-
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
+
     // Locations
     final List<Marker> customMarkers = [
       createCustomMarker(LatLng(18.9894, 73.1175), "Panvel", "Royal Parking"),
@@ -178,7 +184,7 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
                       backgroundColor: ColorTheme.neogreenTheme,
                       foregroundColor: ColorTheme.blackTheme),
                   child: const Text(
-                    "Book Spot",
+                    "Pick Spot",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
