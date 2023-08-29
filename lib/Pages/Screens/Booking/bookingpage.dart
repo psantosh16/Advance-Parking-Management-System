@@ -26,10 +26,9 @@ class _BookingPageState extends State<BookingPage> {
           },
           child: const Icon(Icons.arrow_back_ios),
         ),
-        centerTitle: false,
         backgroundColor: ColorTheme.blackTheme,
         automaticallyImplyLeading: false,
-        title: const Text("Book your slot"),
+        title: const Text("Pick your spot"),
       ),
       body: const Bookingbody(),
     );

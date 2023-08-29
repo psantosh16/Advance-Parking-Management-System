@@ -39,6 +39,7 @@ class _SlotsleftState extends State<Slotsleft> {
   }
 }
 
+
 class Slotsright extends StatefulWidget {
   const Slotsright({super.key});
 

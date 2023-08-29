@@ -1,6 +1,6 @@
 import 'package:apms_project/GlobalState/provider/slotbutton.dart';
 import 'package:apms_project/Pages/Screens/Booking/bookingpage.dart';
-import 'package:apms_project/Pages/Screens/Map/map_page.dart';
+import 'package:apms_project/Pages/Screens/MapPage/map_pages.dart';
 import 'package:apms_project/Pages/Screens/Profile/profile_page.dart';
 import 'package:apms_project/Pages/Screens/Recipt/recipet_page.dart';
 import 'package:apms_project/Pages/Screens/screen_page.dart';
@@ -24,31 +24,37 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Initialized GetMaterialApp
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => ButtonController()),
-        ],
-        child: GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            brightness: Brightness.light,
-            appBarTheme: const AppBarTheme(
-                color: ColorTheme.blackTheme, elevation: 0, toolbarHeight: 80),
-          ),
-          initialRoute: "/register",
-          routes: {
-            // Auth Routes
-            "/register": (context) => const RegisterPage(),
-            "/login": (context) => const LoginPage(),
 
-            // Screen Routes
-            "/home": (context) => const HomePage(),
-            "/receipt": (context) => const ReceiptPage(),
-            "/map": (context) => const MapPage(),
-            "/booking": (context) => const BookingPage(),
-            "/screen": (context) => const ScreenPage(),
-            "/wallet": (context) => const WalletPage(),
-            "/profile": (context) => const ProfilePage(),
-          },
-        ));
+         providers: [
+        ChangeNotifierProvider(create: (_) => ButtonController()),
+        
+      ],
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          appBarTheme: const AppBarTheme(
+              color: ColorTheme.blackTheme, elevation: 0, toolbarHeight: 80),
+        ),
+
+      initialRoute: "/register",
+
+      routes: {
+        // Auth Routes
+        "/register": (context) => const RegisterPage(),
+        "/login": (context) => const LoginPage(),
+
+        // Screen Routes
+        "/home": (context) => const HomePage(),
+        "/receipt": (context) => const ReceiptPage(),
+        "/map": (context) => const MapsPage(),
+        "/booking" : (context) => const BookingPage(),
+        "/screen": (context) => const ScreenPage(),
+        "/wallet": (context) => const WalletPage(),
+        "/profile":(context)=> const ProfilePage(),
+      },
+      ),
+    );
+
   }
 }

@@ -5,7 +5,7 @@ class ParkingSpotController extends GetxController {
   // Variables
   final _parkingSpotName = ''.obs;
   final _locationName = ''.obs;
-  late final _slotSelected = ''.obs;
+  late final _slotSelected = 'B-4'.obs;
    late  bool _showDetails = false;
 
   // Getters

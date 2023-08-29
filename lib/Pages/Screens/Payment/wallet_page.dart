@@ -10,13 +10,11 @@ class WalletPage extends StatefulWidget {
 class _WalletPageState extends State<WalletPage> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text("Wallet"),
       ),
-      body: const Center(
-        child: Text("Wallet Page"),
-      ),
+      body:const Text("data"),
     );
   }
 }
