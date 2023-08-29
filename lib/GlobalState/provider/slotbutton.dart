@@ -10,6 +10,7 @@ class ButtonController extends ChangeNotifier {
   var dashcolor = List.generate(
       13, (index) => const Color.fromARGB(255, 255, 255, 255).obs);
   var selectedindex = 100;
+  var selectedslot = "None Selected";
 
   void onClickButton(int index) {
     // ignore: unrelated_type_equality_checks
@@ -27,17 +28,20 @@ class ButtonController extends ChangeNotifier {
       textcolor[index].value = const Color.fromARGB(255, 0, 0, 0);
       dashcolor[index].value = const Color.fromARGB(255, 0, 0, 0);
       selectedindex = index;
+      selectedslot = "B-$index Selected";
     } else {
       isButtonClicked[index].value = true;
       containerColor[index].value = const Color.fromARGB(255, 0, 0, 0);
       textcolor[index].value = const Color.fromARGB(255, 191, 191, 191);
       dashcolor[index].value = const Color.fromARGB(255, 255, 255, 255);
       selectedindex = 100;
+      selectedslot = "None Selected";
     }
     notifyListeners();
   }
 
   void unselect() {
+    isButtonClicked[selectedindex].value = true;
     containerColor[selectedindex].value = const Color.fromARGB(255, 0, 0, 0);
     textcolor[selectedindex].value = const Color.fromARGB(255, 191, 191, 191);
     dashcolor[selectedindex].value = const Color.fromARGB(255, 255, 255, 255);
@@ -45,4 +49,6 @@ class ButtonController extends ChangeNotifier {
     selectedindex = 100;
     notifyListeners();
   }
+
+
 }
