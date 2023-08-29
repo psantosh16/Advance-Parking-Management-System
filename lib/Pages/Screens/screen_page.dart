@@ -1,6 +1,6 @@
 import 'package:apms_project/GlobalState/drawer_controller.dart';
 import 'package:apms_project/Pages/Screens/Home/home_page.dart';
-import 'package:apms_project/Pages/Screens/Map/map_page.dart';
+import 'package:apms_project/Pages/Screens/MapPage/map_pages.dart';
 import 'package:apms_project/Pages/Screens/Notification/notification_page.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class _ScreenPageState extends State<ScreenPage> {
   int _selectedIndex = 1;
 
   final List<Widget> _screens = [
-    const MapPage(),
+    const MapsPage(),
     const HomePage(),
     const NotificationPage(),
   ];
