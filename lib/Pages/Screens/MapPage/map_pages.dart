@@ -35,8 +35,7 @@ class _MapsPageState extends State<MapsPage>
   }
 
   // function to set selected spot details globally to generate ticket
-  void _markerController(
-      String parkingName, String locationText, String image) {
+  void _markerController(String parkingName, String locationText, String image) {
     return setState(() {
       spotController.toggleShowDetails(true);
       _toggleContainer();
@@ -95,6 +94,7 @@ class _MapsPageState extends State<MapsPage>
     fetchMarkers();
   }
 
+  // Dialog (Card on map ) Builder function
   void buildSelectedComponent(BuildContext context) {
     showModalBottomSheet(
         constraints: BoxConstraints(
@@ -294,72 +294,3 @@ class _MapsPageState extends State<MapsPage>
   }
 }
 
-//
-//
-// return Padding(
-// padding: const EdgeInsets.all(10.0),
-// child: Column(
-// crossAxisAlignment: CrossAxisAlignment.start,
-// mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-// children: [
-// Row(
-// mainAxisAlignment: MainAxisAlignment.spaceBetween,
-// children: [
-// const Text(
-// "Parking Spot",
-// style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-// ),
-// SizedBox(
-// height: 40,
-// width: 40,
-// child: GestureDetector(
-// onTap: () {
-// _animationController.reverse();
-// spotController.toggleShowDetails(false);
-// },
-// child: const Icon(
-// Icons.cancel_rounded,
-// size: 28,
-// ),
-// ),
-// )
-// ],
-// ),
-//
-// ClipRRect(
-// borderRadius: BorderRadius.circular(12),
-// child: Image(
-// width: ResponsiveUtils.screenWidth(context) ,
-// image: NetworkImage(spotController.parkingImage.toString())),
-// ),
-// Column(
-// children: [
-// Obx(() => Text("Name: ${spotController.parkingSpotName}")),
-// Obx(() => Text("Location: ${spotController.locationName}")),
-// ],
-// ),
-// Padding(
-// padding: const EdgeInsets.only(top: 8.0),
-// child: Center(
-// child: SizedBox(
-// width: ResponsiveUtils.screenWidth(context) * 0.6,
-// height: ResponsiveUtils.screenHeight(context) * 0.05,
-// child: ElevatedButton(
-// onPressed: () {
-// _animationController.reverse();
-// Navigator.pushNamed(context, "/booking");
-// },
-// style: ElevatedButton.styleFrom(
-// backgroundColor: ColorTheme.neogreenTheme,
-// foregroundColor: ColorTheme.blackTheme),
-// child: const Text(
-// "Pick Spot",
-// style: TextStyle(fontWeight: FontWeight.bold),
-// ),
-// ),
-// ),
-// ),
-// )
-// ],
-// ),
-// );
