@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../Utils/color_theme.dart';
 import '../../Utils/responsive_util.dart';
+
 // ignore: must_be_immutable
 class Buildform extends StatelessWidget {
   Buildform({super.key});
@@ -31,20 +32,22 @@ class Buildform extends StatelessWidget {
             height: 50,
             padding: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(131, 204, 204, 204),
+              color: ColorTheme.textfield,
               borderRadius: BorderRadius.circular(7),
             ),
             child: const TextField(
               cursorColor: Color.fromARGB(55, 97, 97, 97),
               keyboardType: TextInputType.name,
               style: TextStyle(
+                color: ColorTheme.nearBlack,
+                fontWeight: FontWeight.bold,
                 fontFamily: "roboto",
-                color: Color.fromARGB(255, 97, 97, 97),
                 fontSize: 16,
               ),
               decoration: InputDecoration(
                 hintStyle: TextStyle(
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: ColorTheme.nearBlack,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16,
                   fontFamily: 'roboto',
                 ),
@@ -63,7 +66,7 @@ class Buildform extends StatelessWidget {
             height: 50,
             padding: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(131, 204, 204, 204),
+              color: ColorTheme.textfield,
               borderRadius: BorderRadius.circular(7),
             ),
             child: const TextField(
@@ -71,12 +74,14 @@ class Buildform extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(
                 fontFamily: "roboto",
-                color: Color.fromARGB(255, 97, 97, 97),
+                color: ColorTheme.nearBlack,
+                fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
               decoration: InputDecoration(
                 hintStyle: TextStyle(
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: ColorTheme.nearBlack,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16,
                   fontFamily: 'roboto',
                 ),
@@ -95,7 +100,7 @@ class Buildform extends StatelessWidget {
             height: 50,
             padding: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(131, 204, 204, 204),
+              color: ColorTheme.textfield,
               borderRadius: BorderRadius.circular(7),
             ),
             child: const TextField(
@@ -103,12 +108,14 @@ class Buildform extends StatelessWidget {
               keyboardType: TextInputType.phone,
               style: TextStyle(
                 fontFamily: "roboto",
-                color: Color.fromARGB(255, 97, 97, 97),
+                color: ColorTheme.nearBlack,
+                fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
               decoration: InputDecoration(
                 hintStyle: TextStyle(
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: ColorTheme.nearBlack,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16,
                   fontFamily: 'roboto',
                 ),
@@ -127,7 +134,7 @@ class Buildform extends StatelessWidget {
             height: 50,
             padding: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(131, 204, 204, 204),
+              color: ColorTheme.textfield,
               borderRadius: BorderRadius.circular(7),
             ),
             child: const TextField(
@@ -136,12 +143,14 @@ class Buildform extends StatelessWidget {
               keyboardType: TextInputType.name,
               style: TextStyle(
                 fontFamily: "roboto",
-                color: Color.fromARGB(255, 97, 97, 97),
+                color: ColorTheme.nearBlack,
+                fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
               decoration: InputDecoration(
                 hintStyle: TextStyle(
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: ColorTheme.nearBlack,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16,
                   fontFamily: 'roboto',
                 ),
@@ -164,7 +173,7 @@ class Buildform extends StatelessWidget {
             height: 50,
             padding: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(131, 204, 204, 204),
+              color: ColorTheme.textfield,
               borderRadius: BorderRadius.circular(7),
             ),
             child: const TextField(
@@ -172,12 +181,14 @@ class Buildform extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(
                 fontFamily: "roboto",
-                color: Color.fromARGB(255, 97, 97, 97),
+                color: ColorTheme.nearBlack,
+                fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
               decoration: InputDecoration(
                 hintStyle: TextStyle(
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: ColorTheme.nearBlack,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16,
                   fontFamily: 'roboto',
                 ),
@@ -199,7 +210,7 @@ class Buildform extends StatelessWidget {
                 width: ResponsiveUtils.screenWidth(context) * 0.4,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 206, 206, 206),
+                      backgroundColor: const Color.fromARGB(131, 255, 255, 255),
                       foregroundColor: ColorTheme.blackTheme,
                     ),
                     onPressed: () async {
@@ -219,7 +230,7 @@ class Buildform extends StatelessWidget {
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
-                            const Color.fromARGB(255, 206, 206, 206),
+                            const Color.fromARGB(131, 255, 255, 255),
                         foregroundColor: ColorTheme.blackTheme,
                       ),
                       onPressed: () async {

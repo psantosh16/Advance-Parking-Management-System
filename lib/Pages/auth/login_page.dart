@@ -10,10 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -44,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildBottom() {
     return SizedBox(
       width: ResponsiveUtils.screenWidth(context),
-      height: ResponsiveUtils.screenHeight(context) * 0.7,
+      height: ResponsiveUtils.screenHeight(context) * 0.65,
       child: Card(
         margin: const EdgeInsets.all(0),
         shape: const RoundedRectangleBorder(
@@ -89,27 +87,78 @@ class _LoginPageState extends State<LoginPage> {
         SizedBox(
           height: ResponsiveUtils.screenHeight(context) * 0.06,
         ),
-        const TextField(
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            filled: true,
-            hintText: "Please enter valid Email",
-            prefixIcon: Icon(Icons.email_rounded),
-            labelText: "Email",
+        Container(
+          height: 50,
+          padding: const EdgeInsets.only(top: 5),
+          decoration: BoxDecoration(
+            color: ColorTheme.textfield,
+            borderRadius: BorderRadius.circular(7),
+          ),
+          child: const TextField(
+            cursorColor: Color.fromARGB(55, 97, 97, 97),
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(
+              color: ColorTheme.nearBlack,
+              fontWeight: FontWeight.bold,
+              fontFamily: "roboto",
+              fontSize: 16,
+            ),
+            decoration: InputDecoration(
+              hintStyle: TextStyle(
+                color: ColorTheme.nearBlack,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                fontFamily: 'roboto',
+              ),
+              prefixIcon: Icon(
+                Icons.person,
+                color: Color.fromARGB(115, 0, 0, 0),
+              ),
+              hintText: 'Enter Email',
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.all(10),
+            ),
           ),
         ),
         SizedBox(
           height: ResponsiveUtils.screenHeight(context) * 0.02,
         ),
-        const TextField(
-          keyboardType: TextInputType.text,
-          obscureText: true,
-          decoration: InputDecoration(
-            filled: true,
-            hintText: "Please enter valid Password",
-            prefixIcon: Icon(Icons.password),
-            labelText: "Password",
-            suffixIcon: Icon(Icons.remove_red_eye),
+        Container(
+          height: 50,
+          padding: const EdgeInsets.only(top: 5),
+          decoration: BoxDecoration(
+            color: ColorTheme.textfield,
+            borderRadius: BorderRadius.circular(7),
+          ),
+          child: const TextField(
+            obscureText: true,
+            cursorColor: Color.fromARGB(55, 97, 97, 97),
+            keyboardType: TextInputType.name,
+            style: TextStyle(
+              fontFamily: "roboto",
+              color: ColorTheme.nearBlack,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+            decoration: InputDecoration(
+              hintStyle: TextStyle(
+                color: ColorTheme.nearBlack,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                fontFamily: 'roboto',
+              ),
+              prefixIcon: Icon(
+                Icons.password_rounded,
+                color: Color.fromARGB(115, 0, 0, 0),
+              ),
+              suffixIcon: Icon(
+                Icons.remove_red_eye_rounded,
+                color: Color.fromARGB(115, 0, 0, 0),
+              ),
+              hintText: 'Enter Password',
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.all(10),
+            ),
           ),
         ),
 
@@ -144,20 +193,20 @@ class _LoginPageState extends State<LoginPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Text(
+            Text(
               "Don't have account? ",
               style: TextStyle(
-                  fontSize: ResponsiveUtils.textScaleFactor(context)*16,
+                  fontSize: ResponsiveUtils.textScaleFactor(context) * 16,
                   color: ColorTheme.grayTheme),
             ),
             GestureDetector(
               onTap: () {
                 Navigator.pushReplacementNamed(context, "/register");
               },
-              child:  Text(
+              child: Text(
                 "Register",
                 style: TextStyle(
-                    fontSize: ResponsiveUtils.textScaleFactor(context)*16,
+                    fontSize: ResponsiveUtils.textScaleFactor(context) * 16,
                     color: ColorTheme.blueTheme),
               ),
             )
