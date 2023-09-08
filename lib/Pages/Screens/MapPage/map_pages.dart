@@ -35,7 +35,8 @@ class _MapsPageState extends State<MapsPage>
   }
 
   // function to set selected spot details globally to generate ticket
-  void _markerController(String parkingName, String locationText, String image) {
+  void _markerController(
+      String parkingName, String locationText, String image) {
     return setState(() {
       spotController.toggleShowDetails(true);
       _toggleContainer();
@@ -46,7 +47,7 @@ class _MapsPageState extends State<MapsPage>
   // Fetching locations to be shown on map
   Future<void> fetchMarkers() async {
     final response =
-        await http.get(Uri.parse("http://localhost:1437/api/places"));
+        await http.get(Uri.parse("https://apms-backend.vercel.app/api/places"));
     if (response.statusCode == 200) {
       final List<dynamic> markerData = json.decode(response.body);
       setState(() {
@@ -224,7 +225,8 @@ class _MapsPageState extends State<MapsPage>
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize: Size(ResponsiveUtils.screenWidth(context), 20),
+                          fixedSize:
+                              Size(ResponsiveUtils.screenWidth(context), 20),
                           backgroundColor: ColorTheme.neogreenTheme,
                           foregroundColor: ColorTheme.blackTheme),
                       onPressed: () {
@@ -293,4 +295,3 @@ class _MapsPageState extends State<MapsPage>
     );
   }
 }
-

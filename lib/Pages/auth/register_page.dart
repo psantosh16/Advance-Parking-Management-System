@@ -35,6 +35,10 @@ class _RegisterPageState extends State<RegisterPage>
         _keyboardOffset = keyboardHeight / 2.55;
       } else if (keyboardHeight > 650) {
         _keyboardOffset = keyboardHeight / 2.1;
+      } else if (keyboardHeight < 600 && keyboardHeight > 550) {
+        _keyboardOffset = keyboardHeight / 2.4;
+      } else if (keyboardHeight > 610) {
+        _keyboardOffset = keyboardHeight / 1.8;
       } else {
         _keyboardOffset = keyboardHeight / 1.75;
       }
@@ -95,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage>
         child: Padding(
           padding: EdgeInsets.only(
               bottom: _keyboardOffset, left: 20, right: 20, top: 32),
-          child: Buildform(),
+          child: const Buildform(),
         ),
       ),
     );

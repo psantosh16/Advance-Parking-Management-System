@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:apms_project/GlobalState/provider/slotbutton.dart';
 import 'package:apms_project/Pages/Screens/Booking/bookingpage.dart';
 import 'package:apms_project/Pages/Screens/MapPage/map_pages.dart';
@@ -6,14 +8,18 @@ import 'package:apms_project/Pages/Screens/Recipt/recipet_page.dart';
 import 'package:apms_project/Pages/Screens/screen_page.dart';
 import 'package:apms_project/Pages/Screens/Payment/wallet_page.dart';
 import 'package:apms_project/Utils/color_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'Pages/Screens/Home/home_page.dart';
 import 'Pages/auth/login_page.dart';
 import 'Pages/auth/register_page.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Required for Firebase
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -23,11 +29,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Initialized GetMaterialApp
-    return MultiProvider(
+    var loginstatus = "";
+    if (FirebaseAuth.instance.currentUser == null) {
+      loginstatus = "login";
+    } else {
+      loginstatus = "screen";
+    }
 
-         providers: [
+    return MultiProvider(
+      providers: [
         ChangeNotifierProvider(create: (_) => ButtonController()),
-        
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
@@ -36,25 +47,21 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(
               color: ColorTheme.blackTheme, elevation: 0, toolbarHeight: 80),
         ),
-
-      initialRoute: "/register",
-
-      routes: {
-        // Auth Routes
-        "/register": (context) => const RegisterPage(),
-        "/login": (context) => const LoginPage(),
-
-        // Screen Routes
-        "/home": (context) => const HomePage(),
-        "/receipt": (context) => const ReceiptPage(),
-        "/map": (context) => const MapsPage(),
-        "/booking" : (context) => const BookingPage(),
-        "/screen": (context) => const ScreenPage(),
-        "/wallet": (context) => const WalletPage(),
-        "/profile":(context)=> const ProfilePage(),
-      },
+        initialRoute: "/$loginstatus",
+        routes: {
+          // Auth Routes
+          "/register": (context) => const RegisterPage(),
+          "/login": (context) => const LoginPage(),
+          // Screen Routes
+          "/home": (context) => const HomePage(),
+          "/receipt": (context) => const ReceiptPage(),
+          "/map": (context) => const MapsPage(),
+          "/booking": (context) => const BookingPage(),
+          "/screen": (context) => const ScreenPage(),
+          "/wallet": (context) => const WalletPage(),
+          "/profile": (context) => const ProfilePage(),
+        },
       ),
     );
-
   }
 }
