@@ -1,7 +1,5 @@
-import 'package:apms_project/GlobalState/ParkingController/parking_spot_contoller.dart';
-import 'package:apms_project/GlobalState/parking_controller.dart';
+import 'package:apms_project/GlobalState/ParkingController/parking_spot_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class NotificationPage extends StatefulWidget {
@@ -25,7 +23,7 @@ class _NotificationPageState extends State<NotificationPage> {
              return Column(
                mainAxisAlignment: MainAxisAlignment.center,
                children: [
-                 Text(value.selectedParkingSpot.name,style: TextStyle(fontSize: 20),),
+                 Text(value.selectedParkingSpot.name,style: const TextStyle(fontSize: 20),),
                  Text(value.selectedParkingSpot.location),
                  Image.network(value.selectedParkingSpot.image,width: 80,height: 120,),
                ],

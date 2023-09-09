@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:apms_project/GlobalState/Models/parking_model.dart';
-import 'package:apms_project/GlobalState/ParkingController/parking_spot_contoller.dart';
+import 'package:apms_project/GlobalState/ParkingController/parking_spot_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
-import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-import '../../../GlobalState/parking_controller.dart';
 import '../../../Utils/color_theme.dart';
 import '../../../Utils/responsive_util.dart';
 import 'package:http/http.dart' as http;
@@ -129,7 +127,6 @@ class _MapsPageState extends State<MapsPage>
         throw Exception('Failed to fetch markers');
       }
     }catch(e){
-      print("Error: $e");
       isLoading = true;
     }
   }
@@ -139,7 +136,6 @@ class _MapsPageState extends State<MapsPage>
     super.initState();
       Timer.periodic(const Duration(seconds: 4), (timer) {
           if(isLoading){
-            print(timer.tick);
             fetchMarkers();
           } else{
             timer.cancel();

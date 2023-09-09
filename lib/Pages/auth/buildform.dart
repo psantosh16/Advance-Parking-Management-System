@@ -1,17 +1,25 @@
-import 'dart:io';
-
+import 'package:apms_project/Pages/auth/signup.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-
 import '../../Utils/color_theme.dart';
 import '../../Utils/responsive_util.dart';
-// ignore: must_be_immutable
-class Buildform extends StatelessWidget {
-  Buildform({super.key});
-  File? file;
-  ImagePicker image = ImagePicker();
-  final ScrollController _scrollController = ScrollController();
 
+// ignore: must_be_immutable
+class Buildform extends StatefulWidget {
+  const Buildform({super.key});
+
+  @override
+  State<Buildform> createState() => _BuildformState();
+}
+
+class _BuildformState extends State<Buildform> {
+  String uniquefilename = DateTime.now().millisecondsSinceEpoch.toString();
+  final ScrollController _scrollController = ScrollController();
+  String namecontroller = "",
+      emailcontroller = "",
+      phonecontroller = "",
+      passcontroller = "",
+      vehicalcontroller = "",
+      imageurl = "";
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -31,20 +39,22 @@ class Buildform extends StatelessWidget {
             height: 50,
             padding: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(131, 204, 204, 204),
+              color: ColorTheme.textfield,
               borderRadius: BorderRadius.circular(7),
             ),
-            child: const TextField(
-              cursorColor: Color.fromARGB(55, 97, 97, 97),
+            child: TextField(
+              onChanged: (value) => namecontroller = value,
+              cursorColor: const Color.fromARGB(55, 97, 97, 97),
               keyboardType: TextInputType.name,
-              style: TextStyle(
+              style: const TextStyle(
+                color: ColorTheme.nearBlack,
                 fontFamily: "roboto",
-                color: Color.fromARGB(255, 97, 97, 97),
                 fontSize: 16,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintStyle: TextStyle(
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: ColorTheme.nearBlack,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16,
                   fontFamily: 'roboto',
                 ),
@@ -63,20 +73,22 @@ class Buildform extends StatelessWidget {
             height: 50,
             padding: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(131, 204, 204, 204),
+              color: ColorTheme.textfield,
               borderRadius: BorderRadius.circular(7),
             ),
-            child: const TextField(
-              cursorColor: Color.fromARGB(55, 97, 97, 97),
+            child: TextField(
+              onChanged: (value) => emailcontroller = value,
+              cursorColor: const Color.fromARGB(55, 97, 97, 97),
               keyboardType: TextInputType.emailAddress,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: "roboto",
-                color: Color.fromARGB(255, 97, 97, 97),
+                color: ColorTheme.nearBlack,
                 fontSize: 16,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintStyle: TextStyle(
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: ColorTheme.nearBlack,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16,
                   fontFamily: 'roboto',
                 ),
@@ -95,20 +107,22 @@ class Buildform extends StatelessWidget {
             height: 50,
             padding: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(131, 204, 204, 204),
+              color: ColorTheme.textfield,
               borderRadius: BorderRadius.circular(7),
             ),
-            child: const TextField(
-              cursorColor: Color.fromARGB(55, 97, 97, 97),
+            child: TextField(
+              onChanged: (value) => phonecontroller = value,
+              cursorColor: const Color.fromARGB(55, 97, 97, 97),
               keyboardType: TextInputType.phone,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: "roboto",
-                color: Color.fromARGB(255, 97, 97, 97),
+                color: ColorTheme.nearBlack,
                 fontSize: 16,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintStyle: TextStyle(
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: ColorTheme.nearBlack,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16,
                   fontFamily: 'roboto',
                 ),
@@ -127,21 +141,23 @@ class Buildform extends StatelessWidget {
             height: 50,
             padding: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(131, 204, 204, 204),
+              color: ColorTheme.textfield,
               borderRadius: BorderRadius.circular(7),
             ),
-            child: const TextField(
+            child: TextField(
+              onChanged: (value) => passcontroller = value,
               obscureText: true,
-              cursorColor: Color.fromARGB(55, 97, 97, 97),
+              cursorColor: const Color.fromARGB(55, 97, 97, 97),
               keyboardType: TextInputType.name,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: "roboto",
-                color: Color.fromARGB(255, 97, 97, 97),
+                color: ColorTheme.nearBlack,
                 fontSize: 16,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintStyle: TextStyle(
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: ColorTheme.nearBlack,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16,
                   fontFamily: 'roboto',
                 ),
@@ -164,20 +180,22 @@ class Buildform extends StatelessWidget {
             height: 50,
             padding: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(131, 204, 204, 204),
+              color: ColorTheme.textfield,
               borderRadius: BorderRadius.circular(7),
             ),
-            child: const TextField(
-              cursorColor: Color.fromARGB(55, 97, 97, 97),
-              keyboardType: TextInputType.emailAddress,
-              style: TextStyle(
+            child: TextField(
+              onChanged: (value) => vehicalcontroller = value,
+              cursorColor: const Color.fromARGB(55, 97, 97, 97),
+              keyboardType: TextInputType.name,
+              style: const TextStyle(
                 fontFamily: "roboto",
-                color: Color.fromARGB(255, 97, 97, 97),
+                color: ColorTheme.nearBlack,
                 fontSize: 16,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintStyle: TextStyle(
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: ColorTheme.nearBlack,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16,
                   fontFamily: 'roboto',
                 ),
@@ -199,13 +217,11 @@ class Buildform extends StatelessWidget {
                 width: ResponsiveUtils.screenWidth(context) * 0.4,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 206, 206, 206),
+                      backgroundColor: const Color.fromARGB(131, 255, 255, 255),
                       foregroundColor: ColorTheme.blackTheme,
                     ),
                     onPressed: () async {
-                      // ignore: unused_local_variable
-                      XFile? file =
-                          await image.pickImage(source: ImageSource.gallery);
+                      imageurl = await uploadimage(context);
                     },
                     child: const Icon(
                       Icons.add_a_photo_outlined,
@@ -219,13 +235,11 @@ class Buildform extends StatelessWidget {
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
-                            const Color.fromARGB(255, 206, 206, 206),
+                            const Color.fromARGB(131, 255, 255, 255),
                         foregroundColor: ColorTheme.blackTheme,
                       ),
                       onPressed: () async {
                         // ignore: unused_local_variable
-                        XFile? file =
-                            await image.pickImage(source: ImageSource.gallery);
                       },
                       child: const Icon(
                         Icons.add_card_outlined,
@@ -243,7 +257,16 @@ class Buildform extends StatelessWidget {
                 foregroundColor: ColorTheme.blackTheme,
               ),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, "/screen");
+                signup(
+                    context,
+                    namecontroller,
+                    emailcontroller,
+                    phonecontroller,
+                    passcontroller,
+                    vehicalcontroller,
+                    imageurl,
+                    uniquefilename);
+                // Navigator.pushReplacementNamed(context, "/screen"
               },
               child: Text(
                 "Register".toUpperCase(),
