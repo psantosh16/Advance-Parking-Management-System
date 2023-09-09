@@ -1,15 +1,13 @@
-// ignore_for_file: depend_on_referenced_packages
-
+import 'package:apms_project/GlobalState/ParkingController/parking_spot_controller.dart';
 import 'package:apms_project/GlobalState/provider/slotbutton.dart';
 import 'package:apms_project/Pages/Screens/Booking/bookingpage.dart';
 import 'package:apms_project/Pages/Screens/MapPage/map_pages.dart';
 import 'package:apms_project/Pages/Screens/Profile/profile_page.dart';
 import 'package:apms_project/Pages/Screens/Recipt/recipet_page.dart';
-import 'package:apms_project/Pages/Screens/screen_page.dart';
+import 'package:apms_project/Pages/Screens/screen_page_handler.dart';
 import 'package:apms_project/Pages/Screens/Payment/wallet_page.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'Pages/Screens/Home/home_page.dart';
 import 'Pages/auth/login_page.dart';
@@ -38,9 +36,10 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_)=> ParkingSpotProvider()),
         ChangeNotifierProvider(create: (_) => ButtonController()),
       ],
-      child: GetMaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           brightness: Brightness.light,
@@ -49,10 +48,11 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: "/$loginstatus",
         routes: {
-          // Auth Routes
+          // Auth
           "/register": (context) => const RegisterPage(),
           "/login": (context) => const LoginPage(),
-          // Screen Routes
+
+          // Screen
           "/home": (context) => const HomePage(),
           "/receipt": (context) => const ReceiptPage(),
           "/map": (context) => const MapsPage(),
