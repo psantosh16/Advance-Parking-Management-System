@@ -5,7 +5,6 @@ import 'package:apms_project/Pages/Screens/Notification/notification_page.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'Home/drawer_widget.dart';
 
 class ScreenPage extends StatefulWidget {
@@ -19,7 +18,7 @@ class _ScreenPageState extends State<ScreenPage> {
   int _selectedIndex = 1;
 
   final List<Widget> _screens = [
-    const MapsPage(),
+     const MapsPage(),
     const HomePage(),
     const NotificationPage(),
   ];
