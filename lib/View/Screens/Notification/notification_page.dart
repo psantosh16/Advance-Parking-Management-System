@@ -1,4 +1,4 @@
-import 'package:apms_project/GlobalState/ParkingController/parking_spot_controller.dart';
+import 'package:apms_project/Controller/ParkingController/parking_spot_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

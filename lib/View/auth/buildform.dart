@@ -1,4 +1,4 @@
-import 'package:apms_project/Pages/auth/signup.dart';
+import 'package:apms_project/View/auth/signup.dart';
 import 'package:flutter/material.dart';
 import '../../Utils/color_theme.dart';
 import '../../Utils/responsive_util.dart';

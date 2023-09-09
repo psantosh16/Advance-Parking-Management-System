@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:apms_project/Pages/auth/showmessage.dart';
+import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
