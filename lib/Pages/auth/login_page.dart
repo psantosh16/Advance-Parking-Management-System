@@ -185,18 +185,22 @@ class _LoginPageState extends State<LoginPage> {
               foregroundColor: ColorTheme.blackTheme,
             ),
             onPressed: () async {
-              loading(context);
-              try {
-                await FirebaseAuth.instance
-                    .signInWithEmailAndPassword(email: email, password: pass);
-                Navigator.pop(context);
-                await Navigator.pushReplacementNamed(context, "/screen");
-                dialogue(context, "Success", "Login Successful");
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'user-not-found') {
-                  dialogue(context, "error", "no user found");
-                } else if (e.code == 'wrong-password') {
-                  dialogue(context, "error", "wrong password");
+              if (email == "" || pass == "") {
+                dialogue(context, "Error", "Please fill all the details");
+              } else {
+                loading(context);
+                try {
+                  await FirebaseAuth.instance
+                      .signInWithEmailAndPassword(email: email, password: pass);
+                  Navigator.pop(context);
+                  await Navigator.pushReplacementNamed(context, "/screen");
+                  dialogue(context, "Success", "Login Successful");
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'user-not-found') {
+                    dialogue(context, "error", "no user found");
+                  } else if (e.code == 'wrong-password') {
+                    dialogue(context, "error", "wrong password");
+                  }
                 }
               }
             },

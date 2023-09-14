@@ -12,39 +12,48 @@ import '../Screens/screen_page.dart';
 
 Future<void> signup(context, name, email, phone, password, vehical, imageurl,
     uniquefilename) async {
-  loading(context);
-
-  try {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    await FirebaseFirestore.instance
-        .collection("users")
-        .doc(FirebaseAuth.instance.currentUser?.uid)
-        .set({
-      "name": name,
-      "email": email,
-      "useid": FirebaseAuth.instance.currentUser?.uid,
-      "phone": phone,
-      "password": password,
-      "vehical": vehical,
-      "imageurl": imageurl,
-      "uniquefilename": uniquefilename,
-    });
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'weak-password') {
-      dialogue(context, "Error", "The password provided is too weak !");
-    } else if (e.code == 'email-already-in-use') {
-      dialogue(context, "Error", "Email already exists !");
+  if (name == "" ||
+      email == "" ||
+      phone == "" ||
+      password == "" ||
+      vehical == "") {
+    dialogue(context, "Error", "fill all the deatails ");
+  } else if (imageurl == "") {
+    dialogue(context, "Upload image", "upload your profile picture");
+  } else {
+    loading(context);
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .set({
+        "name": name,
+        "email": email,
+        "useid": FirebaseAuth.instance.currentUser?.uid,
+        "phone": phone,
+        "password": password,
+        "vehical": vehical,
+        "imageurl": imageurl,
+        "uniquefilename": uniquefilename,
+      });
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        dialogue(context, "Error", "The password provided is too weak !");
+      } else if (e.code == 'email-already-in-use') {
+        dialogue(context, "Error", "Email already exists !");
+      }
+    } catch (e) {
+      rethrow;
     }
-  } catch (e) {
-    rethrow;
+    Navigator.of(context).pop();
+    dialogue(context, "Success", "Registration Successful");
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const ScreenPage()));
   }
-  Navigator.of(context).pop();
-  dialogue(context, "Success", "Registration Successful");
-  Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const ScreenPage()));
 }
 
 Future<String> uploadimage(context) async {
@@ -82,5 +91,3 @@ Future<String> uploadimage(context) async {
     return imageurl;
   }
 }
-  // ignore: unused_local_variable
-
