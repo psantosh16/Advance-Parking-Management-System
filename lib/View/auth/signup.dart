@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:apms_project/Pages/auth/showmessage.dart';
+import 'package:apms_project/View/Screens/screen_page_handler.dart';
+import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../Screens/screen_page.dart';
 
 Future<void> signup(context, name, email, phone, password, vehical, imageurl,
     uniquefilename) async {

@@ -1,4 +1,4 @@
-import 'package:apms_project/Pages/Screens/Profile/profile_model.dart';
+import 'package:apms_project/View/Screens/Profile/profile_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Utils/color_theme.dart';

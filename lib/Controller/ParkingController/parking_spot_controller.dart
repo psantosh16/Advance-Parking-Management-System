@@ -17,8 +17,15 @@ class ParkingSpotProvider extends ChangeNotifier {
   void toggleShowDetails(bool value) {
     _showDetails = value;
     if (!_showDetails) {
-      _selectedParkingSpot = '' as ParkingSpot;
+      _selectedParkingSpot = ParkingSpot('', '', '');
     }
     notifyListeners();
+  }
+
+  void saveSelectedData(String name , String location , String image){
+     ParkingSpot(name, location, image);
+     toggleShowDetails(true);
+     notifyListeners();
+
   }
 }
