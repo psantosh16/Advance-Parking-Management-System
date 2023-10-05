@@ -1,4 +1,4 @@
-import 'package:apms_project/GlobalState/drawer_controller.dart';
+import 'package:apms_project/Controller/drawer_controller.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

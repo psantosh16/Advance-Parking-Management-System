@@ -1,4 +1,4 @@
-import 'package:apms_project/Pages/auth/buildform.dart';
+import 'package:apms_project/View/auth/buildform.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:flutter/material.dart';
@@ -51,9 +51,8 @@ class _RegisterPageState extends State<RegisterPage>
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false, // Add this line
-
+      child: Scaffold( 
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         body: Container(
           color: ColorTheme.whiteTheme,
@@ -106,4 +105,3 @@ class _RegisterPageState extends State<RegisterPage>
   }
 }
 
-// ignore: camel_case_types, must_be_immutable

@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:apms_project/Pages/Screens/screen_page_handler.dart';
-import 'package:apms_project/Pages/auth/showmessage.dart';
+import 'package:apms_project/View/Screens/screen_page_handler.dart';
+import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';

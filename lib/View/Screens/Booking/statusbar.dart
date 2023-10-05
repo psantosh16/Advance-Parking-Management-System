@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../GlobalState/provider/slotbutton.dart';
+import '../../../Controller/provider/slotbutton.dart';
 import '../../../Utils/color_theme.dart';
 
 class Statusbutton extends StatefulWidget {

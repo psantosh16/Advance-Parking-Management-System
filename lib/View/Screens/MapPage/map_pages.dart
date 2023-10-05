@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:apms_project/GlobalState/Models/parking_model.dart';
-import 'package:apms_project/GlobalState/ParkingController/parking_spot_controller.dart';
+import 'package:apms_project/Controller/Models/parking_model.dart';
+import 'package:apms_project/Controller/ParkingController/parking_spot_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';

@@ -1,7 +1,7 @@
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../GlobalState/provider/slotbutton.dart';
+import '../../../Controller/provider/slotbutton.dart';
 
 class Slotsleft extends StatefulWidget {
   const Slotsleft({super.key});
