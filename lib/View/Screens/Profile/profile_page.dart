@@ -1,3 +1,4 @@
+import 'package:apms_project/View/Screens/Home/home_page.dart';
 import 'package:apms_project/View/Screens/Profile/profile_model.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +13,24 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late Map<String, dynamic> data = {"name": "...", "imageurl": ""};
+  @override
+  void initState() {
+    super.initState();
+    fetchData().then((result) {
+      setState(() {
+        data = result; // Assign the fetched data to the 'data' list.
+      });
+    });
+  }
+
   // DashBoard List
   final List<ProfileModel> _dashboardList = [
     ProfileModel(name: 'Payment', icon: Icons.wallet, color: Colors.green),
-    ProfileModel(name: "Discounts", icon: Icons.discount, color: Colors.yellow.shade700),
-    ProfileModel(name: "Privacy", icon: Icons.privacy_tip, color: Colors.grey.shade400)
+    ProfileModel(
+        name: "Discounts", icon: Icons.discount, color: Colors.yellow.shade700),
+    ProfileModel(
+        name: "Privacy", icon: Icons.privacy_tip, color: Colors.grey.shade400)
   ];
 
   @override
@@ -24,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: const Text("My Profile" ),
+          title: const Text("My Profile"),
         ),
         body: ListView(
           children: [
@@ -34,7 +48,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const SizedBox(height: 40,),
+                  const SizedBox(
+                    height: 40,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -43,12 +59,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: ColorTheme.grayTheme,
                           strokeWidth: 100,
                           child: SizedBox(
-                            width: 94,
-                            height: 94,
-                            child: Image.network(
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpqJKRFR7biVyccvSz_eloFoHh5zYRPvL4-xMOVcTUruSOT_2uV8_RAEg-I9qlYxYdCMo&usqp=CAU",
-                                fit: BoxFit.cover),
-                          ),
+                              width: 94,
+                              height: 94,
+                              child: data['imageurl'] == ""
+                                  ? const Center(
+                                      child:
+                                          CircularProgressIndicator.adaptive(),
+                                    )
+                                  : Image.network(data['imageurl'] ?? "",
+                                      fit: BoxFit.cover)),
                         ),
                       ),
                       Column(
@@ -56,17 +75,21 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "John M",
+                            data['name'],
                             style: TextStyle(
                                 fontSize:
-                                    ResponsiveUtils.textScaleFactor(context) * 32,
+                                    ResponsiveUtils.textScaleFactor(context) *
+                                        32,
                                 fontWeight: FontWeight.bold),
                           ),
                           Row(
                             children: [
                               const Padding(
                                 padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.edit , color: Colors.grey,),
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.grey,
+                                ),
                               ),
                               GestureDetector(
                                 onTap: () {
@@ -76,9 +99,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   "Edit profile",
                                   style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize:
-                                          ResponsiveUtils.textScaleFactor(context) *
-                                              16),
+                                      fontSize: ResponsiveUtils.textScaleFactor(
+                                              context) *
+                                          16),
                                 ),
                               ),
                             ],
@@ -87,45 +110,59 @@ class _ProfilePageState extends State<ProfilePage> {
                       )
                     ],
                   ),
-                  const SizedBox(height: 40,),
+                  const SizedBox(
+                    height: 40,
+                  ),
                   Column(
-                     crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         "Dashboard",
                         style: TextStyle(
                             color: Colors.grey[700],
-                            fontSize: ResponsiveUtils.textScaleFactor(context) * 18),
+                            fontSize:
+                                ResponsiveUtils.textScaleFactor(context) * 18),
                       ),
-
                       SizedBox(
-                          height: ResponsiveUtils.screenHeight(context)*0.3,
+                          height: ResponsiveUtils.screenHeight(context) * 0.3,
                           child: ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: _dashboardList.length,
                             itemBuilder: (context, idx) {
                               return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
                                 child: ListTile(
                                   contentPadding: EdgeInsets.zero,
-
                                   leading: ClipOval(
                                     child: Container(
                                       padding: const EdgeInsets.all(8),
-                                      height: ResponsiveUtils.screenHeight(context)*0.06,
-                                      width: ResponsiveUtils.screenHeight(context)*0.06,
+                                      height: ResponsiveUtils.screenHeight(
+                                              context) *
+                                          0.06,
+                                      width: ResponsiveUtils.screenHeight(
+                                              context) *
+                                          0.06,
                                       decoration: BoxDecoration(
                                           color: _dashboardList[idx].color),
-                                      child: Icon(_dashboardList[idx].icon,size: ResponsiveUtils.textScaleFactor(context)* 24, color: Colors.white,),
+                                      child: Icon(
+                                        _dashboardList[idx].icon,
+                                        size: ResponsiveUtils.textScaleFactor(
+                                                context) *
+                                            24,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                   title: Text(
                                     _dashboardList[idx].name,
                                     style: TextStyle(
-                                        fontSize:
-                                            ResponsiveUtils.textScaleFactor(context) *
-                                                18,color: Colors.black,),
+                                      fontSize: ResponsiveUtils.textScaleFactor(
+                                              context) *
+                                          18,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                   trailing: const Icon(Icons.arrow_forward_ios),
                                 ),
@@ -134,7 +171,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           ))
                     ],
                   ),
-                  const SizedBox(height: 40,),
+                  const SizedBox(
+                    height: 40,
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -142,36 +181,43 @@ class _ProfilePageState extends State<ProfilePage> {
                         "My Account",
                         style: TextStyle(
                             color: Colors.grey[700],
-                            fontSize: ResponsiveUtils.textScaleFactor(context) * 18),
+                            fontSize:
+                                ResponsiveUtils.textScaleFactor(context) * 18),
                       ),
-                      const SizedBox(height: 18,),
+                      const SizedBox(
+                        height: 18,
+                      ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.pushNamed(context, '/login');
                         },
                         child: Text(
                           "Switch to other account",
                           style: TextStyle(
                               color: ColorTheme.blueTheme,
-                              fontSize: ResponsiveUtils.textScaleFactor(context) * 20 , fontWeight: FontWeight.bold),
+                              fontSize:
+                                  ResponsiveUtils.textScaleFactor(context) * 20,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                      const SizedBox(height: 18,),
+                      const SizedBox(
+                        height: 18,
+                      ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.pushNamed(context, '/login');
                         },
                         child: Text(
                           "Log Out",
                           style: TextStyle(
                               color: Colors.red,
-                              fontSize: ResponsiveUtils.textScaleFactor(context) * 20 , fontWeight: FontWeight.bold),
+                              fontSize:
+                                  ResponsiveUtils.textScaleFactor(context) * 20,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-
                     ],
                   ),
-
                 ],
               ),
             ),

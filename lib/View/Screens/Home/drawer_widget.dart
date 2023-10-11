@@ -1,12 +1,29 @@
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
+import 'package:apms_project/View/Screens/Home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class HomePageDrawer extends StatelessWidget {
+class HomePageDrawer extends StatefulWidget {
   const HomePageDrawer({
     super.key,
   });
+
+  @override
+  State<HomePageDrawer> createState() => _HomePageDrawerState();
+}
+
+class _HomePageDrawerState extends State<HomePageDrawer> {
+  late Map<String, dynamic> data = {"name": "...", "imageurl": ""};
+  @override
+  void initState() {
+    super.initState();
+    fetchData().then((result) {
+      setState(() {
+        data = result; // Assign the fetched data to the 'data' list.
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +46,14 @@ class HomePageDrawer extends StatelessWidget {
                       color: ColorTheme.grayTheme,
                       strokeWidth: 100,
                       child: SizedBox(
-                        width: 90,
-                        height: 90,
-                        child: Image.network(
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpqJKRFR7biVyccvSz_eloFoHh5zYRPvL4-xMOVcTUruSOT_2uV8_RAEg-I9qlYxYdCMo&usqp=CAU",
-                            fit: BoxFit.cover),
-                      ),
+                          width: 90,
+                          height: 90,
+                          child: data['imageurl'] == ""
+                              ? const Center(
+                                  child: CircularProgressIndicator.adaptive(),
+                                )
+                              : Image.network(data['imageurl'] ?? "",
+                                  fit: BoxFit.cover)),
                     ),
                   ),
                   Column(
@@ -42,7 +61,7 @@ class HomePageDrawer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "John M",
+                        data['name'],
                         style: TextStyle(
                             fontSize:
                                 ResponsiveUtils.textScaleFactor(context) * 25,
@@ -50,7 +69,14 @@ class HomePageDrawer extends StatelessWidget {
                       ),
                       GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/profile');
+                            Navigator.pushNamed(
+                              context,
+                              '/profile',
+                              arguments: {
+                                'imageurl': data['imageurl'],
+                                'name': data['name'],
+                              },
+                            );
                           },
                           child: Text(
                             "View Profile",
