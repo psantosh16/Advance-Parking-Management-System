@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:apms_project/View/Screens/animations/loading_car.dart';
 import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
@@ -188,7 +189,7 @@ class _LoginPageState extends State<LoginPage> {
               if (email == "" || pass == "") {
                 dialogue(context, "Error", "Please fill all the details");
               } else {
-                loading(context);
+                loadingcar(context);
                 try {
                   await FirebaseAuth.instance
                       .signInWithEmailAndPassword(email: email, password: pass);
@@ -197,8 +198,10 @@ class _LoginPageState extends State<LoginPage> {
                   dialogue(context, "Success", "Login Successful");
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'user-not-found') {
+                    Navigator.pop(context);
                     dialogue(context, "error", "no user found");
                   } else if (e.code == 'wrong-password') {
+                    Navigator.pop(context);
                     dialogue(context, "error", "wrong password");
                   }
                 }

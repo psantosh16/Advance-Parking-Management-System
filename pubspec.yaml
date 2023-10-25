@@ -23,6 +23,7 @@ dependencies:
   permission_handler: ^10.4.5
   cloud_firestore: ^4.9.1
   firebase_auth: ^4.9.0
+  lottie: ^2.7.0
 
 dev_dependencies:
   flutter_test:
@@ -40,6 +41,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets\images\car.json
 
 
 
