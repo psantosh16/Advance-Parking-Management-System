@@ -1,11 +1,12 @@
+import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class PaymentGateway extends StatefulWidget {
-  const PaymentGateway({super.key});
-
+  final int amount;
+  const PaymentGateway({required this.amount, super.key});
   @override
   State<PaymentGateway> createState() => _PaymentGatewayState();
 }
@@ -15,7 +16,6 @@ class _PaymentGatewayState extends State<PaymentGateway> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _razorpay = Razorpay();
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
@@ -39,13 +39,11 @@ class _PaymentGatewayState extends State<PaymentGateway> {
   }
 
   // fake upi id => rajat@ybl
-
   void makePayment() async {
- 
     final _keyId = dotenv.env['RAZORPAY_KEY_ID'];
     var options = {
       'key': _keyId,
-      'amount': 20000, // RS 200
+      'amount': widget.amount * 100,
       'name': 'Parkiza',
       'description': 'Online Parking slot booking',
       'prefill': {'contact': '6060606062', 'email': 'gojo@gmail.com'},
@@ -57,19 +55,29 @@ class _PaymentGatewayState extends State<PaymentGateway> {
       debugPrint(e.toString());
     }
   }
+
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _razorpay.clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        onPressed: () {
-          makePayment();
-        },
-        child: Text("Pay"));
+    return SizedBox(
+      width: 150,
+      height: 43,
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(6))),
+            backgroundColor: const Color.fromARGB(255, 199, 255, 41),
+            foregroundColor: ColorTheme.blackTheme,
+          ),
+          onPressed: () {
+            makePayment();
+          },
+          child: const Text("Pay")),
+    );
   }
 }

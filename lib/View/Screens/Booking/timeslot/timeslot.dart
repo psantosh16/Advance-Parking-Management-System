@@ -1,6 +1,7 @@
 import 'package:apms_project/Controller/provider/slotbutton.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:apms_project/Controller/provider/pickdate.dart';
+import 'package:apms_project/View/Screens/Payment/paymentGateway.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,9 +14,16 @@ class Timeslot extends StatefulWidget {
 
 class _TimeslotState extends State<Timeslot> {
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      Provider.of<datepickprovider>(context, listen: false).reset();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     Provider.of<ButtonController>(context);
-    Provider.of<datepickprovider>(context);
     return Scaffold(appBar: AppBar(
         title: Consumer<ButtonController>(builder: (context, value, child) {
       return Text(value.selectedslot);
@@ -26,12 +34,12 @@ class _TimeslotState extends State<Timeslot> {
         ),
         Container(
             width: double.infinity,
-            height: ResponsiveUtils.screenHeight(context) * 0.05,
+            height: ResponsiveUtils.screenHeight(context) * 0.054,
             margin: const EdgeInsets.only(right: 20, left: 20),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(8)),
                     backgroundColor: const Color.fromARGB(255, 219, 219, 219)),
                 onPressed: () async {
                   value.Datepicker(context);
@@ -67,27 +75,25 @@ class _TimeslotState extends State<Timeslot> {
           children: [
             Column(
               children: [
-                Container(
-                  child: Text(
-                    "Starting time",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: ResponsiveUtils.screenWidth(context) * 0.04),
-                  ),
+                Text(
+                  "Starting time",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: ResponsiveUtils.screenWidth(context) * 0.04),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
+                SizedBox(
                   width: ResponsiveUtils.screenWidth(context) * 0.4,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(7)),
                           backgroundColor:
                               const Color.fromARGB(255, 219, 219, 219)),
                       onPressed: () async {
-                        value.Starttimepicker(context);
+                        value.starttimepicker(context);
                       },
                       child: Container(
                         margin: const EdgeInsets.only(top: 10, bottom: 10),
@@ -95,7 +101,7 @@ class _TimeslotState extends State<Timeslot> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              value.Starttime,
+                              value.starttime,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize:
@@ -114,27 +120,25 @@ class _TimeslotState extends State<Timeslot> {
             ),
             Column(
               children: [
-                Container(
-                  child: Text(
-                    "Ending time",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: ResponsiveUtils.screenWidth(context) * 0.04),
-                  ),
+                Text(
+                  "Ending time",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: ResponsiveUtils.screenWidth(context) * 0.04),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
+                SizedBox(
                   width: ResponsiveUtils.screenWidth(context) * 0.4,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(7)),
                           backgroundColor:
                               const Color.fromARGB(255, 219, 219, 219)),
                       onPressed: () async {
-                        value.Endtimepicker(context);
+                        value.endtimepicker(context);
                       },
                       child: Container(
                         margin: const EdgeInsets.only(top: 10, bottom: 10),
@@ -142,7 +146,7 @@ class _TimeslotState extends State<Timeslot> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              value.Endtime,
+                              value.endtime,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize:
@@ -160,6 +164,49 @@ class _TimeslotState extends State<Timeslot> {
               ],
             )
           ],
+        ),
+        const SizedBox(
+          height: 50,
+        ),
+        SizedBox(
+          width: double.infinity,
+          height: 60,
+          child: Container(
+            margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(7),
+              color: const Color.fromARGB(255, 223, 222, 222),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  child: Text(
+                    "Total Amount  :  ${value.amount}",
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Consumer<ButtonController>(builder: (context, value, child) {
+                  return Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    child: const Text(
+                      "",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  );
+                }),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        PaymentGateway(
+          amount: value.amount,
         )
       ]);
     }));

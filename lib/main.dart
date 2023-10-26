@@ -40,11 +40,14 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=> ParkingSpotProvider()),
+        ChangeNotifierProvider(create: (_) => ParkingSpotProvider()),
         ChangeNotifierProvider(create: (_) => ButtonController()),
         ChangeNotifierProvider(create: (_) => datepickprovider()),
       ],
       child: MaterialApp(
+        builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           brightness: Brightness.light,
