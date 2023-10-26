@@ -11,6 +11,12 @@ class Buildform extends StatefulWidget {
 }
 
 class _BuildformState extends State<Buildform> {
+      bool _isHidden = true;
+   void _togglePasswordView() {
+      setState(() {
+        _isHidden = !_isHidden;
+      });
+    }
   String uniquefilename = DateTime.now().millisecondsSinceEpoch.toString();
   final ScrollController _scrollController = ScrollController();
   String namecontroller = "",
@@ -145,7 +151,7 @@ class _BuildformState extends State<Buildform> {
             ),
             child: TextField(
               onChanged: (value) => passcontroller = value,
-              obscureText: true,
+              obscureText: _isHidden,
               cursorColor: const Color.fromARGB(55, 97, 97, 97),
               keyboardType: TextInputType.name,
               style: const TextStyle(
@@ -153,24 +159,28 @@ class _BuildformState extends State<Buildform> {
                 color: ColorTheme.nearBlack,
                 fontSize: 16,
               ),
-              decoration: const InputDecoration(
-                hintStyle: TextStyle(
+              decoration:  InputDecoration(
+                hintStyle: const TextStyle(
                   color: ColorTheme.nearBlack,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                   fontFamily: 'roboto',
                 ),
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.password_rounded,
                   color: Color.fromARGB(115, 0, 0, 0),
                 ),
-                suffixIcon: Icon(
-                  Icons.remove_red_eye_rounded,
-                  color: Color.fromARGB(115, 0, 0, 0),
+                suffixIcon: InkWell(
+                  onTap: ((){
+                    _togglePasswordView();
+                  }),
+                  child: Icon( _isHidden ? Icons.visibility_off : Icons.visibility,
+                    color: const Color.fromARGB(115, 0, 0, 0),
+                  ),
                 ),
                 hintText: 'Enter Password',
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
               ),
             ),
           ),

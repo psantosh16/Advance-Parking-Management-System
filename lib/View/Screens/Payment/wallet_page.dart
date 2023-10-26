@@ -1,3 +1,4 @@
+import 'package:apms_project/View/Screens/Payment/paymentGateway.dart';
 import 'package:flutter/material.dart';
 
 class WalletPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _WalletPageState extends State<WalletPage> {
       appBar: AppBar(
         title: const Text("Wallet"),
       ),
-      body:const Text("data"),
+      body: Center(child: PaymentGateway())
     );
   }
 }

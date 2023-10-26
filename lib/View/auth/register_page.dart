@@ -13,6 +13,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage>
     with WidgetsBindingObserver {
   double _keyboardOffset = 0.0; // To store the keyboard offset
+     
   @override
   void initState() {
     super.initState();
