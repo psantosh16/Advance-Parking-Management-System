@@ -68,13 +68,13 @@ Future<String> uploadimage(context) async {
     loadingcar(context);
     Reference referenceimagetoupload =
         FirebaseStorage.instance.ref().child('profiles').child(uniquefilename);
-    TaskSnapshot uploadTask =
-        await referenceimagetoupload.putFile(File(file!.path));
+    // TaskSnapshot uploadTask =
+    await referenceimagetoupload.putFile(File(file!.path));
     try {
       imageurl = await referenceimagetoupload.getDownloadURL();
       Navigator.of(context).pop();
       showmessage(context, "Profile Picture added Successfully!");
-      print(imageurl);
+      // print(imageurl);
       return imageurl;
     } catch (e) {
       return e.toString();

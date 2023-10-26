@@ -62,7 +62,12 @@ class _StatusbuttonState extends State<Statusbutton> {
                 backgroundColor: const Color.fromARGB(255, 199, 255, 41),
                 foregroundColor: ColorTheme.blackTheme,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/timeslot',
+                );
+              },
               child: const Text(
                 "Book",
                 style: TextStyle(fontSize: FontTheme.buttonFontSize),

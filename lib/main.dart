@@ -1,6 +1,7 @@
 import 'package:apms_project/Controller/ParkingController/parking_spot_controller.dart';
 import 'package:apms_project/Controller/provider/slotbutton.dart';
 import 'package:apms_project/View/Screens/Booking/bookingpage.dart';
+import 'package:apms_project/View/Screens/Booking/timeslot/timeslot.dart';
 import 'package:apms_project/View/Screens/MapPage/map_pages.dart';
 import 'package:apms_project/View/Screens/Profile/profile_page.dart';
 import 'package:apms_project/View/Screens/Recipt/recipet_page.dart';
@@ -51,7 +52,6 @@ class MyApp extends StatelessWidget {
           // Auth
           "/register": (context) => const RegisterPage(),
           "/login": (context) => const LoginPage(),
-
           // Screen
           "/home": (context) => const HomePage(),
           "/receipt": (context) => const ReceiptPage(),
@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
           "/screen": (context) => const ScreenPage(),
           "/wallet": (context) => const WalletPage(),
           "/profile": (context) => const ProfilePage(),
+          "/timeslot": (context) => const Timeslot(),
         },
       ),
     );
