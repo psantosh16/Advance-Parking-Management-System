@@ -15,6 +15,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String email = "", pass = "";
+      bool _isHidden = true;
+   void _togglePasswordView() {
+      setState(() {
+        _isHidden = !_isHidden;
+      });
+    }
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -68,6 +76,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildForm() {
+ 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -141,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           child: TextField(
             onChanged: (value) => pass = value,
-            obscureText: true,
+            obscureText: _isHidden,
             cursorColor: const Color.fromARGB(55, 97, 97, 97),
             keyboardType: TextInputType.name,
             style: const TextStyle(
@@ -150,24 +159,31 @@ class _LoginPageState extends State<LoginPage> {
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
-            decoration: const InputDecoration(
-              hintStyle: TextStyle(
+            decoration: InputDecoration(
+              hintStyle: const TextStyle(
                 color: ColorTheme.nearBlack,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
                 fontFamily: 'roboto',
               ),
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.password_rounded,
                 color: Color.fromARGB(115, 0, 0, 0),
               ),
-              suffixIcon: Icon(
-                Icons.remove_red_eye_rounded,
-                color: Color.fromARGB(115, 0, 0, 0),
+              suffixIcon: InkWell(
+                onTap: () {
+                  _togglePasswordView();
+                },
+                child: Icon(
+                  _isHidden
+                      ? Icons.visibility_off_rounded
+                      : Icons.remove_red_eye_rounded,
+                  color: const Color.fromARGB(115, 0, 0, 0),
+                ),
               ),
               hintText: 'Enter Password',
               border: InputBorder.none,
-              contentPadding: EdgeInsets.all(10),
+              contentPadding: const EdgeInsets.all(10),
             ),
           ),
         ),
