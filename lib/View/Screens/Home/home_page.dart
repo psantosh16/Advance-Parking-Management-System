@@ -10,7 +10,6 @@ Future<Map<String, dynamic>> fetchData() async {
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .get();
-
   // ignore: non_constant_identifier_names
   Map<String, dynamic> Data = user.data() as Map<String, dynamic>;
   return Data;

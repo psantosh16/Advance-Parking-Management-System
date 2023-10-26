@@ -1,4 +1,5 @@
 import 'package:apms_project/Controller/ParkingController/parking_spot_controller.dart';
+import 'package:apms_project/Controller/provider/pickdate.dart';
 import 'package:apms_project/Controller/provider/slotbutton.dart';
 import 'package:apms_project/View/Screens/Booking/bookingpage.dart';
 import 'package:apms_project/View/Screens/Booking/timeslot/timeslot.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_)=> ParkingSpotProvider()),
         ChangeNotifierProvider(create: (_) => ButtonController()),
+        ChangeNotifierProvider(create: (_) => datepickprovider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
