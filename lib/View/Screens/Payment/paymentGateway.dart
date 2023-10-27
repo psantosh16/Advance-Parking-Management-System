@@ -1,4 +1,5 @@
 import 'package:apms_project/Utils/color_theme.dart';
+import 'package:apms_project/View/Screens/Payment/after_payment.dart';
 import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -25,23 +26,25 @@ class _PaymentGatewayState extends State<PaymentGateway> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Do something when payment succeeds
-    showmessage(context, "SUCCESS: ${response.paymentId!}");
-    Navigator.pushReplacementNamed(context, "/home");
-    
+    try {
+      showmessage(context, "SUCCESS: ${response.paymentId!}");
+      afterPayment(context);
+      Navigator.pushReplacementNamed(context, "/home");
+    } catch (e) {
+      showmessage(context, "ERROR: ${e.toString()}");
+    }
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment succeeds
     showmessage(context, "ERROR: ${response.code} - ${response.message!}");
     Navigator.pushReplacementNamed(context, "/home");
-
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet is selected
     showmessage(context, "EXTERNAL_WALLET: ${response.walletName!}");
     Navigator.pushReplacementNamed(context, "/home");
-
   }
 
   // fake upi id => rajat@ybl

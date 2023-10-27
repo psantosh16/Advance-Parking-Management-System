@@ -15,7 +15,7 @@ class datepickprovider extends ChangeNotifier {
       if (hours > 0) {
         hours = (24 - hours) * -1;
       }
-      amount = hours * -200;
+      amount = hours * -10;
     }
 
     notifyListeners();
@@ -27,7 +27,7 @@ class datepickprovider extends ChangeNotifier {
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(1990),
-        lastDate: DateTime.now());
+        lastDate: DateTime(3000));
     if (pickedDate != null) {
       formattedDate =
           "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
