@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:apms_project/View/Screens/animations/loading_car.dart';
 import 'package:apms_project/View/Screens/screen_page_handler.dart';
 import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,7 +21,7 @@ Future<void> signup(context, name, email, phone, password, vehical, imageurl,
   } else if (imageurl == "") {
     dialogue(context, "Upload image", "upload your profile picture");
   } else {
-    loading(context);
+    loadingcar(context);
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -64,16 +65,16 @@ Future<String> uploadimage(context) async {
   if (camerastatus.isGranted == true) {
     XFile? file = await image.pickImage(source: ImageSource.gallery);
     // ignore: use_build_context_synchronously
-    loading(context);
+    loadingcar(context);
     Reference referenceimagetoupload =
         FirebaseStorage.instance.ref().child('profiles').child(uniquefilename);
-    TaskSnapshot uploadTask =
-        await referenceimagetoupload.putFile(File(file!.path));
+    // TaskSnapshot uploadTask =
+    await referenceimagetoupload.putFile(File(file!.path));
     try {
       imageurl = await referenceimagetoupload.getDownloadURL();
       Navigator.of(context).pop();
       showmessage(context, "Profile Picture added Successfully!");
-      print(imageurl);
+      // print(imageurl);
       return imageurl;
     } catch (e) {
       return e.toString();

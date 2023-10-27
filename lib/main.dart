@@ -1,6 +1,8 @@
 import 'package:apms_project/Controller/ParkingController/parking_spot_controller.dart';
+import 'package:apms_project/Controller/provider/pickdate.dart';
 import 'package:apms_project/Controller/provider/slotbutton.dart';
 import 'package:apms_project/View/Screens/Booking/bookingpage.dart';
+import 'package:apms_project/View/Screens/Booking/timeslot/timeslot.dart';
 import 'package:apms_project/View/Screens/MapPage/map_pages.dart';
 import 'package:apms_project/View/Screens/Profile/profile_page.dart';
 import 'package:apms_project/View/Screens/Recipt/recipet_page.dart';
@@ -38,10 +40,14 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=> ParkingSpotProvider()),
+        ChangeNotifierProvider(create: (_) => ParkingSpotProvider()),
         ChangeNotifierProvider(create: (_) => ButtonController()),
+        ChangeNotifierProvider(create: (_) => datepickprovider()),
       ],
       child: MaterialApp(
+        builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           brightness: Brightness.light,
@@ -53,7 +59,6 @@ class MyApp extends StatelessWidget {
           // Auth
           "/register": (context) => const RegisterPage(),
           "/login": (context) => const LoginPage(),
-
           // Screen
           "/home": (context) => const HomePage(),
           "/receipt": (context) => const ReceiptPage(),
@@ -62,6 +67,7 @@ class MyApp extends StatelessWidget {
           "/screen": (context) => const ScreenPage(),
           "/wallet": (context) => const WalletPage(),
           "/profile": (context) => const ProfilePage(),
+          "/timeslot": (context) => const Timeslot(),
         },
       ),
     );
