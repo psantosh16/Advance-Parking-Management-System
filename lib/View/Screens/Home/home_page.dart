@@ -166,6 +166,70 @@ class _HomePageState extends State<HomePage> {
                                 },
                               ),
                             ),
+                            SizedBox(height: 12,),
+                            Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 24),
+                                child: SizedBox(
+                                    height:
+                                        ResponsiveUtils.screenHeight(context) *
+                                            0.2,
+                                    width: ResponsiveUtils.screenWidth(context),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: ResponsiveUtils.screenHeight(
+                                                  context) *
+                                              0.05,
+                                          width: ResponsiveUtils.screenWidth(
+                                              context),
+                                          decoration: const BoxDecoration(
+                                              color: Colors.amber,
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(12),
+                                                  topRight:
+                                                      Radius.circular(12))),
+                                          child: Center(
+                                              child: Row(children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(6.0),
+                                              child: Image.asset(
+                                                  "assets/images/Plogo.png"),
+                                            ),
+                                            Text(
+                                              "B-09",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 24),
+                                            )
+                                          ])),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(left:8.0),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text("Place" , style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
+                                                  Text("Date",style: TextStyle(fontSize:24),),
+                                                  Text("time",style: TextStyle(fontSize:24),),
+                                                ],
+                                              ),
+                                            ),
+                                            
+                                          ],
+                                        )
+                                      ],
+                                    )))
                           ],
                         ),
                       ),
