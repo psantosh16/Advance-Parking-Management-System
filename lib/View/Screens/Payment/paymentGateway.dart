@@ -26,16 +26,22 @@ class _PaymentGatewayState extends State<PaymentGateway> {
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Do something when payment succeeds
     showmessage(context, "SUCCESS: ${response.paymentId!}");
+    Navigator.pushReplacementNamed(context, "/home");
+    
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment succeeds
     showmessage(context, "ERROR: ${response.code} - ${response.message!}");
+    Navigator.pushReplacementNamed(context, "/home");
+
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet is selected
     showmessage(context, "EXTERNAL_WALLET: ${response.walletName!}");
+    Navigator.pushReplacementNamed(context, "/home");
+
   }
 
   // fake upi id => rajat@ybl
