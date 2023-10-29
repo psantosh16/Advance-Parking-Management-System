@@ -3,6 +3,7 @@ import 'package:apms_project/Controller/provider/pickdate.dart';
 import 'package:apms_project/Controller/provider/slotbutton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void afterPayment(context) async {
@@ -21,10 +22,11 @@ void afterPayment(context) async {
       "starttime": dateprovider.starttime,
       "endtime": dateprovider.endtime,
       "slot": "B-${buttoncontroller.selectedindex}",
-      "place": parkingSpot.selectedParkingSpot.name
+      "place": parkingSpot.selectedParkingSpot.name,
+      "datetime": "${dateprovider.formattedDate}  ${dateprovider.starttime}",
     });
-    print("Data written to Firestore successfully.");
+    debugPrint("Data written to Firestore successfully.");
   } catch (e) {
-    print("Error writing data to Firestore: $e");
+    debugPrint("Error writing data to Firestore: $e");
   }
 }

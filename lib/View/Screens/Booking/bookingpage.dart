@@ -12,18 +12,20 @@ class BookingPage extends StatefulWidget {
 
 class _BookingPageState extends State<BookingPage> {
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      Provider.of<ButtonController>(context, listen: false).unselect();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Provider.of<ButtonController>(context, listen: false);
-    final buttonController = Provider.of<ButtonController>(context);
     return Scaffold(
       backgroundColor: ColorTheme.whiteTheme,
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            if (buttonController.selectedindex != 100) {
-              buttonController.unselect();
-              buttonController.selectedslot = "None Selected";
-            }
             Navigator.pop(context);
           },
           child: const Icon(Icons.arrow_back_ios),

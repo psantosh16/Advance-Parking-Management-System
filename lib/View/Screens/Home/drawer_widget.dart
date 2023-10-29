@@ -14,15 +14,18 @@ class HomePageDrawer extends StatefulWidget {
 }
 
 class _HomePageDrawerState extends State<HomePageDrawer> {
-  late Map<String, dynamic> data = {"name": "...", "imageurl": ""};
+  late Map<String, dynamic> data = {"name": " ", "imageurl": ""};
+  Future<void> loadUserData() async {
+    final result = await fetchData();
+    setState(() {
+      data = result;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    fetchData().then((result) {
-      setState(() {
-        data = result; // Assign the fetched data to the 'data' list.
-      });
-    });
+    loadUserData();
   }
 
   @override
@@ -50,7 +53,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                           height: 90,
                           child: data['imageurl'] == ""
                               ? const Center(
-                                  child: CircularProgressIndicator.adaptive(),
+                                  child: Text(""),
                                 )
                               : Image.network(data['imageurl'] ?? "",
                                   fit: BoxFit.cover)),
