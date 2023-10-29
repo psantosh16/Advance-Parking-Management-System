@@ -1,22 +1,11 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:apms_project/Controller/drawer_controller.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
+import 'package:apms_project/View/Screens/Home/firebase_controller.dart';
 import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-Future<Map<String, dynamic>> fetchData() async {
-  DocumentSnapshot user = await FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser?.uid)
-      .get();
-  // ignore: non_constant_identifier_names
-  Map<String, dynamic> Data = user.data() as Map<String, dynamic>;
-  return Data;
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,12 +23,13 @@ class Category {
 class _HomePageState extends State<HomePage> {
   late Map<String, dynamic> data = {};
 
+  // Assign the fetched data to the 'data' list.
   @override
   void initState() {
     super.initState();
     fetchData().then((result) {
       setState(() {
-        data = result; // Assign the fetched data to the 'data' list.
+        data = result;
       });
     });
   }
@@ -70,11 +60,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     final Stream<QuerySnapshot> transactions = FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection('transactions')
         .snapshots();
+
     DrawerControllers controller = Get.put(DrawerControllers());
 
     return Scaffold(
@@ -177,11 +169,11 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(
                               height: 12,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 32.0),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 32.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                children: const [
+                                children: [
                                   Text("Recent Bookings",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
@@ -199,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                                   }
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
-                                    CircularProgressIndicator();
+                                   return const CircularProgressIndicator();
                                   }
                                   return Column(
                                     children: snapshot.data!.docs
@@ -305,9 +297,14 @@ class _HomePageState extends State<HomePage> {
                                                                           .red),
                                                             ),
                                                             onPressed: () {
-                                                              handleDelete( context: context, docId: document.id);
+                                                              handleDelete(
+                                                                  context:
+                                                                      context,
+                                                                  docId:
+                                                                      document
+                                                                          .id);
                                                             },
-                                                            child: Text(
+                                                            child: const Text(
                                                                 "Cancel",
                                                                 style: TextStyle(
                                                                     fontSize:
@@ -388,15 +385,5 @@ class _HomePageState extends State<HomePage> {
         ],
       )),
     );
-  }
-
-  void handleDelete(
-      {required BuildContext context, required String  docId}) {
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser?.uid)
-        .collection('transactions')
-        .doc(docId)
-        .delete();
   }
 }
