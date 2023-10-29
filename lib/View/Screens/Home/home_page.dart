@@ -1,22 +1,11 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:apms_project/Controller/drawer_controller.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
+import 'package:apms_project/View/Screens/Home/firebase_controller.dart';
 import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-Future<Map<String, dynamic>> fetchData() async {
-  DocumentSnapshot user = await FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser?.uid)
-      .get();
-  // ignore: non_constant_identifier_names
-  Map<String, dynamic> Data = user.data() as Map<String, dynamic>;
-  return Data;
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,12 +23,13 @@ class Category {
 class _HomePageState extends State<HomePage> {
   late Map<String, dynamic> data = {};
 
+  // Assign the fetched data to the 'data' list.
   @override
   void initState() {
     super.initState();
     fetchData().then((result) {
       setState(() {
-        data = result; // Assign the fetched data to the 'data' list.
+        data = result;
       });
     });
   }
@@ -76,6 +66,7 @@ class _HomePageState extends State<HomePage> {
         .collection('transactions')
         .orderBy('date', descending: false)
         .snapshots();
+
     DrawerControllers controller = Get.put(DrawerControllers());
 
     return Scaffold(
@@ -178,27 +169,40 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(
                               height: 12,
                             ),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 32.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text("Recent Bookings",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 24)),
+                                ],
+                              ),
+                            ),
                             StreamBuilder<QuerySnapshot>(
                                 stream: transactions,
                                 builder: (BuildContext context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
                                   if (snapshot.hasError) {
                                     showmessage(
-                                        context, "something went wrong");
+                                        context, "Something went wrong");
                                   }
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
-                                    CircularProgressIndicator();
+                                    return const CircularProgressIndicator();
                                   }
-                                  if (snapshot.hasData) {
-                                    final List<DocumentSnapshot> documents =
-                                        snapshot.data!.docs;
-                                    return Column(
-                                      children: documents.map((data) {
-                                        return Padding(
+                                  return Column(
+                                    children: snapshot.data!.docs
+                                        .map((DocumentSnapshot document) {
+                                      Map<String, dynamic> data = document
+                                          .data()! as Map<String, dynamic>;
+
+                                      return Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Card(
-                                            elevation: 2,
+                                            elevation: 8,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(16),
@@ -209,7 +213,7 @@ class _HomePageState extends State<HomePage> {
                                               height:
                                                   ResponsiveUtils.screenHeight(
                                                           context) *
-                                                      0.2,
+                                                      0.215,
                                               width:
                                                   ResponsiveUtils.screenWidth(
                                                       context),
@@ -287,6 +291,34 @@ class _HomePageState extends State<HomePage> {
                                                                 fontSize: 18,
                                                               ),
                                                             ),
+                                                            ElevatedButton(
+                                                              style:
+                                                                  ButtonStyle(
+                                                                backgroundColor:
+                                                                    MaterialStateProperty.all<
+                                                                            Color>(
+                                                                        Colors
+                                                                            .red),
+                                                              ),
+                                                              onPressed: () {
+                                                                handleDelete(
+                                                                    context:
+                                                                        context,
+                                                                    docId:
+                                                                        document
+                                                                            .id);
+                                                              },
+                                                              child: const Text(
+                                                                  "Cancel",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          18,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold)),
+                                                            ),
                                                           ],
                                                         ),
                                                       ),
@@ -295,12 +327,9 @@ class _HomePageState extends State<HomePage> {
                                                 ],
                                               ),
                                             ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    );
-                                  }
-                                  return Container();
+                                          ));
+                                    }).toList(),
+                                  );
                                 })
                           ],
                         ),
@@ -359,77 +388,5 @@ class _HomePageState extends State<HomePage> {
         ],
       )),
     );
-  }
-}
-
-class BookedSpotCard extends StatelessWidget {
-  const BookedSpotCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        elevation: 8,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        margin: const EdgeInsets.symmetric(horizontal: 24),
-        child: SizedBox(
-            height: ResponsiveUtils.screenHeight(context) * 0.2,
-            width: ResponsiveUtils.screenWidth(context),
-            child: Column(
-              children: [
-                Container(
-                  height: ResponsiveUtils.screenHeight(context) * 0.05,
-                  width: ResponsiveUtils.screenWidth(context),
-                  decoration: const BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12))),
-                  child: Center(
-                      child: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Image.asset("assets/images/Plogo.png"),
-                    ),
-                    const Text(
-                      "B-09",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                    )
-                  ])),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Place",
-                            style: TextStyle(
-                                fontSize: 35, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "Date",
-                            style: TextStyle(fontSize: 24),
-                          ),
-                          Text(
-                            "time",
-                            style: TextStyle(fontSize: 24),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            )));
   }
 }

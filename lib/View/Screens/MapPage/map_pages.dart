@@ -305,6 +305,7 @@ class _MapsPageState extends State<MapsPage>
   @override
   Widget build(BuildContext context) {
 
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -330,6 +331,10 @@ class _MapsPageState extends State<MapsPage>
                       maxZoom: 14,
                       minZoom: 12,
                       rotation: 0,
+                      interactiveFlags: InteractiveFlag.pinchZoom |
+                          InteractiveFlag.drag |
+                          InteractiveFlag.doubleTapZoom,
+                          keepAlive: true,
                     ),
                     children: [
                       TileLayer(
