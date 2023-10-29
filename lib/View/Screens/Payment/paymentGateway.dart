@@ -1,7 +1,9 @@
+import 'package:apms_project/Controller/provider/pickdate.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/View/Screens/Payment/after_payment.dart';
 import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -49,9 +51,9 @@ class _PaymentGatewayState extends State<PaymentGateway> {
 
   // fake upi id => rajat@ybl
   void makePayment() async {
-    final _keyId = dotenv.env['RAZORPAY_KEY_ID'];
+    final keyId = dotenv.env['RAZORPAY_KEY_ID'];
     var options = {
-      'key': _keyId,
+      'key': keyId,
       'amount': widget.amount * 100,
       'name': 'Parkiza',
       'description': 'Online Parking slot booking',
@@ -73,6 +75,7 @@ class _PaymentGatewayState extends State<PaymentGateway> {
 
   @override
   Widget build(BuildContext context) {
+    final dateprovider = Provider.of<datepickprovider>(context, listen: false);
     return SizedBox(
       width: 150,
       height: 43,
@@ -84,7 +87,14 @@ class _PaymentGatewayState extends State<PaymentGateway> {
             foregroundColor: ColorTheme.blackTheme,
           ),
           onPressed: () {
-            makePayment();
+            if (dateprovider.formattedDate == "Select Date") {
+              showmessage(context, "Please select date");
+            } else if (dateprovider.starttime.toString() == "Start" ||
+                dateprovider.endtime.toString() == "End") {
+              showmessage(context, "Please select time");
+            } else {
+              makePayment();
+            }
           },
           child: const Text("Pay")),
     );

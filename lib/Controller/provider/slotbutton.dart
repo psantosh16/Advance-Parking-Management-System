@@ -41,14 +41,15 @@ class ButtonController extends ChangeNotifier {
   }
 
   void unselect() {
-    isButtonClicked[selectedindex].value = true;
-    containerColor[selectedindex].value = const Color.fromARGB(255, 0, 0, 0);
-    textcolor[selectedindex].value = const Color.fromARGB(255, 191, 191, 191);
-    dashcolor[selectedindex].value = const Color.fromARGB(255, 255, 255, 255);
-    isButtonClicked[selectedindex].value = true;
-    selectedindex = 100;
-    notifyListeners();
+    if (selectedindex != 100) {
+      isButtonClicked[selectedindex].value = true;
+      containerColor[selectedindex].value = const Color.fromARGB(255, 0, 0, 0);
+      textcolor[selectedindex].value = const Color.fromARGB(255, 191, 191, 191);
+      dashcolor[selectedindex].value = const Color.fromARGB(255, 255, 255, 255);
+      isButtonClicked[selectedindex].value = true;
+      selectedindex = 100;
+      selectedslot = "None Selected";
+      notifyListeners();
+    }
   }
-
-
 }

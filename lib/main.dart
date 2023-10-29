@@ -6,6 +6,7 @@ import 'package:apms_project/View/Screens/Booking/timeslot/timeslot.dart';
 import 'package:apms_project/View/Screens/MapPage/map_pages.dart';
 import 'package:apms_project/View/Screens/Profile/profile_page.dart';
 import 'package:apms_project/View/Screens/Recipt/recipet_page.dart';
+import 'package:apms_project/View/Screens/booked/booked.dart';
 import 'package:apms_project/View/Screens/screen_page_handler.dart';
 import 'package:apms_project/View/Screens/Payment/wallet_page.dart';
 import 'package:apms_project/Utils/color_theme.dart';
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
           "/wallet": (context) => const WalletPage(),
           "/profile": (context) => const ProfilePage(),
           "/timeslot": (context) => const Timeslot(),
+          "/booked": (context) => const Booked(),
         },
       ),
     );

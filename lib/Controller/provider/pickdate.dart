@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 // ignore: camel_case_types
 class datepickprovider extends ChangeNotifier {
   String formattedDate = "Select Date";
-  String starttime = "";
+  String starttime = "Start";
   TimeOfDay? startingtime;
-  String endtime = "";
+  String endtime = "End";
   TimeOfDay? endingtime;
   int amount = 2000;
   int hours = 0;
@@ -26,8 +26,8 @@ class datepickprovider extends ChangeNotifier {
     DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime(1990),
-        lastDate: DateTime(3000));
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2040));
     if (pickedDate != null) {
       formattedDate =
           "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
@@ -71,11 +71,11 @@ class datepickprovider extends ChangeNotifier {
 
   void reset() {
     formattedDate = "Select Date";
-    starttime = "";
+    starttime = "Start";
     startingtime = null;
-    endtime = "";
+    endtime = "End";
     endingtime = null;
-    amount = 2000;
+    amount = 10;
     hours = 0;
     notifyListeners();
   }
