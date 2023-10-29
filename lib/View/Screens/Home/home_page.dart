@@ -175,8 +175,9 @@ class _HomePageState extends State<HomePage> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text("Recent Bookings",
+                                  Text("Upcoming Booking",
                                       style: TextStyle(
+                                          color: Colors.black38,
                                           fontWeight: FontWeight.w400,
                                           fontSize: 24)),
                                 ],
@@ -259,49 +260,55 @@ class _HomePageState extends State<HomePage> {
                                                     const SizedBox(
                                                       height: 10,
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 8.0),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 8.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            data['place'],
+                                                            style: const TextStyle(
+                                                                fontSize: 24,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                          Text(
+                                                            "Date: ${data['date']}",
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 18,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "Time: ${data['starttime']} - ${data['endtime']}",
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 18,
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                             children: [
-                                                              Text(
-                                                                data['place'],
-                                                                style: const TextStyle(
-                                                                    fontSize:
-                                                                        24,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                              ),
-                                                              Text(
-                                                                data['date'],
-                                                                style:
-                                                                    const TextStyle(
-                                                                  fontSize: 18,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                "${data['starttime']} - ${data['endtime']}",
-                                                                style:
-                                                                    const TextStyle(
-                                                                  fontSize: 18,
-                                                                ),
-                                                              ),
                                                               ElevatedButton(
                                                                 style:
                                                                     ButtonStyle(
+                                                                  side: MaterialStateProperty.all<
+                                                                          BorderSide>(
+                                                                      BorderSide(
+                                                                          color: Colors.red[
+                                                                              400]!,
+                                                                          width:
+                                                                              2)),
                                                                   backgroundColor:
                                                                       MaterialStateProperty.all<
                                                                               Color>(
                                                                           Colors
-                                                                              .red),
+                                                                              .white),
                                                                 ),
                                                                 onPressed: () {
                                                                   handleDelete(
@@ -310,8 +317,38 @@ class _HomePageState extends State<HomePage> {
                                                                       docId: data
                                                                           .id);
                                                                 },
-                                                                child: const Text(
+                                                                child: Text(
                                                                     "Cancel",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            16,
+                                                                        color: Colors.red[
+                                                                            400],
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                              ),
+                                                              SizedBox(
+                                                                width: ResponsiveUtils
+                                                                        .screenWidth(
+                                                                            context) *
+                                                                    0.1,
+                                                              ),
+                                                              ElevatedButton(
+                                                                style:
+                                                                    ButtonStyle(
+                                                                  backgroundColor:
+                                                                      MaterialStateProperty.all<
+                                                                          Color>(Colors
+                                                                              .blue[
+                                                                          400]!),
+                                                                ),
+                                                                onPressed: () {
+                                                                  Navigator.pushNamed(
+                                                                      context,
+                                                                      "/booked");
+                                                                },
+                                                                child: const Text(
+                                                                    "See Other",
                                                                     style: TextStyle(
                                                                         fontSize:
                                                                             18,
@@ -322,8 +359,8 @@ class _HomePageState extends State<HomePage> {
                                                               ),
                                                             ],
                                                           ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
