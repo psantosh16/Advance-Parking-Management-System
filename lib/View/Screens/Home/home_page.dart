@@ -304,7 +304,9 @@ class _HomePageState extends State<HomePage> {
                                                                       Colors
                                                                           .red),
                                                             ),
-                                                            onPressed: () {},
+                                                            onPressed: () {
+                                                              handleDelete( context: context, docId: document.id);
+                                                            },
                                                             child: Text(
                                                                 "Cancel",
                                                                 style: TextStyle(
@@ -386,5 +388,15 @@ class _HomePageState extends State<HomePage> {
         ],
       )),
     );
+  }
+
+  void handleDelete(
+      {required BuildContext context, required String  docId}) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection('transactions')
+        .doc(docId)
+        .delete();
   }
 }
