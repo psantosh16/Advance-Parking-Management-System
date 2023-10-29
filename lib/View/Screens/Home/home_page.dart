@@ -292,7 +292,6 @@ class _HomePageState extends State<HomePage> {
                                                             ),
                                                           ),
                                                           Row(
-                                                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                             children: [
                                                               ElevatedButton(
                                                                 style:
