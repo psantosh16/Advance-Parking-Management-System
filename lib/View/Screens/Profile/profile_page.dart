@@ -13,7 +13,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late Map<String, dynamic> data = {"name": "...", "imageurl": ""};
+  late Map<String, dynamic> data = {"name": "", "imageurl": ""};
   @override
   void initState() {
     super.initState();

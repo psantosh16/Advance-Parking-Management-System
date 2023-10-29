@@ -20,8 +20,10 @@ class _BookingPageState extends State<BookingPage> {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            buttonController.unselect();
-            buttonController.selectedslot = "None Selected";
+            if (buttonController.selectedindex != 100) {
+              buttonController.unselect();
+              buttonController.selectedslot = "None Selected";
+            }
             Navigator.pop(context);
           },
           child: const Icon(Icons.arrow_back_ios),

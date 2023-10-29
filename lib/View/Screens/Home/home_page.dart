@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage> {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection('transactions')
+        .orderBy('date', descending: false)
         .snapshots();
     DrawerControllers controller = Get.put(DrawerControllers());
 
@@ -189,117 +190,117 @@ class _HomePageState extends State<HomePage> {
                                       ConnectionState.waiting) {
                                     CircularProgressIndicator();
                                   }
-                                  return Column(
-                                    children: snapshot.data!.docs
-                                        .map((DocumentSnapshot document) {
-                                      Map<String, dynamic> data = document
-                                          .data()! as Map<String, dynamic>;
-
-                                      return Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Card(
-                                          elevation: 8,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                          ),
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 24),
-                                          child: SizedBox(
-                                            height:
-                                                ResponsiveUtils.screenHeight(
-                                                        context) *
-                                                    0.2,
-                                            width:
-                                                ResponsiveUtils.screenWidth(
-                                                    context),
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  height: ResponsiveUtils
-                                                          .screenHeight(
-                                                              context) *
-                                                      0.05,
-                                                  width: ResponsiveUtils
-                                                      .screenWidth(context),
-                                                  decoration: const BoxDecoration(
-                                                      color: Colors.amber,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(
-                                                                      12),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      12))),
-                                                  child: Center(
-                                                      child: Row(children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets
-                                                              .all(6.0),
-                                                      child: Image.asset(
-                                                          "assets/images/Plogo.png"),
-                                                    ),
-                                                    Text(
-                                                      data['slot'],
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 24),
-                                                    )
-                                                  ])),
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets
-                                                              .only(
-                                                              left: 8.0),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            data['place'],
-                                                            style: const TextStyle(
-                                                                fontSize: 24,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                          Text(
-                                                            data['date'],
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 18,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            "${data['starttime']} - ${data['endtime']}",
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 18,
-                                                            ),
-                                                          ),
-                                                        ],
+                                  if (snapshot.hasData) {
+                                    final List<DocumentSnapshot> documents =
+                                        snapshot.data!.docs;
+                                    return Column(
+                                      children: documents.map((data) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Card(
+                                            elevation: 2,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                            ),
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 24),
+                                            child: SizedBox(
+                                              height:
+                                                  ResponsiveUtils.screenHeight(
+                                                          context) *
+                                                      0.2,
+                                              width:
+                                                  ResponsiveUtils.screenWidth(
+                                                      context),
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    height: ResponsiveUtils
+                                                            .screenHeight(
+                                                                context) *
+                                                        0.05,
+                                                    width: ResponsiveUtils
+                                                        .screenWidth(context),
+                                                    decoration: const BoxDecoration(
+                                                        color: Colors.amber,
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        12),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        12))),
+                                                    child: Center(
+                                                        child: Row(children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(6.0),
+                                                        child: Image.asset(
+                                                            "assets/images/Plogo.png"),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                
-                                              ],
+                                                      Text(
+                                                        data['slot'],
+                                                        style: const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 24),
+                                                      )
+                                                    ])),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 8.0),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              data['place'],
+                                                              style: const TextStyle(
+                                                                  fontSize: 24,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                            Text(
+                                                              data['date'],
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${data['starttime']} - ${data['endtime']}",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  );
+                                        );
+                                      }).toList(),
+                                    );
+                                  }
+                                  return Container();
                                 })
                           ],
                         ),
