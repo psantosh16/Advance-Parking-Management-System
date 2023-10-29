@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:apms_project/Controller/drawer_controller.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
+import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +70,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> transactions = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection('transactions')
+        .snapshots();
     DrawerControllers controller = Get.put(DrawerControllers());
 
     return Scaffold(
@@ -166,6 +174,133 @@ class _HomePageState extends State<HomePage> {
                                 },
                               ),
                             ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            StreamBuilder<QuerySnapshot>(
+                                stream: transactions,
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  if (snapshot.hasError) {
+                                    showmessage(
+                                        context, "something went wrong");
+                                  }
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    CircularProgressIndicator();
+                                  }
+                                  return Column(
+                                    children: snapshot.data!.docs
+                                        .map((DocumentSnapshot document) {
+                                      Map<String, dynamic> data = document
+                                          .data()! as Map<String, dynamic>;
+
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Card(
+                                          elevation: 8,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 24),
+                                          child: SizedBox(
+                                            height:
+                                                ResponsiveUtils.screenHeight(
+                                                        context) *
+                                                    0.2,
+                                            width:
+                                                ResponsiveUtils.screenWidth(
+                                                    context),
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  height: ResponsiveUtils
+                                                          .screenHeight(
+                                                              context) *
+                                                      0.05,
+                                                  width: ResponsiveUtils
+                                                      .screenWidth(context),
+                                                  decoration: const BoxDecoration(
+                                                      color: Colors.amber,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      12),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      12))),
+                                                  child: Center(
+                                                      child: Row(children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets
+                                                              .all(6.0),
+                                                      child: Image.asset(
+                                                          "assets/images/Plogo.png"),
+                                                    ),
+                                                    Text(
+                                                      data['slot'],
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 24),
+                                                    )
+                                                  ])),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets
+                                                              .only(
+                                                              left: 8.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            data['place'],
+                                                            style: const TextStyle(
+                                                                fontSize: 24,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                          Text(
+                                                            data['date'],
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 18,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "${data['starttime']} - ${data['endtime']}",
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 18,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  );
+                                })
                           ],
                         ),
                       ),
@@ -223,5 +358,77 @@ class _HomePageState extends State<HomePage> {
         ],
       )),
     );
+  }
+}
+
+class BookedSpotCard extends StatelessWidget {
+  const BookedSpotCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+        elevation: 8,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        child: SizedBox(
+            height: ResponsiveUtils.screenHeight(context) * 0.2,
+            width: ResponsiveUtils.screenWidth(context),
+            child: Column(
+              children: [
+                Container(
+                  height: ResponsiveUtils.screenHeight(context) * 0.05,
+                  width: ResponsiveUtils.screenWidth(context),
+                  decoration: const BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12))),
+                  child: Center(
+                      child: Row(children: [
+                    Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Image.asset("assets/images/Plogo.png"),
+                    ),
+                    const Text(
+                      "B-09",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                    )
+                  ])),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Place",
+                            style: TextStyle(
+                                fontSize: 35, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "Date",
+                            style: TextStyle(fontSize: 24),
+                          ),
+                          Text(
+                            "time",
+                            style: TextStyle(fontSize: 24),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            )));
   }
 }
