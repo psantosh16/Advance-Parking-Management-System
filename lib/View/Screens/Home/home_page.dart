@@ -177,13 +177,25 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(
                               height: 12,
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 32.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: const [
+                                  Text("Recent Bookings",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 24)),
+                                ],
+                              ),
+                            ),
                             StreamBuilder<QuerySnapshot>(
                                 stream: transactions,
                                 builder: (BuildContext context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
                                   if (snapshot.hasError) {
                                     showmessage(
-                                        context, "something went wrong");
+                                        context, "Something went wrong");
                                   }
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
@@ -209,10 +221,9 @@ class _HomePageState extends State<HomePage> {
                                             height:
                                                 ResponsiveUtils.screenHeight(
                                                         context) *
-                                                    0.2,
-                                            width:
-                                                ResponsiveUtils.screenWidth(
-                                                    context),
+                                                    0.215,
+                                            width: ResponsiveUtils.screenWidth(
+                                                context),
                                             child: Column(
                                               children: [
                                                 Container(
@@ -227,8 +238,7 @@ class _HomePageState extends State<HomePage> {
                                                       borderRadius:
                                                           BorderRadius.only(
                                                               topLeft: Radius
-                                                                  .circular(
-                                                                      12),
+                                                                  .circular(12),
                                                               topRight: Radius
                                                                   .circular(
                                                                       12))),
@@ -236,8 +246,8 @@ class _HomePageState extends State<HomePage> {
                                                       child: Row(children: [
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsets
-                                                              .all(6.0),
+                                                          const EdgeInsets.all(
+                                                              6.0),
                                                       child: Image.asset(
                                                           "assets/images/Plogo.png"),
                                                     ),
@@ -257,8 +267,7 @@ class _HomePageState extends State<HomePage> {
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsets
-                                                              .only(
+                                                          const EdgeInsets.only(
                                                               left: 8.0),
                                                       child: Column(
                                                         crossAxisAlignment:
@@ -287,12 +296,31 @@ class _HomePageState extends State<HomePage> {
                                                               fontSize: 18,
                                                             ),
                                                           ),
+                                                          ElevatedButton(
+                                                            style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all<
+                                                                          Color>(
+                                                                      Colors
+                                                                          .red),
+                                                            ),
+                                                            onPressed: () {},
+                                                            child: Text(
+                                                                "Cancel",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)),
+                                                          ),
                                                         ],
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                                
                                               ],
                                             ),
                                           ),
@@ -358,77 +386,5 @@ class _HomePageState extends State<HomePage> {
         ],
       )),
     );
-  }
-}
-
-class BookedSpotCard extends StatelessWidget {
-  const BookedSpotCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        elevation: 8,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        margin: const EdgeInsets.symmetric(horizontal: 24),
-        child: SizedBox(
-            height: ResponsiveUtils.screenHeight(context) * 0.2,
-            width: ResponsiveUtils.screenWidth(context),
-            child: Column(
-              children: [
-                Container(
-                  height: ResponsiveUtils.screenHeight(context) * 0.05,
-                  width: ResponsiveUtils.screenWidth(context),
-                  decoration: const BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12))),
-                  child: Center(
-                      child: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Image.asset("assets/images/Plogo.png"),
-                    ),
-                    const Text(
-                      "B-09",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                    )
-                  ])),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Place",
-                            style: TextStyle(
-                                fontSize: 35, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "Date",
-                            style: TextStyle(fontSize: 24),
-                          ),
-                          Text(
-                            "time",
-                            style: TextStyle(fontSize: 24),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            )));
   }
 }
