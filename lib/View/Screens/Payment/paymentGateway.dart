@@ -29,7 +29,7 @@ class _PaymentGatewayState extends State<PaymentGateway> {
     try {
       showmessage(context, "SUCCESS: ${response.paymentId!}");
       afterPayment(context);
-      Navigator.pushReplacementNamed(context, "/home");
+      Navigator.pushReplacementNamed(context, "/screen");
     } catch (e) {
       showmessage(context, "ERROR: ${e.toString()}");
     }
@@ -38,13 +38,13 @@ class _PaymentGatewayState extends State<PaymentGateway> {
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment succeeds
     showmessage(context, "ERROR: ${response.code} - ${response.message!}");
-    Navigator.pushReplacementNamed(context, "/home");
+    Navigator.pushReplacementNamed(context, "/screen");
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet is selected
     showmessage(context, "EXTERNAL_WALLET: ${response.walletName!}");
-    Navigator.pushReplacementNamed(context, "/home");
+    Navigator.pushReplacementNamed(context, "/screen");
   }
 
   // fake upi id => rajat@ybl
