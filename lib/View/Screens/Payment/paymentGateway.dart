@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:apms_project/Controller/provider/pickdate.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/View/Screens/Payment/after_payment.dart';

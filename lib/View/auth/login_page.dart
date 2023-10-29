@@ -153,7 +153,6 @@ class _LoginPageState extends State<LoginPage> {
             onChanged: (value) => pass = value,
             obscureText: _isHidden,
             cursorColor: const Color.fromARGB(55, 97, 97, 97),
-            keyboardType: TextInputType.name,
             style: const TextStyle(
               fontFamily: "roboto",
               color: ColorTheme.nearBlack,

@@ -1,5 +1,6 @@
 import 'package:apms_project/View/Screens/Home/firebase_controller.dart';
 import 'package:apms_project/View/Screens/Profile/profile_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Utils/color_theme.dart';
@@ -155,16 +156,32 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                     ),
                                   ),
-                                  title: Text(
-                                    _dashboardList[idx].name,
-                                    style: TextStyle(
-                                      fontSize: ResponsiveUtils.textScaleFactor(
-                                              context) *
-                                          18,
-                                      color: Colors.black,
+                                  title: InkWell(
+                                    onTap: () {
+                                      if (idx == 0) {
+                                        Navigator.pushNamed(context, '/wallet');
+                                      }
+                                    },
+                                    child: Text(
+                                      _dashboardList[idx].name,
+                                      style: TextStyle(
+                                        fontSize:
+                                            ResponsiveUtils.textScaleFactor(
+                                                    context) *
+                                                18,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ),
-                                  trailing: const Icon(Icons.arrow_forward_ios),
+                                  trailing: InkWell(
+                                      onTap: () {
+                                        if (idx == 0) {
+                                          Navigator.pushNamed(
+                                              context, '/wallet');
+                                        }
+                                      },
+                                      child:
+                                          const Icon(Icons.arrow_forward_ios)),
                                 ),
                               );
                             },
@@ -177,43 +194,35 @@ class _ProfilePageState extends State<ProfilePage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "My Account",
-                        style: TextStyle(
-                            color: Colors.grey[700],
-                            fontSize:
-                                ResponsiveUtils.textScaleFactor(context) * 18),
-                      ),
                       const SizedBox(
                         height: 18,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/login');
+                      InkWell(
+                        splashColor: const Color.fromARGB(255, 255, 120, 110),
+                        onTap: ()  {
+                          try {
+                             FirebaseAuth.instance.signOut().then((value) => Navigator.pushReplacementNamed(context, '/login'));
+                          } catch (e) {
+                            print("Error logging out: $e");
+                          }
                         },
-                        child: Text(
-                          "Switch to other account",
-                          style: TextStyle(
-                              color: ColorTheme.blueTheme,
-                              fontSize:
-                                  ResponsiveUtils.textScaleFactor(context) * 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 18,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/login');
-                        },
-                        child: Text(
-                          "Log Out",
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize:
-                                  ResponsiveUtils.textScaleFactor(context) * 20,
-                              fontWeight: FontWeight.bold),
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          width: ResponsiveUtils.screenWidth(context) * 0.9,
+                          height: 52,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: const Color.fromARGB(255, 255, 123, 114)),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              "Log Out",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize:
+                                      ResponsiveUtils.textScaleFactor(context) * 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
                       ),
                     ],

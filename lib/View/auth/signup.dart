@@ -39,6 +39,7 @@ Future<void> signup(context, name, email, phone, password, vehical, imageurl,
         "vehical": vehical,
         "imageurl": imageurl,
         "uniquefilename": uniquefilename,
+        "walletBalance": 0,
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

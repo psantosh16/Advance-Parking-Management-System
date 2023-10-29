@@ -24,7 +24,7 @@ class _BookedState extends State<Booked> {
         .snapshots();
     return Scaffold(
         appBar: AppBar(
-          title: const Text("booked"),
+          title: const Text("Booked"),
         ),
         body: StreamBuilder<QuerySnapshot>(
             stream: transactions,
@@ -108,23 +108,57 @@ class _BookedState extends State<Booked> {
                                               fontSize: 18,
                                             ),
                                           ),
-                                          ElevatedButton(
-                                            style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all<
-                                                      Color>(Colors.red),
-                                            ),
-                                            onPressed: () {
-                                              handleDelete(
-                                                  context: context,
-                                                  docId: data.id);
-                                            },
-                                            child: const Text("Cancel",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
+                                          Row(
+                                            children: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                  side: MaterialStateProperty
+                                                      .all<BorderSide>(
+                                                          BorderSide(
+                                                              color: Colors
+                                                                  .red[400]!,
+                                                              width: 2)),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all<
+                                                          Color>(Colors.white),
+                                                ),
+                                                onPressed: () {
+                                                  handleDelete(
+                                                      context: context,
+                                                      docId: data.id);
+                                                },
+                                                child: Text("Cancel",
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.red[400],
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                              SizedBox(
+                                                width:
+                                                    ResponsiveUtils.screenWidth(
+                                                            context) *
+                                                        0.1,
+                                              ),
+                                              // ElevatedButton(
+                                              //   style: ButtonStyle(
+                                              //     backgroundColor:
+                                              //         MaterialStateProperty.all<
+                                              //                 Color>(
+                                              //             Colors.blue[400]!),
+                                              //   ),
+                                              //   onPressed: () {
+                                              //     Navigator.pushNamed(
+                                              //         context, "/booked");
+                                              //   },
+                                              //   child: const Text("See Other",
+                                              //       style: TextStyle(
+                                              //           fontSize: 18,
+                                              //           color: Colors.white,
+                                              //           fontWeight:
+                                              //               FontWeight.bold)),
+                                              // ),
+                                            ],
                                           ),
                                         ],
                                       ),
