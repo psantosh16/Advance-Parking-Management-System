@@ -142,12 +142,15 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                       size: ResponsiveUtils.textScaleFactor(context) * 30,
                       color: Colors.black,
                     ),
-                    title: Text(
-                      'Setting',
-                      style: TextStyle(
-                          fontSize:
-                              ResponsiveUtils.textScaleFactor(context) * 20,
-                          fontWeight: FontWeight.w600),
+                    title: InkWell(
+                      onTap: () => Navigator.pushNamed(context, "/profile"),
+                      child: Text(
+                        'Setting',
+                        style: TextStyle(
+                            fontSize:
+                                ResponsiveUtils.textScaleFactor(context) * 20,
+                            fontWeight: FontWeight.w600),
+                      ),
                     ),
                     onTap: () {
                       Navigator.pop(context);
@@ -170,9 +173,8 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                       fontWeight: FontWeight.w600),
                 ),
                 onTap: () {
-                  FirebaseAuth.instance.signOut();
-                  // Navigator.pop(context);
-                  Navigator.pushReplacementNamed(context, "/login");
+                  FirebaseAuth.instance.signOut().then((value) =>Navigator.pushReplacementNamed(context, "/login") );
+                  
                 },
               ),
             ],
