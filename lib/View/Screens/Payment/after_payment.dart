@@ -23,7 +23,7 @@ void afterPayment(context) async {
       "endtime": dateprovider.endtime,
       "slot": "B-${buttoncontroller.selectedindex}",
       "place": parkingSpot.selectedParkingSpot.name,
-      "datetime": "${dateprovider.formattedDate}  ${dateprovider.starttime}",
+      "datetime": dateprovider.databasedate * 100 + dateprovider.databasetime,
     });
     debugPrint("Data written to Firestore successfully.");
   } catch (e) {
