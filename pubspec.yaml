@@ -34,12 +34,19 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter_native_splash:
-  color: "#FFFFFF"
+  color: "#ffffff"
+  color_dark: "#ffffff"
   android: true
   ios: true
-  image: "assets/images/Plogo.png"
+  image: assets/images/Plogo.png
+  image_dark: assets/images/Plogo.png
   fullscreen: true
-
+  web: false
+  android_12:
+    image: assets/images/Plogo.png
+    icon_background_color: "#ffffff"
+    image_dark: assets/images/Plogo.png
+    icon_background_color_dark: "#ffffff"
 flutter:
   uses-material-design: true
   assets:
