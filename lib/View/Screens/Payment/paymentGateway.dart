@@ -33,7 +33,8 @@ class _PaymentGatewayState extends State<PaymentGateway> {
     try {
       showmessage(context, "SUCCESS: ${response.paymentId!}");
       afterPayment(context);
-      Navigator.pushReplacementNamed(context, "/screen");
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/screen', (Route<dynamic> route) => false);
     } catch (e) {
       showmessage(context, "ERROR: ${e.toString()}");
     }

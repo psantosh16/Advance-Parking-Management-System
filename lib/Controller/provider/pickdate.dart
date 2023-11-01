@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 // ignore: camel_case_types
 class datepickprovider extends ChangeNotifier {
   String formattedDate = "Select Date";
+  int databasedate = 0;
+  int databasetime = 0;
   String starttime = "Start";
   TimeOfDay? startingtime;
   String endtime = "End";
@@ -31,6 +33,8 @@ class datepickprovider extends ChangeNotifier {
     if (pickedDate != null) {
       formattedDate =
           "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
+      databasedate =
+          pickedDate.day + pickedDate.month * 100 + pickedDate.year * 10000;
     } else {
       // The user canceled the date picker.
       return null;
@@ -44,6 +48,8 @@ class datepickprovider extends ChangeNotifier {
       initialTime: TimeOfDay.now(),
       context: context,
     );
+    databasetime = endingtime!.hour;
+
     // ignore: use_build_context_synchronously
     endtime = endingtime!.format(context);
     if (endingtime != null) {
@@ -65,7 +71,7 @@ class datepickprovider extends ChangeNotifier {
       if (endingtime != null) {
         amountChange();
       }
-      notifyListeners(); // Notify listeners that the selected time has changed.
+      notifyListeners();
     }
   }
 
