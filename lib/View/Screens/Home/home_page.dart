@@ -327,7 +327,9 @@ class _HomePageState extends State<HomePage> {
                                                                       context:
                                                                           context,
                                                                       docId: data
-                                                                          .id);
+                                                                          .id,
+                                                                      amount: data[
+                                                                          'transaction_amount']);
                                                                 },
                                                                 child: Text(
                                                                     "Cancel",

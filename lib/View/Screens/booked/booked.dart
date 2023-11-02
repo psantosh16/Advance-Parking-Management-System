@@ -47,7 +47,10 @@ class _BookedState extends State<Booked> {
                 return Column(
                   children: documents.map((data) {
                     if (data['datetime'] < time) {
-                      handleDelete(context: context, docId: data.id);
+                      handleDelete(
+                          context: context,
+                          docId: data.id,
+                          amount: data['transaction_amount']);
                     }
                     return Padding(
                         padding: const EdgeInsets.only(top: 12),
@@ -138,7 +141,9 @@ class _BookedState extends State<Booked> {
                                             onPressed: () {
                                               handleDelete(
                                                   context: context,
-                                                  docId: data.id);
+                                                  docId: data.id,
+                                                  amount: data[
+                                                      'transaction_amount']);
                                             },
                                             child: Text("Cancel",
                                                 style: TextStyle(

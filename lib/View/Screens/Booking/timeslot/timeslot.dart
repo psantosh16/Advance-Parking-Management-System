@@ -382,7 +382,9 @@ class _TimeslotState extends State<Timeslot> {
                         child: Text(
                           "Pay using Wallet",
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 14, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Color.fromARGB(255, 255, 255, 255)),
                         ),
                       ),
                     ),
