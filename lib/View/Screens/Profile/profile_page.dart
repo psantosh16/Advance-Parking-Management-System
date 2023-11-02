@@ -204,11 +204,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Navigator.pushReplacementNamed(
                                     context, '/login'));
                           } catch (e) {
-                            print("Error logging out: $e");
+                            debugPrint("Error logging out: $e");
                           }
                         },
                         child: Container(
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           width: ResponsiveUtils.screenWidth(context) * 0.9,
                           height: 52,
                           decoration: BoxDecoration(
