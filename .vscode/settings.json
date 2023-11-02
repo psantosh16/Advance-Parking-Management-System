@@ -1,4 +1,28 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive",
-    "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "window.title": "${activeEditorShort}${separator}${rootName}",
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.bracketPairsHorizontal": false,
+  "editor.guides.highlightActiveBracketPair": true,
+  "workbench.colorCustomizations": {
+    "editorBracketPairGuide.activeBackground1": "#f68686",
+    "editorBracketPairGuide.activeBackground2": "#f9ed84",
+    "editorBracketPairGuide.activeBackground3": "#a16ff7",
+    "editorBracketPairGuide.activeBackground4": "#9ef481",
+    "editorBracketPairGuide.activeBackground5": "#f9d47f",
+    "editorBracketPairGuide.activeBackground6": "#80bafc"
+  },
+  "editor.autoIndent": "advanced",
+  "editor.detectIndentation": true,
+  "editor.guides.indentation": true,
+  "editor.tabSize": 4,
+  "editor.indentSize": 1,
+  "editor.formatOnSaveMode": "file",
+  "editor.formatOnType": true,
+  "editor.formatOnSave": true,
+  "diffEditor.codeLens": false,
+  "diffEditor.renderSideBySideInlineBreakpoint": 1000,
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 120,
+  "editor.wrappingIndent": "same"
 }

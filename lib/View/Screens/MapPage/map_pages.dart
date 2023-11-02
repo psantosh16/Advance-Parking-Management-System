@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:apms_project/Controller/Models/parking_model.dart';
 import 'package:apms_project/Controller/ParkingController/parking_spot_controller.dart';
+import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
@@ -20,8 +21,6 @@ class MapsPage extends StatefulWidget {
 
 class _MapsPageState extends State<MapsPage>
     with SingleTickerProviderStateMixin {
-
-
   List<Marker> markers = [];
   List<Marker> waitForMarker = [
     Marker(
@@ -46,45 +45,62 @@ class _MapsPageState extends State<MapsPage>
     ),
   ];
   bool isLoading = true;
-  // late ParkingSpotController spotController = Get.put(ParkingSpotController());
+
+  final GlobalKey<ScaffoldState> _mapScaffoldKey = GlobalKey<ScaffoldState>();
+  final MapController _mapController = MapController();
+  final LatLng _initialLocation = LatLng(18.9951, 73.0763);
+
+  Future<void> _refreshMap() async {
+    try {
+      await Future.delayed(const Duration(seconds: 2)).then((v) {
+        LatLng newLocation = _initialLocation;
+        _mapController.move(newLocation, 11.0);
+      });
+    } catch (e) {
+      // ignore: use_build_context_synchronously
+      showmessage(context, "Error Something went wrong!");
+    }
+  }
+
+  MapOptions mapOptions = MapOptions(
+    center: LatLng(18.9951, 73.0763),
+    zoom: 11,
+    maxZoom: 14,
+    minZoom: 11,
+    rotation: 0,
+    interactiveFlags: InteractiveFlag.pinchZoom |
+        InteractiveFlag.drag |
+        InteractiveFlag.doubleTapZoom |
+        InteractiveFlag.rotate,
+  );
 
   // function to toggle card visibility in map
   void _toggleContainer() {
-    // setState(() {
-    //   if (spotController.showDetails) {
-    //     buildSelectedComponent(context);
-    //   } else {
-    //     spotController.toggleShowDetails(false);
-    //   }
-    // });
-    final parkingController = Provider.of<ParkingSpotProvider>(context, listen: false);
+    final parkingController =
+        Provider.of<ParkingSpotProvider>(context, listen: false);
 
-    if(parkingController.showDetails){
+    if (parkingController.showDetails) {
       buildSelectedComponent(context);
-    }else{
+    } else {
       parkingController.toggleShowDetails(false);
     }
   }
 
   // function to set selected spot details globally to generate ticket
-  void _dataSetter(
-      String parkingName, String locationText, String image) {
-    // return setState(() {
-    //   spotController.toggleShowDetails(true);
-    //   _toggleContainer();
-    //   spotController.setParkingSpotDetails(parkingName, locationText, image);
-    // });
-    final parkingController = Provider.of<ParkingSpotProvider>(context, listen: false);
+  void _dataSetter(String parkingName, String locationText, String image) {
+    final parkingController =
+        Provider.of<ParkingSpotProvider>(context, listen: false);
     parkingController.toggleShowDetails(true);
     _toggleContainer();
-    parkingController.setParkingSpotDetails(ParkingSpot(parkingName, locationText, image));
+    parkingController
+        .setParkingSpotDetails(ParkingSpot(parkingName, locationText, image));
   }
 
   // Fetching locations to be shown on map
   Future<void> fetchMarkers() async {
-    try{
-      final response =
-      await http.get(Uri.parse("https://apms-backend.vercel.app/api/places"));
+    try {
+      final response = await http
+          .get(Uri.parse("https://apms-backend.vercel.app/api/places"));
 
       if (response.statusCode == 200) {
         final List<dynamic> markerData = json.decode(response.body);
@@ -113,7 +129,8 @@ class _MapsPageState extends State<MapsPage>
                   ),
                   Text(
                     data['address'],
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -126,7 +143,7 @@ class _MapsPageState extends State<MapsPage>
       } else {
         throw Exception('Failed to fetch markers');
       }
-    }catch(e){
+    } catch (e) {
       isLoading = true;
     }
   }
@@ -134,19 +151,19 @@ class _MapsPageState extends State<MapsPage>
   @override
   void initState() {
     super.initState();
-      Timer.periodic(const Duration(seconds: 4), (timer) {
-          if(isLoading){
-            fetchMarkers();
-          } else{
-            timer.cancel();
-          }
-      });
-
+    Timer.periodic(const Duration(seconds: 4), (timer) {
+      if (isLoading) {
+        fetchMarkers();
+      } else {
+        timer.cancel();
+      }
+    });
   }
 
   // Dialog (Card on map ) Builder function
   void buildSelectedComponent(BuildContext context) {
-    final parkingController = Provider.of<ParkingSpotProvider>(context,listen: false);
+    final parkingController =
+        Provider.of<ParkingSpotProvider>(context, listen: false);
     showModalBottomSheet(
         constraints: BoxConstraints(
           maxHeight: ResponsiveUtils.screenHeight(context) * 0.81,
@@ -181,10 +198,8 @@ class _MapsPageState extends State<MapsPage>
                           fontSize:
                               ResponsiveUtils.textScaleFactor(context) * 20),
                     ),
-                    // Close Button
                     InkWell(
                         onTap: () {
-                          // spotController.toggleShowDetails(false);
                           parkingController.toggleShowDetails(false);
                           Navigator.pop(context);
                         },
@@ -212,53 +227,52 @@ class _MapsPageState extends State<MapsPage>
                           // Parking Image
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
-                            child:
-                              Image.network(
-                                // spotController.parkingImage.toString(),
-                                parkingController.selectedParkingSpot.image,
-                                width: ResponsiveUtils.screenWidth(context),
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  }
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: CircularProgressIndicator(
-                                        value:
-                                            loadingProgress.expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                      ),
+                            child: Image.network(
+                              // spotController.parkingImage.toString(),
+                              parkingController.selectedParkingSpot.image,
+                              width: ResponsiveUtils.screenWidth(context),
+                              loadingBuilder: (BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                }
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
                                     ),
-                                  );
-                                },
-                              ),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                           const SizedBox(
                             height: 12,
                           ),
                           // Parking Name
-                         Text(
-                              // spotController.parkingSpotName.toString(),
-                              parkingController.selectedParkingSpot.name,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 25),
+                          Text(
+                            // spotController.parkingSpotName.toString(),
+                            parkingController.selectedParkingSpot.name,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 25),
                           ),
-                           Text(
-                              // "${spotController.locationName.toString()},IN",
-                              "${parkingController.selectedParkingSpot.location},IN",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: ColorTheme.grayTheme),
-                            ),
+                          Text(
+                            // "${spotController.locationName.toString()},IN",
+                            "${parkingController.selectedParkingSpot.location},IN",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: ColorTheme.grayTheme),
+                          ),
                           const Divider(
                             height: 40,
                             thickness: 1.2,
@@ -289,7 +303,7 @@ class _MapsPageState extends State<MapsPage>
                         child: Text(
                           "PICK SPOT",
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w600),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -301,12 +315,18 @@ class _MapsPageState extends State<MapsPage>
         });
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: ColorTheme.whiteTheme,
+        foregroundColor: ColorTheme.blackTheme,
+        onPressed: () {
+          _refreshMap();
+        },
+        child: const Icon(Icons.refresh),
+      ),
+      key: _mapScaffoldKey,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -314,8 +334,8 @@ class _MapsPageState extends State<MapsPage>
       ),
       body: FutureBuilder(
         future: fetchMarkers(),
-        builder: (context,snapshot){
-          if(isLoading){
+        builder: (context, snapshot) {
+          if (isLoading) {
             return const Center(child: CircularProgressIndicator());
           } else {
             return SizedBox(
@@ -325,24 +345,15 @@ class _MapsPageState extends State<MapsPage>
               child: Stack(
                 children: [
                   FlutterMap(
-                    options: MapOptions(
-                      center: LatLng(18.9951, 73.0763),
-                      zoom: 12,
-                      maxZoom: 14,
-                      minZoom: 12,
-                      rotation: 0,
-                      interactiveFlags: InteractiveFlag.pinchZoom |
-                          InteractiveFlag.drag |
-                          InteractiveFlag.doubleTapZoom,
-                          keepAlive: true,
-                    ),
+                    options: mapOptions,
+                    mapController: _mapController,
                     children: [
                       TileLayer(
-                        urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        urlTemplate:
+                            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                         userAgentPackageName: 'com.example.app',
                       ),
-
-                      if(!isLoading)
+                      if (!isLoading)
                         MarkerClusterLayerWidget(
                           options: MarkerClusterLayerOptions(
                             maxClusterRadius: 40,
@@ -352,7 +363,7 @@ class _MapsPageState extends State<MapsPage>
                               padding: EdgeInsets.all(50),
                               maxZoom: 15,
                             ),
-                            markers:markers,
+                            markers: markers,
                             builder: (context, markers) {
                               return const SizedBox();
                             },
@@ -367,7 +378,6 @@ class _MapsPageState extends State<MapsPage>
                 ],
               ),
             );
-
           }
         },
       ),

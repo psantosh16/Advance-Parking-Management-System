@@ -35,7 +35,6 @@ class _WalletPageState extends State<WalletPage> {
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .snapshots();
 
-  // final TextEditingController _balanceController = TextEditingController();
   int _topUpAmount = 0;
   @override
   Widget build(BuildContext context) {
@@ -43,6 +42,13 @@ class _WalletPageState extends State<WalletPage> {
         backgroundColor: const Color.fromARGB(255, 197, 229, 137),
         appBar: AppBar(
           title: const Text("Wallet"),
+          leading: InkWell(
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "/screen", (route) => false);
+            },
+            child: const Icon(Icons.arrow_back_ios_new),
+          ),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,43 +81,61 @@ class _WalletPageState extends State<WalletPage> {
               ),
             )),
             Center(
-              child: Container(
-                height: ResponsiveUtils.screenHeight(context) * 0.15,
-                width: ResponsiveUtils.screenWidth(context) * 0.88,
-                margin: const EdgeInsets.only(top: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                ),
-                // Wallet Card
-                child: Center(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      const Text(
-                        "Available Balance",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Color.fromARGB(255, 32, 32, 32),
-                            fontWeight: FontWeight.w400),
-                      ),
-                      const SizedBox(height: 10),
-                      StreamBuilder(
-                        stream: _walletStream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            walletBalance = snapshot.data!.get('walletBalance');
-                            return Text(
-                              "₹$walletBalance",
-                              style: const TextStyle(
-                                  fontSize: 50, color: Colors.black),
-                            );
-                          } else {
-                            return const Text("Loading...");
-                          }
-                        },
-                      ),
-                    ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 120,
+                  width: ResponsiveUtils.screenWidth(context) * 0.88,
+                  margin: const EdgeInsets.only(top: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                  ),
+                  // Wallet Card
+                  child: Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),
+                        const Text(
+                          "Available Balance",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Color.fromARGB(255, 32, 32, 32),
+                              fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          child: StreamBuilder(
+                            stream: _walletStream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                walletBalance =
+                                    snapshot.data!.get('walletBalance');
+                                if (walletBalance == 0) {
+                                  return const Text(
+                                    "Add Money to your wallet",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                    ),
+                                  );
+                                } else {
+                                  return Text(
+                                    "₹$walletBalance",
+                                    style: const TextStyle(
+                                      fontSize: 50,
+                                      color: Colors.black,
+                                    ),
+                                  );
+                                }
+                              } else if (snapshot.hasError) {
+                                return const Text("Loading...");
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -124,9 +148,6 @@ class _WalletPageState extends State<WalletPage> {
                 width: ResponsiveUtils.screenWidth(context) * 0.88,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    // backgroundColor: MaterialStateProperty.all(
-                    //   Color.fromARGB(255, 54, 154, 216),
-                    // ),
                     foregroundColor: MaterialStateProperty.all(
                       Colors.black,
                     ),
@@ -139,7 +160,10 @@ class _WalletPageState extends State<WalletPage> {
                   onPressed: () {
                     showModalBottomSheet(
                         showDragHandle: true,
-                        // isDismissible: false,
+                        isScrollControlled: true,
+                        isDismissible: false,
+                        useSafeArea: true,
+                        enableDrag: true,
                         shape: ShapeBorder.lerp(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -153,7 +177,7 @@ class _WalletPageState extends State<WalletPage> {
                         builder: (BuildContext context) {
                           return Container(
                             height:
-                                ResponsiveUtils.screenHeight(context) * 0.35,
+                                ResponsiveUtils.screenHeight(context) * 0.52,
                             margin: const EdgeInsets.all(20),
                             child: Column(
                               children: [
@@ -175,9 +199,7 @@ class _WalletPageState extends State<WalletPage> {
                                   keyboardType: TextInputType.number,
                                   onChanged: (value) {
                                     setState(() {
-                                      print(_topUpAmount);
                                       _topUpAmount = int.tryParse(value) ?? 0;
-                                      print(_topUpAmount);
                                     });
                                   },
                                   // controller: _balanceController,
@@ -220,7 +242,6 @@ class _WalletPageState extends State<WalletPage> {
                                         onPressed: () {
                                           setState(() {
                                             _topUpAmount = 0;
-                                            print(_topUpAmount);
                                           });
                                           Navigator.pop(context);
                                         },
@@ -229,7 +250,6 @@ class _WalletPageState extends State<WalletPage> {
                                     ),
                                     RazorpayPayment(
                                       onPaymentSuccess: (paymentId) {
-                                        print("Added ₹$_topUpAmount to wallet");
                                         FirebaseFirestore.instance
                                             .collection('users')
                                             .doc(FirebaseAuth
@@ -238,7 +258,10 @@ class _WalletPageState extends State<WalletPage> {
                                           'walletBalance':
                                               FieldValue.increment(_topUpAmount)
                                         });
-                                        Navigator.pop(context);
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context,
+                                            '/wallet',
+                                            (route) => false);
                                       },
                                       amount: _topUpAmount.toInt(),
                                     ),
