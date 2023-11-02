@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                               height: 12,
                             ),
                             const Padding(
-                              padding: EdgeInsets.only(left: 32.0),
+                              padding: EdgeInsets.only(left: 24.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -182,6 +182,9 @@ class _HomePageState extends State<HomePage> {
                                           fontSize: 24)),
                                 ],
                               ),
+                            ),
+                            const SizedBox(
+                              height: 8,
                             ),
                             StreamBuilder<QuerySnapshot>(
                                 stream: transactions,
@@ -201,7 +204,8 @@ class _HomePageState extends State<HomePage> {
                                     return Column(
                                       children: documents.map((data) {
                                         return Padding(
-                                            padding: const EdgeInsets.all(8.0),
+                                            padding:
+                                                const EdgeInsets.only(top: 8),
                                             child: Card(
                                               elevation: 8,
                                               shape: RoundedRectangleBorder(
@@ -242,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                                                         Padding(
                                                           padding:
                                                               const EdgeInsets
-                                                                  .all(6.0),
+                                                                  .all(8.0),
                                                           child: Image.asset(
                                                               "assets/images/Plogo.png"),
                                                         ),
@@ -253,7 +257,7 @@ class _HomePageState extends State<HomePage> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
-                                                                  fontSize: 24),
+                                                                  fontSize: 22),
                                                         )
                                                       ])),
                                                     ),
@@ -272,26 +276,35 @@ class _HomePageState extends State<HomePage> {
                                                           Text(
                                                             data['place'],
                                                             style: const TextStyle(
-                                                                fontSize: 24,
+                                                                fontSize: 22,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 5,
                                                           ),
                                                           Text(
                                                             "Date: ${data['date']}",
                                                             style:
                                                                 const TextStyle(
-                                                              fontSize: 18,
+                                                              fontSize: 16,
                                                             ),
                                                           ),
                                                           Text(
                                                             "Time: ${data['starttime']} - ${data['endtime']}",
                                                             style:
                                                                 const TextStyle(
-                                                              fontSize: 18,
+                                                              fontSize: 16,
                                                             ),
                                                           ),
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
                                                           Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
                                                             children: [
                                                               ElevatedButton(
                                                                 style:
@@ -320,17 +333,11 @@ class _HomePageState extends State<HomePage> {
                                                                     "Cancel",
                                                                     style: TextStyle(
                                                                         fontSize:
-                                                                            16,
+                                                                            15,
                                                                         color: Colors.red[
                                                                             400],
                                                                         fontWeight:
                                                                             FontWeight.bold)),
-                                                              ),
-                                                              SizedBox(
-                                                                width: ResponsiveUtils
-                                                                        .screenWidth(
-                                                                            context) *
-                                                                    0.1,
                                                               ),
                                                               ElevatedButton(
                                                                 style:
@@ -404,12 +411,15 @@ class _HomePageState extends State<HomePage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
-                            "Hi, ${data['name']}!",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 25,
-                                color: Colors.white),
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 5),
+                            child: Text(
+                              "Hi, ${data['name']} !",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 25,
+                                  color: Colors.white),
+                            ),
                           ),
                           Text(
                             getGreeting(),

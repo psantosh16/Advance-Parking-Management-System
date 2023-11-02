@@ -4,11 +4,9 @@ import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:apms_project/Controller/provider/pickdate.dart';
 import 'package:apms_project/View/Screens/Payment/after_payment.dart';
 import 'package:apms_project/View/Screens/Payment/paymentGateway.dart';
-import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -424,7 +422,7 @@ class _TimeslotState extends State<Timeslot> {
         }
       } catch (e) {
         // Handle any errors that may occur during the process
-        print('Error deducting amount: $e');
+        debugPrint('Error deducting amount: $e');
       }
     }
   }

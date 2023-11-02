@@ -184,132 +184,134 @@ class _MapsPageState extends State<MapsPage>
         builder: (_) {
           return Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // Close Button
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Selected Parking Spot",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize:
-                              ResponsiveUtils.textScaleFactor(context) * 20),
-                    ),
-                    InkWell(
-                        onTap: () {
-                          parkingController.toggleShowDetails(false);
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: const Icon(
-                              Icons.close_rounded,
-                              color: Colors.white,
-                            ))),
-                  ],
-                ),
-
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Details
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          // Parking Image
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.network(
-                              // spotController.parkingImage.toString(),
-                              parkingController.selectedParkingSpot.image,
-                              width: ResponsiveUtils.screenWidth(context),
-                              loadingBuilder: (BuildContext context,
-                                  Widget child,
-                                  ImageChunkEvent? loadingProgress) {
-                                if (loadingProgress == null) {
-                                  return child;
-                                }
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      value:
-                                          loadingProgress.expectedTotalBytes !=
-                                                  null
-                                              ? loadingProgress
-                                                      .cumulativeBytesLoaded /
-                                                  loadingProgress
-                                                      .expectedTotalBytes!
-                                              : null,
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          // Parking Name
-                          Text(
-                            // spotController.parkingSpotName.toString(),
-                            parkingController.selectedParkingSpot.name,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25),
-                          ),
-                          Text(
-                            // "${spotController.locationName.toString()},IN",
-                            "${parkingController.selectedParkingSpot.location},IN",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: ColorTheme.grayTheme),
-                          ),
-                          const Divider(
-                            height: 40,
-                            thickness: 1.2,
-                          ),
-                          Text(
-                            "One of the best parking spot available in Navi Mumbai Region, ${parkingController.selectedParkingSpot.location} , called ${parkingController.selectedParkingSpot.location}.Featuring whooping 1000 parking spots.",
-                            style: TextStyle(
-                                fontSize: 16, color: Colors.grey[700]),
-                          ),
-                        ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  // Close Button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Selected Parking Spot",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize:
+                                ResponsiveUtils.textScaleFactor(context) * 20),
                       ),
-                    ),
-                    // Booking Button
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          fixedSize:
-                              Size(ResponsiveUtils.screenWidth(context), 20),
-                          backgroundColor: ColorTheme.neogreenTheme,
-                          foregroundColor: ColorTheme.blackTheme),
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/booking');
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "PICK SPOT",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                      InkWell(
+                          onTap: () {
+                            parkingController.toggleShowDetails(false);
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Icon(
+                                Icons.close_rounded,
+                                color: Colors.white,
+                              ))),
+                    ],
+                  ),
+
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Details
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            // Parking Image
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                // spotController.parkingImage.toString(),
+                                parkingController.selectedParkingSpot.image,
+                                width: ResponsiveUtils.screenWidth(context),
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  }
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                loadingProgress
+                                                    .expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            // Parking Name
+                            Text(
+                              // spotController.parkingSpotName.toString(),
+                              parkingController.selectedParkingSpot.name,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 25),
+                            ),
+                            Text(
+                              // "${spotController.locationName.toString()},IN",
+                              "${parkingController.selectedParkingSpot.location},IN",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: ColorTheme.grayTheme),
+                            ),
+                            const Divider(
+                              height: 40,
+                              thickness: 1.2,
+                            ),
+                            Text(
+                              "One of the best parking spot available in Navi Mumbai Region, ${parkingController.selectedParkingSpot.location} , called ${parkingController.selectedParkingSpot.location}.Featuring whooping 1000 parking spots.",
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.grey[700]),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      // Booking Button
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            fixedSize:
+                                Size(ResponsiveUtils.screenWidth(context), 20),
+                            backgroundColor: ColorTheme.neogreenTheme,
+                            foregroundColor: ColorTheme.blackTheme),
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/booking');
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "PICK SPOT",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           );
         });
