@@ -111,25 +111,17 @@ class _WalletPageState extends State<WalletPage> {
                               if (snapshot.hasData) {
                                 walletBalance =
                                     snapshot.data!.get('walletBalance');
-                                if (walletBalance == 0) {
-                                  return const Text(
-                                    "Add Money to your wallet",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                    ),
-                                  );
-                                } else {
-                                  return Text(
-                                    "₹$walletBalance",
-                                    style: const TextStyle(
-                                      fontSize: 50,
-                                      color: Colors.black,
-                                    ),
-                                  );
-                                }
+                                return Text(
+                                  "₹$walletBalance",
+                                  style: const TextStyle(
+                                    fontSize: 50,
+                                    color: Colors.black,
+                                  ),
+                                );
                               } else if (snapshot.hasError) {
                                 return const Text("Loading...");
+                              } else {
+                                return const Text("Add Money to start journey");
                               }
                             },
                           ),
@@ -263,7 +255,7 @@ class _WalletPageState extends State<WalletPage> {
                                             '/wallet',
                                             (route) => false);
                                       },
-                                      amount: _topUpAmount.toInt(),
+                                      amount: _topUpAmount,
                                     ),
                                   ],
                                 ),

@@ -7,7 +7,8 @@ class RazorpayPayment extends StatefulWidget {
   final Function(String) onPaymentSuccess;
   final int amount;
 
-  const RazorpayPayment({super.key, required this.onPaymentSuccess, required this.amount});
+  const RazorpayPayment(
+      {super.key, required this.onPaymentSuccess, required this.amount});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -26,17 +27,20 @@ class _RazorpayPaymentState extends State<RazorpayPayment> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-   showmessage( context, "SUCCESS: ₹${widget.amount.toString()}");
+    showmessage(context, "SUCCESS: ₹${widget.amount.toString()}");
     widget.onPaymentSuccess(response.paymentId!);
   }
-  
+
   void _handlePaymentError(PaymentFailureResponse response) {
-    showmessage(context, "ERROR: ${response.code.toString()} - ${response.message}");
+    showmessage(
+        context, "ERROR: ${response.code.toString()} - ${response.message}");
+    print(response.message);
   }
+
   void _openRazorpay() {
     var options = {
       'key': dotenv.env['RAZORPAY_KEY_ID'],
-      'amount': widget.amount * 100, 
+      'amount': widget.amount * 100,
       'name': 'Parkiza',
       'description': 'Parkiza Wallet Topup',
       'prefill': {
