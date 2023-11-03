@@ -1,3 +1,4 @@
+import 'package:apms_project/Controller/ParkingController/parking_spot_controller.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,8 @@ class _BookingPageState extends State<BookingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final parkingController =
+        Provider.of<ParkingSpotProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: ColorTheme.whiteTheme,
       appBar: AppBar(
@@ -32,7 +35,7 @@ class _BookingPageState extends State<BookingPage> {
         ),
         backgroundColor: ColorTheme.blackTheme,
         automaticallyImplyLeading: false,
-        title: const Text("Pick your spot"),
+        title: Text(parkingController.selectedParkingSpot.name),
       ),
       body: const Bookingbody(),
     );
