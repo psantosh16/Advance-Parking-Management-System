@@ -30,11 +30,14 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> nameParts = data['name'].split(' ');
+    String firstName = nameParts.first;
+    String lastName = nameParts.length > 1 ? nameParts.last : '';
     return Drawer(
       backgroundColor: ColorTheme.neogreenTheme,
       child: ListView(
         padding: const EdgeInsets.all(20),
-        children: <Widget>[
+        children: [
           // Header
           DrawerHeader(
               padding: const EdgeInsets.all(20),
@@ -49,8 +52,8 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                       color: ColorTheme.grayTheme,
                       strokeWidth: 100,
                       child: SizedBox(
-                          width: 90,
-                          height: 90,
+                          width: 85,
+                          height: 85,
                           child: data['imageurl'] == ""
                               ? const Center(
                                   child: Text(""),
@@ -64,11 +67,23 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        data['name'],
+                        firstName,
                         style: TextStyle(
                             fontSize:
                                 ResponsiveUtils.textScaleFactor(context) * 25,
                             fontWeight: FontWeight.bold),
+                      ),
+                      if (lastName.isNotEmpty)
+                        Text(
+                          lastName, // Display the last name if it's not empty
+                          style: TextStyle(
+                            fontSize:
+                                ResponsiveUtils.textScaleFactor(context) * 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      const SizedBox(
+                        height: 5,
                       ),
                       GestureDetector(
                           onTap: () {
@@ -95,90 +110,77 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
               )),
 
           // Navigation Sections
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Other
-              Column(
-                children: [
-                  ListTile(
-                    leading: Icon(
-                      Icons.payment,
-                      size: ResponsiveUtils.textScaleFactor(context) * 30,
-                      color: Colors.black,
-                    ),
-                    title: Text(
-                      'Wallet',
-                      style: TextStyle(
-                          fontSize:
-                              ResponsiveUtils.textScaleFactor(context) * 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    onTap: () {
-                      // Navigator.pop(context);
-                      Navigator.pushNamed(context, "/wallet");
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.history,
-                      size: ResponsiveUtils.textScaleFactor(context) * 30,
-                      color: Colors.black,
-                    ),
-                    title: Text(
-                      'History',
-                      style: TextStyle(
-                          fontSize:
-                              ResponsiveUtils.textScaleFactor(context) * 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.settings,
-                      size: ResponsiveUtils.textScaleFactor(context) * 30,
-                      color: Colors.black,
-                    ),
-                    title: InkWell(
-                      onTap: () => Navigator.pushNamed(context, "/profile"),
-                      child: Text(
-                        'Setting',
-                        style: TextStyle(
-                            fontSize:
-                                ResponsiveUtils.textScaleFactor(context) * 20,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
+          ListTile(
+            leading: Icon(
+              Icons.payment,
+              size: ResponsiveUtils.textScaleFactor(context) * 30,
+              color: Colors.black,
+            ),
+            title: Text(
+              'Wallet',
+              style: TextStyle(
+                  fontSize: ResponsiveUtils.textScaleFactor(context) * 20,
+                  fontWeight: FontWeight.w600),
+            ),
+            onTap: () {
+              // Navigator.pop(context);
+              Navigator.pushNamed(context, "/wallet");
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.history,
+              size: ResponsiveUtils.textScaleFactor(context) * 30,
+              color: Colors.black,
+            ),
+            title: Text(
+              'History',
+              style: TextStyle(
+                  fontSize: ResponsiveUtils.textScaleFactor(context) * 20,
+                  fontWeight: FontWeight.w600),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.settings,
+              size: ResponsiveUtils.textScaleFactor(context) * 30,
+              color: Colors.black,
+            ),
+            title: InkWell(
+              onTap: () => Navigator.pushNamed(context, "/profile"),
+              child: Text(
+                'Setting',
+                style: TextStyle(
+                    fontSize: ResponsiveUtils.textScaleFactor(context) * 20,
+                    fontWeight: FontWeight.w600),
               ),
-
-              // Logout
-              ListTile(
-                leading: Icon(
-                  Icons.logout,
-                  size: ResponsiveUtils.textScaleFactor(context) * 30,
-                  color: Colors.black,
-                ),
-                title: Text(
-                  'Log out',
-                  style: TextStyle(
-                      fontSize: ResponsiveUtils.textScaleFactor(context) * 20,
-                      fontWeight: FontWeight.w600),
-                ),
-                onTap: () {
-                  FirebaseAuth.instance.signOut().then((value) =>Navigator.pushReplacementNamed(context, "/login") );
-                  
-                },
-              ),
-            ],
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.logout,
+              size: ResponsiveUtils.textScaleFactor(context) * 30,
+              color: Colors.black,
+            ),
+            title: Text(
+              'Log out',
+              style: TextStyle(
+                  fontSize: ResponsiveUtils.textScaleFactor(context) * 20,
+                  fontWeight: FontWeight.w600),
+            ),
+            onTap: () {
+              FirebaseAuth.instance.signOut().then(
+                  (value) => Navigator.pushReplacementNamed(context, "/login"));
+            },
           )
+
+          // Logout
         ],
       ),
     );

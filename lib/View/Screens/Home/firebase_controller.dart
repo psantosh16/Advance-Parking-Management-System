@@ -2,13 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-void handleDelete({required BuildContext context, required String docId}) {
+void handleDelete(
+    {required BuildContext context,
+    required String docId,
+    required int amount}) {
   FirebaseFirestore.instance
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .collection('transactions')
       .doc(docId)
       .delete();
+  FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser?.uid)
+      .update({'walletBalance': FieldValue.increment(amount)});
 }
 
 Future<Map<String, dynamic>> fetchData() async {

@@ -34,7 +34,7 @@ class _RazorpayPaymentState extends State<RazorpayPayment> {
   void _handlePaymentError(PaymentFailureResponse response) {
     showmessage(
         context, "ERROR: ${response.code.toString()} - ${response.message}");
-    print(response.message);
+    debugPrint(response.message);
   }
 
   void _openRazorpay() {

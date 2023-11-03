@@ -167,99 +167,104 @@ class _WalletPageState extends State<WalletPage> {
                         ),
                         context: context,
                         builder: (BuildContext context) {
-                          return Container(
-                            height:
-                                ResponsiveUtils.screenHeight(context) * 0.52,
-                            margin: const EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-                                const Text(
-                                  "Easy Way To Top Up Your Wallet",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      fontFamily: "Poppins",
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                ),
-                                const SizedBox(height: 30),
-                                TextField(
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly
-                                  ],
-                                  textInputAction: TextInputAction.done,
-                                  keyboardType: TextInputType.number,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _topUpAmount = int.tryParse(value) ?? 0;
-                                    });
-                                  },
-                                  // controller: _balanceController,
-                                  decoration: InputDecoration(
-                                    labelText: "Enter Amount",
-                                    prefix: const Text("₹"),
-                                    fillColor: Colors.grey[200],
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide.none,
-                                    ),
+                          return GestureDetector(
+                            onTap: () => FocusScope.of(context)
+                                .requestFocus(FocusNode()),
+                            child: Container(
+                              height:
+                                  ResponsiveUtils.screenHeight(context) * 0.52,
+                              margin: const EdgeInsets.all(20),
+                              child: Column(
+                                children: [
+                                  const Text(
+                                    "Easy Way To Top Up Your Wallet",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontFamily: "Poppins",
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
                                   ),
-                                ),
-                                const SizedBox(height: 40),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    SizedBox(
-                                      height: 43,
-                                      width: 120,
-                                      child: ElevatedButton(
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                            Colors.white,
-                                          ),
-                                          foregroundColor:
-                                              MaterialStateProperty.all(
-                                            Colors.blue,
-                                          ),
-                                          side: MaterialStateProperty.all(
-                                            const BorderSide(
-                                              color: Colors.blue,
-                                              width: 2,
-                                            ),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            _topUpAmount = 0;
-                                          });
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text("Cancel"),
+                                  const SizedBox(height: 30),
+                                  TextField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    textInputAction: TextInputAction.done,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _topUpAmount = int.tryParse(value) ?? 0;
+                                      });
+                                    },
+                                    // controller: _balanceController,
+                                    decoration: InputDecoration(
+                                      labelText: "Enter Amount",
+                                      prefix: const Text("₹"),
+                                      fillColor: Colors.grey[200],
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        borderSide: BorderSide.none,
                                       ),
                                     ),
-                                    RazorpayPayment(
-                                      onPaymentSuccess: (paymentId) {
-                                        FirebaseFirestore.instance
-                                            .collection('users')
-                                            .doc(FirebaseAuth
-                                                .instance.currentUser?.uid)
-                                            .update({
-                                          'walletBalance':
-                                              FieldValue.increment(_topUpAmount)
-                                        });
-                                        Navigator.pushNamedAndRemoveUntil(
-                                            context,
-                                            '/wallet',
-                                            (route) => false);
-                                      },
-                                      amount: _topUpAmount,
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  ),
+                                  const SizedBox(height: 40),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      SizedBox(
+                                        height: 43,
+                                        width: 120,
+                                        child: ElevatedButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                              Colors.white,
+                                            ),
+                                            foregroundColor:
+                                                MaterialStateProperty.all(
+                                              Colors.blue,
+                                            ),
+                                            side: MaterialStateProperty.all(
+                                              const BorderSide(
+                                                color: Colors.blue,
+                                                width: 2,
+                                              ),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              _topUpAmount = 0;
+                                            });
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text("Cancel"),
+                                        ),
+                                      ),
+                                      RazorpayPayment(
+                                        onPaymentSuccess: (paymentId) {
+                                          FirebaseFirestore.instance
+                                              .collection('users')
+                                              .doc(FirebaseAuth
+                                                  .instance.currentUser?.uid)
+                                              .update({
+                                            'walletBalance':
+                                                FieldValue.increment(
+                                                    _topUpAmount)
+                                          });
+                                          Navigator.pushNamedAndRemoveUntil(
+                                              context,
+                                              '/wallet',
+                                              (route) => false);
+                                        },
+                                        amount: _topUpAmount,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         });

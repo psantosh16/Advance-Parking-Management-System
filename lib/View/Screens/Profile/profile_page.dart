@@ -64,8 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               height: 94,
                               child: data['imageurl'] == ""
                                   ? const Center(
-                                      child:
-                                          CircularProgressIndicator.adaptive(),
+                                      child: Text(""),
                                     )
                                   : Image.network(data['imageurl'] ?? "",
                                       fit: BoxFit.cover)),
@@ -199,19 +198,23 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       InkWell(
                         splashColor: const Color.fromARGB(255, 255, 120, 110),
-                        onTap: ()  {
+                        onTap: () {
                           try {
-                             FirebaseAuth.instance.signOut().then((value) => Navigator.pushReplacementNamed(context, '/login'));
+                            FirebaseAuth.instance.signOut().then((value) =>
+                                Navigator.pushReplacementNamed(
+                                    context, '/login'));
                           } catch (e) {
-                            print("Error logging out: $e");
+                            debugPrint("Error logging out: $e");
                           }
                         },
                         child: Container(
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           width: ResponsiveUtils.screenWidth(context) * 0.9,
                           height: 52,
                           decoration: BoxDecoration(
-                              border: Border.all(color: const Color.fromARGB(255, 255, 123, 114)),
+                              border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 255, 123, 114)),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
@@ -219,7 +222,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize:
-                                      ResponsiveUtils.textScaleFactor(context) * 20,
+                                      ResponsiveUtils.textScaleFactor(context) *
+                                          20,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
