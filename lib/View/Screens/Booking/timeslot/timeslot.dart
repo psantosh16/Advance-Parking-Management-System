@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:apms_project/Controller/provider/slotbutton.dart';
 import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:apms_project/Controller/provider/pickdate.dart';
 import 'package:apms_project/View/Screens/Payment/after_payment.dart';
 import 'package:apms_project/View/Screens/Payment/paymentGateway.dart';
+import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +50,8 @@ class _TimeslotState extends State<Timeslot> {
   @override
   Widget build(BuildContext context) {
     Provider.of<ButtonController>(context);
+    // final datepickprovider = Provider.of<datepickprovider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
           title: Consumer<ButtonController>(builder: (context, value, child) {
@@ -321,61 +326,69 @@ class _TimeslotState extends State<Timeslot> {
                                 );
                               });
                         } else {
-                          deductAmountFromWallet(amountToDeduce).then((value) {
-                            const AlertDialog.adaptive(
-                              title: Text("Please Wait..."),
-                              content: CircularProgressIndicator.adaptive(),
-                            );
-                            afterPayment(context);
-                          }).then(
-                            (value) => showDialog(
-                              barrierColor: Colors.white,
-                              context: context,
-                              builder: (context) {
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Center(
-                                      child: Lottie.asset(
-                                        "assets/images/payment_success.json",
-                                        frameRate: FrameRate(60),
-                                        repeat: false,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    const Text("Booking Successful"),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    SizedBox(
-                                      width: 120,
-                                      height: 43,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          backgroundColor:
-                                              ColorTheme.neogreenTheme,
-                                          foregroundColor: Colors.black,
+                          if (value.formattedDate == "Select Date") {
+                            showmessage(context, "Please select date");
+                          } else if (value.starttime.toString() == "Start" ||
+                              value.endtime.toString() == "End") {
+                            showmessage(context, "Please select time");
+                          } else {
+                            deductAmountFromWallet(amountToDeduce)
+                                .then((value) {
+                              const AlertDialog.adaptive(
+                                title: Text("Please Wait..."),
+                                content: CircularProgressIndicator.adaptive(),
+                              );
+                              afterPayment(context);
+                            }).then(
+                              (value) => showDialog(
+                                barrierColor: Colors.white,
+                                context: context,
+                                builder: (context) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Center(
+                                        child: Lottie.asset(
+                                          "assets/images/payment_success.json",
+                                          frameRate: FrameRate(60),
+                                          repeat: false,
                                         ),
-                                        onPressed: () {
-                                          Navigator.pushNamedAndRemoveUntil(
-                                              context,
-                                              "/screen",
-                                              (route) => false);
-                                        },
-                                        child: const Text("OK"),
                                       ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          );
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      const Text("Booking Successful"),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 120,
+                                        height: 43,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            backgroundColor:
+                                                ColorTheme.neogreenTheme,
+                                            foregroundColor: Colors.black,
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pushNamedAndRemoveUntil(
+                                                context,
+                                                "/screen",
+                                                (route) => false);
+                                          },
+                                          child: const Text("OK"),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            );
+                          }
                         }
                       },
                       child: const Center(

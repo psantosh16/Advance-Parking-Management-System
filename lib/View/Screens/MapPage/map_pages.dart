@@ -72,6 +72,7 @@ class _MapsPageState extends State<MapsPage>
         InteractiveFlag.drag |
         InteractiveFlag.doubleTapZoom |
         InteractiveFlag.rotate,
+    keepAlive: true,
   );
 
   // function to toggle card visibility in map
