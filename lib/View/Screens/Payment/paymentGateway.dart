@@ -18,7 +18,6 @@ class PaymentGateway extends StatefulWidget {
 
 class _PaymentGatewayState extends State<PaymentGateway> {
   late Razorpay _razorpay;
-
   @override
   void initState() {
     super.initState();
@@ -30,8 +29,11 @@ class _PaymentGatewayState extends State<PaymentGateway> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Do something when payment succeeds
+   final transaction = Provider.of<datepickprovider>(context, listen: false);
+
     try {
       showmessage(context, "SUCCESS: ${response.paymentId!}");
+      transaction.transactionId = response.paymentId!;
       afterPayment(context);
       Navigator.of(context)
           .pushNamedAndRemoveUntil('/screen', (Route<dynamic> route) => false);

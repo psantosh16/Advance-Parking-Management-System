@@ -5,6 +5,7 @@ class datepickprovider extends ChangeNotifier {
   String formattedDate = "Select Date";
   int databasedate = 0;
   int databasetime = 0;
+  String transactionId = "";
   String starttime = "Start";
   TimeOfDay? startingtime;
   String endtime = "End";

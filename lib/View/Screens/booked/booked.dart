@@ -1,8 +1,10 @@
+import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:apms_project/View/Screens/Home/firebase_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../auth/showmessage.dart';
 
@@ -139,11 +141,77 @@ class _BookedState extends State<Booked> {
                                                       Color>(Colors.white),
                                             ),
                                             onPressed: () {
-                                              handleDelete(
+                                              showDialog(
+                                                  barrierColor: Colors.white,
                                                   context: context,
-                                                  docId: data.id,
-                                                  amount: data[
-                                                      'transaction_amount']);
+                                                  builder: (context) {
+                                                    return Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Lottie.asset(
+                                                          "assets/images/cancel.json",
+                                                          repeat: false,
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        const Text(
+                                                          "Cancelled Successfully",
+                                                          style: TextStyle(
+                                                              fontSize: 24,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        const Text(
+                                                          "Refund will be initiated to Parkiza Wallet",
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    137,
+                                                                    114,
+                                                                    114,
+                                                                    114),
+                                                          ),
+                                                        ),
+                                                        ElevatedButton(
+                                                          style: ButtonStyle(
+                                                            backgroundColor:
+                                                                MaterialStateProperty.all<
+                                                                        Color>(
+                                                                    ColorTheme
+                                                                        .neogreenTheme),
+                                                          ),
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                            "Ok",
+                                                            style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  }).then((value) {
+                                                handleDelete(
+                                                    context: context,
+                                                    docId: data.id,
+                                                    amount: data[
+                                                        'transaction_amount']);
+                                              });
                                             },
                                             child: Text("Cancel",
                                                 style: TextStyle(

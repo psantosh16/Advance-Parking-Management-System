@@ -1,6 +1,8 @@
+import 'package:apms_project/Controller/provider/pickdate.dart';
 import 'package:apms_project/View/auth/showmessage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class RazorpayPayment extends StatefulWidget {
@@ -27,6 +29,8 @@ class _RazorpayPaymentState extends State<RazorpayPayment> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    final transaction = Provider.of<datepickprovider>(context, listen: false);
+    transaction.transactionId = response.paymentId!;
     showmessage(context, "SUCCESS: ₹${widget.amount.toString()}");
     widget.onPaymentSuccess(response.paymentId!);
   }
