@@ -26,8 +26,8 @@ void afterPayment(context) async {
       randomString += characters[randomIndex];
     }
 
-    print(randomString);
-    return randomString;
+    debugPrint(randomString);
+    return "pay_$randomString";
   }
 
   try {
@@ -49,7 +49,7 @@ void afterPayment(context) async {
                 // ignore: unnecessary_null_comparison
                 dateprovider.transactionId != null
             ? dateprovider.transactionId
-            : generateRandomString(8),
+            : generateRandomString(14),
       },
     );
     debugPrint("Data written to Firestore successfully.");

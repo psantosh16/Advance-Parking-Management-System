@@ -1,8 +1,6 @@
-import 'package:apms_project/Controller/ParkingController/parking_spot_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
@@ -23,6 +21,12 @@ class _NotificationPageState extends State<NotificationPage> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "Recent Transactions",
+          ),
+          centerTitle: true,
+        ),
         body: Center(
           child: StreamBuilder<QuerySnapshot>(
             stream: trx,
@@ -37,22 +41,51 @@ class _NotificationPageState extends State<NotificationPage> {
                   child: Text("No Transactions"),
                 );
               } else {
-                return ListView(
-                  children: snapshot.data!.docs.map((DocumentSnapshot doc) {
-                    Map<String, dynamic> data =
-                        doc.data()! as Map<String, dynamic>;
-                    return Container(
-                      margin: EdgeInsets.all(12),
-                      child: Card(
-                        child: ListTile(
-                          title: Text(data['place']),
-                          subtitle: Text(data['date']),
-                          trailing: Text(
-                              '₹ ${data['transaction_amount'].toString()}'),
-                        ),
-                      ),
+                return RefreshIndicator(
+                  onRefresh: () {
+                    return Future.delayed(
+                      const Duration(milliseconds: 1000),
+                      () {
+                        setState(() {});
+                      },
                     );
-                  }).toList(),
+                  },
+                  child: ListView(
+                    children: snapshot.data!.docs.map((DocumentSnapshot doc) {
+                      Map<String, dynamic> data =
+                          doc.data()! as Map<String, dynamic>;
+                      return Container(
+                        margin: const EdgeInsets.only(left: 12, right: 12),
+                        child: Card(
+                          child: ListTile(
+                            title: Text(
+                              data['place'],
+                            ),
+                            subtitle: Text(
+                              data['date'],
+                            ),
+                            trailing: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  '₹ ${data['transaction_amount'].toString()}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  data['transactionId'],
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 );
               }
             },
