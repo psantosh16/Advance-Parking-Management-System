@@ -266,7 +266,6 @@ class _TimeslotState extends State<Timeslot> {
                         final amountToDeduce = value.amount;
                         final amount = await fetchWalletBalance();
                         if (amountToDeduce > amount) {
-                          // ignore: use_build_context_synchronously
                           showDialog(
                               barrierColor: Colors.white,
                               barrierLabel: "Insufficient Balance Error",

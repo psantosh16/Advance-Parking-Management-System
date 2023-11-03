@@ -1,4 +1,5 @@
 import 'package:apms_project/Controller/drawer_controller.dart';
+import 'package:apms_project/Utils/color_theme.dart';
 import 'package:apms_project/Utils/responsive_util.dart';
 import 'package:apms_project/View/Screens/Home/firebase_controller.dart';
 import 'package:apms_project/View/auth/showmessage.dart';
@@ -243,24 +244,29 @@ class _HomePageState extends State<HomePage> {
                                                                       .circular(
                                                                           12))),
                                                       child: Center(
-                                                          child: Row(children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Image.asset(
-                                                              "assets/images/Plogo.png"),
-                                                        ),
-                                                        Text(
-                                                          data['slot'],
-                                                          style:
-                                                              const TextStyle(
+                                                        child: Row(
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Image.asset(
+                                                                  "assets/images/Plogo.png"),
+                                                            ),
+                                                            Text(
+                                                              data['slot'],
+                                                              style: const TextStyle(
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
                                                                   fontSize: 22),
-                                                        )
-                                                      ])),
+                                                            ),
+                                                            const Expanded(
+                                                              child: Text(""),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
                                                     const SizedBox(
                                                       height: 10,
@@ -354,6 +360,22 @@ class _HomePageState extends State<HomePage> {
                                                                                 color: Color.fromARGB(137, 114, 114, 114),
                                                                               ),
                                                                             ),
+                                                                            ElevatedButton(
+                                                                              style: ButtonStyle(
+                                                                                backgroundColor: MaterialStateProperty.all<Color>(ColorTheme.neogreenTheme),
+                                                                              ),
+                                                                              onPressed: () {
+                                                                                Navigator.pop(context);
+                                                                              },
+                                                                              child: const Text(
+                                                                                "Ok",
+                                                                                style: TextStyle(
+                                                                                  fontSize: 15,
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  color: Colors.black,
+                                                                                ),
+                                                                              ),
+                                                                            )
                                                                           ],
                                                                         );
                                                                       }).then((value) {
